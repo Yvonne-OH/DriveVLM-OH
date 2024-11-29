@@ -73,7 +73,6 @@ def parse_list_boxes_with_label(text):
         return {}
 
 
-
 def postproc_bbox_str(height, width):
  x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
  x0 = int(np.round(x0 / width * 1000))
