@@ -1,11 +1,9 @@
 import json
 import os
 import numpy as np
+from textwrap import wrap
 import matplotlib.pyplot as plt
 from collections import defaultdict
-
-from nuscenes.nuscenes import NuScenes
-
 
 def data_loader(root_path):
     # 构建 JSON 文件路径
@@ -74,15 +72,49 @@ def merge_objects(data):
 
     return merged_data
 
+def data_visulization(img_path, merged_data, sample_id = 0):
+
+    data_package = merged_data[sample_id]
+    ID = data_package['id']
+    images = data_package['image']
+    conversations = data_package['conversations']
+
+    fig, axes = plt.subplots(2, 3, figsize=(24, 30))
+
+    # Define the titles for each subplot
+    titles = ['frontleft', 'front', 'frontright', 'backleft', 'back', 'backright']
+
+    for ax, cam_id, title in zip(axes.flatten(), images, titles):
+        img = plt.imread(os.path.join(img_path, cam_id))
+        ax.imshow(img)
+        #ax.set_title(title)
+        ax.axis('off')
+
+    # Set the main title
+    fig.suptitle("Image ID: " + ID, fontsize=32, fontweight='bold',y=0.98)
+
+    # Adjust layout to remove whitespace
+    plt.subplots_adjust(top=0.95, bottom=0.01, left=0.01, right=0.99, hspace=0, wspace=0.05)
+
+    # 将 conversations 内容排版并写到图下方
+    conversation_texts = [f"{conv['from']}: {conv['value']}" for conv in conversations]
+    wrapped_text = "\n".join(["\n".join(wrap(text, width=80)) for text in conversation_texts])  # 自动换行，宽度80字符
+    fig.text(0.5, 0.1, wrapped_text, ha='center', va='top', fontsize=20, wrap=True)
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    root_path = '/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_llama.json'
+    QA_json_path = '/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_llama.json'
     save_path = '/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_OH.json'
-    json_data = data_loader(root_path)
+    root_path = '/media/oh/0E4A12890E4A1289/DriveLM/'
+    json_data = data_loader(QA_json_path)
     process_data(json_data)
     #print(type(data))
     # 合并相同 ID 的对象
     merged_data = merge_objects(json_data)
+    data_visulization(root_path, merged_data, sample_id=0)
 
     # 打印结果或保存到文件
-    print(json.dumps(merged_data, indent=4, ensure_ascii=False))
+    #print(json.dumps(merged_data, indent=4, ensure_ascii=False))
 
