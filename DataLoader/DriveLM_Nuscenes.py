@@ -1,9 +1,9 @@
 import json
 import os
 import numpy as np
-from textwrap import wrap
 import matplotlib.pyplot as plt
 from collections import defaultdict
+from prettytable import PrettyTable
 
 def data_loader(root_path):
     # 构建 JSON 文件路径
@@ -23,7 +23,24 @@ def data_loader(root_path):
 
     return json_data
 
+def print_conversations_table_with_id(ID, conversations):
+    # 创建表格对象
+    table = PrettyTable()
+    table.field_names = ["From", "Value"]  # 定义表头
 
+    # 设置左对齐
+    table.align["From"] = "l"  # 左对齐
+    table.align["Value"] = "l"  # 左对齐
+
+    # 自动换行：手动限制每行最大宽度
+    max_width = 60
+    for conv in conversations:
+        wrapped_value = "\n".join([conv["value"][i:i+max_width] for i in range(0, len(conv["value"]), max_width)])
+        table.add_row([conv["from"], wrapped_value])
+
+    # 添加 ID
+    print(f"ID: {ID}\n")
+    print(table)
 def process_data(json_data):
     # 遍历数据列表
     for item in json_data[0:5]:
@@ -79,7 +96,7 @@ def data_visulization(img_path, merged_data, sample_id = 0):
     images = data_package['image']
     conversations = data_package['conversations']
 
-    fig, axes = plt.subplots(2, 3, figsize=(24, 30))
+    fig, axes = plt.subplots(2, 3, figsize=(24, 10))
 
     # Define the titles for each subplot
     titles = ['frontleft', 'front', 'frontright', 'backleft', 'back', 'backright']
@@ -96,12 +113,9 @@ def data_visulization(img_path, merged_data, sample_id = 0):
     # Adjust layout to remove whitespace
     plt.subplots_adjust(top=0.95, bottom=0.01, left=0.01, right=0.99, hspace=0, wspace=0.05)
 
-    # 将 conversations 内容排版并写到图下方
-    conversation_texts = [f"{conv['from']}: {conv['value']}" for conv in conversations]
-    wrapped_text = "\n".join(["\n".join(wrap(text, width=80)) for text in conversation_texts])  # 自动换行，宽度80字符
-    fig.text(0.5, 0.1, wrapped_text, ha='center', va='top', fontsize=20, wrap=True)
-
     plt.show()
+
+    print_conversations_table_with_id(ID, conversations)
 
 
 if __name__ == '__main__':
