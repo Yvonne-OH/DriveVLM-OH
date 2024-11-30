@@ -425,8 +425,8 @@ def main():
 
     out_dir1 = args.out_dir_name
 
-    data_dir = "./datas/meta_datas/d2t/"
-    demon_dir = "./datas/demos/d2t/"
+    data_dir = "datas/meta_datas/d2t/"
+    demon_dir = "datas/demos/d2t/"
     out_dir = './analysis/d2t/'+out_dir1
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)

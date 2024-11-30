@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="-">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/GPTScore/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/GPTScore/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/GPTScore/fig/framework.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/util.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/demos/d2t/BAGEL_demos.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/demos/d2t/SFRES_demos.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/meta_datas/d2t/BAGEL/data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/meta_datas/d2t/BAGEL/data.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/meta_datas/d2t/SFRES/data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/datas/meta_datas/d2t/SFRES/data.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/flan_score.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/gpt3_score.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/gpt_inference.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/opt_score.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/score_d2t.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Evaluator/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +242,7 @@
       <workItem from="1732904543208" duration="1396000" />
       <workItem from="1732906743999" duration="989000" />
       <workItem from="1732907737969" duration="11738000" />
-      <workItem from="1732988622057" duration="1407000" />
+      <workItem from="1732988622057" duration="1734000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -388,7 +396,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732990029036</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="-">
+      <option name="closed" value="true" />
+      <created>1732990110439</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732990110439</updated>
+    </task>
+    <task id="LOCAL-00021" summary="-">
+      <option name="closed" value="true" />
+      <created>1732990355793</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732990355793</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
