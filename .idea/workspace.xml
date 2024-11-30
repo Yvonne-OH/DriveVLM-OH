@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="新增加截断消息处理功能" />
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="-">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,6 +230,7 @@
       <workItem from="1732904543208" duration="1396000" />
       <workItem from="1732906743999" duration="989000" />
       <workItem from="1732907737969" duration="11738000" />
+      <workItem from="1732988622057" duration="301000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -309,18 +312,66 @@
       <option name="project" value="LOCAL" />
       <updated>1732988578109</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988676880</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988676880</updated>
+    </task>
+    <task id="LOCAL-00012" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988850964</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988850964</updated>
+    </task>
+    <task id="LOCAL-00013" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988856423</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988856423</updated>
+    </task>
+    <task id="LOCAL-00014" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988857548</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988857548</updated>
+    </task>
+    <task id="LOCAL-00015" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988858225</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988858225</updated>
+    </task>
+    <task id="LOCAL-00016" summary="-">
+      <option name="closed" value="true" />
+      <created>1732988922360</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732988922360</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="-" />
     <MESSAGE value="gemini api" />
     <MESSAGE value="OBJECT DETECTION &amp; PLOT" />
     <MESSAGE value="新增加截断消息处理功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增加截断消息处理功能" />
+    <MESSAGE value="-" />
+    <option name="LAST_COMMIT_MESSAGE" value="-" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DriveVLM_OH$util.coverage" NAME="util 覆盖结果" MODIFIED="1732944887961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Util" />
