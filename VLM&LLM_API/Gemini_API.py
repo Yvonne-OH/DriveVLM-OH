@@ -3,6 +3,7 @@ import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageColor
 import google.generativeai as genai
+from Util.util import check_and_fix_json
 
 # Suppress logging warnings
 os.environ["GRPC_VERBOSITY"] = "ERROR"
@@ -12,7 +13,7 @@ os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 Responses_config = genai.types.GenerationConfig(
     candidate_count=1,
     stop_sequences=["x"],
-    max_output_tokens=500,  # 增加 token 数，确保完整返回边界框信息
+    max_output_tokens=200,  # 增加 token 数，确保完整返回边界框信息
     temperature=1.0,
 )
 
@@ -54,44 +55,47 @@ def parse_list_boxes_with_label(text):
     """
     try:
         # 清理输入数据
-        text = text.strip("```").strip("json").strip().replace("'", '"').replace(",}", "}")
+        #text = text.strip("```").strip("json").strip().replace("'", '"').replace(",}", "}")
 
         # 检测 JSON 的完整性
-        last_valid_close = text.rfind('}')
-        if last_valid_close == -1:
-            print("No valid JSON structure found.")
-            return {}
+        parsed_data=check_and_fix_json(text)
 
-        # 截断到最后一个完整的 JSON 对象
-        text = text[:last_valid_close + 1]
-
-        # 尝试解析
-        parsed_data = json.loads(text)
         return parsed_data
     except json.JSONDecodeError as e:
         print(f"JSON parsing error: {e}. Returning empty result.")
         return {}
 
-
 def postproc_bbox_str(height, width):
- x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
- x0 = int(np.round(x0 / width * 1000))
- y0 = int(np.round(y0 / height * 1000))
- x1 = int(np.round(x1 / width * 1000))
- y1 = int(np.round(y1 / height * 1000))
- return f'{y0} {x0} {y1} {x1}'
-
-def postproc_bbox_hist(height, width):
-  bbox_strs = bbox_hist.rstrip().split("\n")
-  results = []
-  for bbox_str in bbox_strs:
+    """
+    后处理边界框字符串，将百分比坐标转换为绝对像素坐标
+    :param height:
+    :param width:
+    :return: str
+    """
     x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
     x0 = int(np.round(x0 / width * 1000))
     y0 = int(np.round(y0 / height * 1000))
     x1 = int(np.round(x1 / width * 1000))
     y1 = int(np.round(y1 / height * 1000))
-    results.append(f" (x = {(x0 + x1) // 2}, y = {(y0 + y1)//2}); ")
-  return results
+    return f'{y0} {x0} {y1} {x1}'
+
+def postproc_bbox_hist(height, width):
+    """
+    后处理边界框字符串，将百分比坐标转换为绝对像素坐标
+    :param height:
+    :param width:
+    :return:
+    """
+    bbox_strs = bbox_hist.rstrip().split("\n")
+    results = []
+    for bbox_str in bbox_strs:
+        x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
+        x0 = int(np.round(x0 / width * 1000))
+        y0 = int(np.round(y0 / height * 1000))
+        x1 = int(np.round(x1 / width * 1000))
+        y1 = int(np.round(y1 / height * 1000))
+        results.append(f" (x = {(x0 + x1) // 2}, y = {(y0 + y1)//2}); ")
+    return results
 
 def plot_bounding_boxes(im, noun_phrases_and_positions):
     """
@@ -168,7 +172,7 @@ def get_bounding_boxes(image_path, model, prompt):
             [image, prompt], generation_config=Responses_config
         )
 
-        print ("Response:", response.text)
+        #print ("Response:", response.text)
 
         # 解析边界框
         boxes = parse_list_boxes_with_label(response.text)  # 使用解析工具

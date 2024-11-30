@@ -36,20 +36,20 @@ def check_and_fix_json(json_text):
             print(f"Unable to fix JSON: {e}")
             return {}
 
-
-# 示例用法
-response_text = """```json
-{
-  'car_0': [375, 0, 425, 41],
-  'car_1': [465, 61, 545, 132],
-  'car_2': [495, 209, 595, 311],
-  'car_3': [453, 288, 529, 368],
-  'car_4': [370, 458, 429, 516],
-  'car_5': [319, 300, 365, 349],
-  'car_6': [279, 213, 322, 258],
-  'car_7': [170
-"""
-# 检查并修复 JSON
-fixed_json = check_and_fix_json(response_text)
-print("Fixed JSON:", fixed_json)
+if __name__ == '__main__':
+    # 示例用法
+    response_text = """```json
+    {
+      'car_0': [375, 0, 425, 41],
+      'car_1': [465, 61, 545, 132],
+      'car_2': [495, 209, 595, 311],
+      'car_3': [453, 288, 529, 368],
+      'car_4': [370, 458, 429, 516],
+      'car_5': [319, 300, 365, 349],
+      'car_6': [279, 213, 322, 258],
+      'car_7': [170
+    """
+    # 检查并修复 JSON
+    fixed_json = check_and_fix_json(response_text)
+    print("Fixed JSON:", fixed_json)
 
