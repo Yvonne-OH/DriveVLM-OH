@@ -13,7 +13,7 @@ class FLANScorer:
         self.model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
         self.model.eval()
         self.model.to(device)
-        # Set up loss
+        # Set up loss function
         self.loss_fct = nn.NLLLoss(reduction='none', ignore_index=self.model.config.pad_token_id)
         self.lsm = nn.LogSoftmax(dim=1)
 
@@ -27,11 +27,12 @@ class FLANScorer:
         for i in range(0, len(srcs), batch_size):
             src_list = srcs[i: i + batch_size]
             tgt_list = tgts[i: i + batch_size]
-            if i <1:
-                print('src_list: ',src_list)
+            if i < 1:
+                print('src_list: ', src_list)
                 print('tgt_list: ', tgt_list)
             try:
                 with torch.no_grad():
+                    # Tokenize source and target texts
                     encoded_src = self.tokenizer(
                         src_list,
                         max_length=self.max_length,
@@ -52,6 +53,7 @@ class FLANScorer:
                     tgt_mask = encoded_tgt['attention_mask']
                     tgt_len = tgt_mask.sum(dim=1).to(self.device)
 
+                    # Forward pass through the model
                     output = self.model(
                         input_ids=src_tokens,
                         attention_mask=src_mask,

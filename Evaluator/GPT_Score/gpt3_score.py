@@ -7,11 +7,13 @@ def gpt3score(input, output,gpt3model=None,api_key=None):
     elif gpt3model == 'babbage':
         gpt3model_name = "text-babbage-001"
     elif gpt3model == 'curie':
-        gpt3model_name = "text-curie-001"
+        gpt3model_name = "davinci-002"
     elif gpt3model == 'davinci001':
-        gpt3model_name = "text-davinci-001"
+        gpt3model_name = "davinci-002"
     elif gpt3model == 'davinci003':
         gpt3model_name = "text-davinci-003"
+    else:
+        gpt3model_name = gpt3model_name
     print('gpt3model_name: ', gpt3model_name)
 
     # "text-curie-001", "text-ada-001", "text-babbage-001", "text-davinci-001", "text-davinci-003",

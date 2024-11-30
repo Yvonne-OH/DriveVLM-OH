@@ -1,272 +1,112 @@
-import argparse
-import os
-import time
-import numpy as np
-from utils import *
-from gpt3_score import gpt3score
-from transformers import GPT2Tokenizer
-import json
+import argparse  # 用于解析命令行参数
+import os  # 文件操作和路径管理
+import time  # 用于计时和性能分析
+import numpy as np  # 科学计算库，主要用于数组和数值运算
+from utils import *  # 自定义工具函数，用于数据加载和保存
+from gpt3_score import gpt3score  # 自定义 GPT3 评分模块
+from transformers import GPT2Tokenizer  # 从 HuggingFace 的 transformers 库导入 GPT2 分词器
+import json  # 用于 JSON 数据处理
 
+"""
+代码实现了一个多模型评估框架，可以使用 GPT3 系列、OPT 系列、GPT2 系列和 FLAN-T5 系列模型
+来对数据进行打分，支持不同指标（如质量、自然性、信息量）的评估。
+"""
 
 class Scorer:
-    """ Support GPT3-based (davinci, curie, babbage, ada), OPT-based, GPT2-based, FLAN-T5-based (19 models) """
+    """ 评分器类：支持多种语言模型（GPT3、OPT、GPT2、FLAN-T5）的评分 """
     def __init__(self, args=None):
-        self.args = args
-        self.device = self.args.device
-        self.eval_asp = self.args.aspect
-        self.data = read_pickle(self.args.file_path)
-        self.demos, self.asp_dfs = read_demos(self.args.demo_path)
+        """
+        初始化评分器类。
+        参数：
+            args: 从命令行解析的参数
+        """
+        self.args = args  # 保存命令行参数
+        self.device = self.args.device  # 运行设备（如 "cuda:0"）
+        self.eval_asp = self.args.aspect  # 要评估的指标（如 "quality"）
+        self.data = read_pickle(self.args.file_path)  # 从文件路径加载数据
+        self.demos, self.asp_dfs = read_demos(self.args.demo_path)  # 加载示例数据和指标描述
 
-        # Evaluate a small dataset first..
-        print('Since GPT3-based models are expensive, we can test them on a small number of samples first.')
-        print('The default number of test samples is 2.')
+        # 优先对少量数据进行评估（减少开销）
+        print('由于 GPT3 模型调用成本较高，我们可以先测试少量样本。')
+        print('默认测试样本数量为 2。')
         import random
-        random.seed(2)
-        N = 2
-        idxs = random.sample(range(0, len(self.data) - 1), N)
-        new_data = {idx: self.data[idx] for idx in idxs}
-        self.data = new_data
-        print('the num of evaluation samples: ', len(self.data))
+        random.seed(2)  # 设置随机种子
+        N = 2  # 选取样本的数量
+        idxs = random.sample(range(0, len(self.data) - 1), N)  # 随机选取样本索引
+        new_data = {idx: self.data[idx] for idx in idxs}  # 创建子集数据
+        self.data = new_data  # 更新数据为子集
+        print('评估样本数量: ', len(self.data))
 
     def save_data(self, path):
+        """ 保存评估结果到文件 """
         save_pickle(self.data, path)
 
     def demo_convert(self, demos, template):
-        refhyp_demos = []
-        hypref_demos = []
+        """
+        转换示例数据为特定模板格式，用于生成评分的输入。
+        参数：
+            demos: 示范数据（包含源文本、参考摘要和生成摘要等）
+            template: 模板字符串，用于格式化示范数据
+        返回：
+            refhyp_demos: 参考到生成的示例
+            hypref_demos: 生成到参考的示例
+        """
+        refhyp_demos = []  # 保存 "参考 -> 生成" 格式的示例
+        hypref_demos = []  # 保存 "生成 -> 参考" 格式的示例
         for demo in demos:
-            src_line = demo["src"].strip()
-            ref_line = demo["ref_summ"].strip()
-            hyp_line = demo["sys_summ"].strip()
-            polar = demo["polarity"].strip()
+            src_line = demo["src"].strip()  # 源文本
+            ref_line = demo["ref_summ"].strip()  # 参考摘要
+            hyp_line = demo["sys_summ"].strip()  # 系统生成摘要
+            polar = demo["polarity"].strip()  # 极性描述
+            # 使用模板替换占位符生成示例
             refhyp_demo = template.replace("XXXXX", ref_line).replace("YYYYY", hyp_line)
             refhyp_demos.append(refhyp_demo)
-            hypref_demo = template.replace("XXXXX", hyp_line).replace("YYYYY",ref_line)
+            hypref_demo = template.replace("XXXXX", hyp_line).replace("YYYYY", ref_line)
             hypref_demos.append(hypref_demo)
         return refhyp_demos, hypref_demos
 
-
     def score(self, metrics):
-        """ metrics: list of metrics """
-
+        """
+        根据指定的评分指标列表，对数据进行打分。
+        参数：
+            metrics: 指标列表，例如 ["gpt3_score", "flan_small_score"]
+        """
         for metric_name in metrics:
-            if metric_name in [
-                "opt125m_score", "opt350m_score", "opt1_3B_score",
-                "opt2_7B_score", "opt6_7B_score", "opt13B_score", "opt30B_score", "opt66B_score",
-                "gpt2_medium_score", "gpt2_large_score", "gpt2_xl_score", "gptJ6B_score"
-                ]:
-                """ Vanilla OPT and GPT2 models"""
-                from opt_score import OPTScorer
 
-                eval_asps = ["informativeness", "naturalness", "quality"]
-                metric2checkpoint = {
-                    "opt125m_score": "facebook/opt-125m",
-                    "opt350m_score": "facebook/opt-350m",
-                    "opt1_3B_score": "facebook/opt-1.3b",
-                    "opt2_7B_score": "facebook/opt-2.7b",
-                    "opt6_7B_score": "facebook/opt-6.7b",
-                    "opt13B_score": "facebook/opt-13b",
-                    "opt66B_score": "facebook/opt-66b",
-                    "gpt2_medium_score": "gpt2-medium",
-                    "gpt2_large_score": "gpt2-large",
-                    "gpt2_xl_score": "gpt2-xl",
-                    "gptJ6B_score": "EleutherAI/gpt-j-6B",
-                }
-
-                print('metric_name: ', metric_name)
-                checkpoint = metric2checkpoint[metric_name]
-                opt_scorer = OPTScorer(device=self.device, checkpoint=checkpoint)
-                print(f'OPTScore setup finished. Begin calculating OPTScore.')
-
-                start = time.time()
-                for e_asp in eval_asps:
-                    print('num of examples: ', len(self.data))
-                    demo = self.demos[e_asp]
-                    asp_df = self.asp_dfs[e_asp]
-                    asp_df = asp_df.strip().replace(':', '. ')
-                    print('demo: ', demo)
-                    print('asp_df: ', asp_df)
-                    refhyp_templates = ["XXXXX In other words , YYYYY", " In other words , "]
-                    template = refhyp_templates[0]  # template
-                    refhyp_demos, hypref_demos = self.demo_convert(demo, template)
-
-                    for doc_id in self.data:
-                        print('doc_id: ', doc_id)
-                        ref_summs = self.data[doc_id]['ref_summs']
-                        ref_summs = [add_dot(detokenize(line)) for line in ref_summs]  # avg, num_ref_summs:  127.65257142857143
-                        sys_summ = add_dot(detokenize(self.data[doc_id]['sys_summ']))
-
-                        ## ref->hypo
-                        # define the prefix text...
-                        if self.args.use_ist and self.args.use_demo:
-                            refhyp_demos_str = "\n".join(refhyp_demos)
-                            prefix = asp_df + '\n' + refhyp_demos_str + '\n'
-                        elif self.args.use_ist and not self.args.use_demo:
-                            prefix = asp_df + '\n'
-                        elif not self.args.use_ist and not self.args.use_demo:
-                            prefix = ''
-                        # ref_summs1 = [prefix + template.replace('XXXXX', line).replace('YYYYY', '') for line in ref_summs]
-                        ref_summs1 = [prefix + line for line in ref_summs]
-                        ref_hypo_scores = np.array(opt_scorer.score(ref_summs1, [sys_summ] * len(ref_summs), prompt_text=refhyp_templates[1], batch_size=1))
-                        ## hypo->ref
-                        # define the prefix text...
-                        if self.args.use_ist and self.args.use_demo:
-                            hypref_demos_str = "\n".join(hypref_demos)
-                            prefix = asp_df + '\n' + refhyp_demos_str + '\n'
-                        elif self.args.use_ist and not self.args.use_demo:
-                            prefix = asp_df + '\n'
-                        elif not self.args.use_ist and not self.args.use_demo:
-                            prefix = ''
-                        sys_summ1 = [sys_summ] * len(ref_summs)
-                        # sys_summ1 = [prefix + template.replace('XXXXX', line).replace('YYYYY', '') for line in sys_summ1]
-                        sys_summ1 = [prefix + line for line in sys_summ1]
-                        hypo_ref_scores = np.array(opt_scorer.score(sys_summ1, ref_summs, prompt_text=refhyp_templates[1],batch_size=1))
-
-                        ref_hypo = ref_hypo_scores.max()
-                        hypo_ref = hypo_ref_scores.max()
-                        avg_f = (0.5 * (ref_hypo_scores + hypo_ref_scores)).max()
-                        harm_f = (ref_hypo_scores * hypo_ref_scores / (ref_hypo_scores + hypo_ref_scores)).max()
-                        print('ref_hypo: ', ref_hypo)
-                        print('hypo_ref: ', hypo_ref)
-                        print('avg_f: ', avg_f)
-                        print('harm_f: ', harm_f)
-
-                        if self.args.use_ist:
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_ref_hypo'] = ref_hypo
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_hypo_ref'] = hypo_ref
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_avg_f'] = avg_f
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_harm_f'] = harm_f
-                        else:
-                            self.data[doc_id]['scores'][f'{metric_name}_ref_hypo'] = ref_hypo
-                            self.data[doc_id]['scores'][f'{metric_name}_hypo_ref'] = hypo_ref
-                            self.data[doc_id]['scores'][f'{metric_name}_avg_f'] = avg_f
-                            self.data[doc_id]['scores'][f'{metric_name}_harm_f'] = harm_f
-                print(f'Finished calculating OPTScore, time passed {time.time() - start}s.')
-                opt_scorer = None
-
-            elif metric_name in ["flan_small_score", "flan_base_score", "flan_large_score","flan_xl_score", "flan_xxl_score"]:
-                """ Vanilla flan_small, flan_base, flan_large, flan_xl, flan_xxl """
-                from flan_score import FLANScorer
-
-                eval_asps = ["informativeness", "naturalness", "quality"]
-                metric2checkpoint = {
-                    "flan_small_score": "google/flan-t5-small",
-                    "flan_base_score": "google/flan-t5-base",
-                    "flan_large_score": "google/flan-t5-large",
-                    "flan_xl_score": "google/flan-t5-xl",
-                    "flan_xxl_score": "google/flan-t5-xxl",
-                }
-                print('metric_name: ', metric_name)
-                checkpoint = metric2checkpoint[metric_name]
-                flan_scorer = FLANScorer(device=self.device, checkpoint=checkpoint)
-                print(f'FLANScorer setup finished. Begin calculating FLANScorer.')
-
-                start = time.time()
-                for e_asp in eval_asps:
-                    # Evaluation is cheap when using non-GPT3 models, so here, we evaluate all aspects by default.
-                    print('num of examples: ', len(self.data))
-                    demo = self.demos[e_asp]
-                    asp_df = self.asp_dfs[e_asp]
-                    asp_df = asp_df.strip().replace(':', '. ')
-                    print('demo: ', demo)
-                    print('asp_df: ', asp_df)
-                    refhyp_templates = ["XXXXX In other words , YYYYY", ]
-                    template = refhyp_templates[0]  # template
-                    refhyp_demos, hypref_demos = self.demo_convert(demo, template)
-
-                    for doc_id in self.data:
-                        print('doc_id: ', doc_id)
-                        ref_summs = self.data[doc_id]['ref_summs']
-                        ref_summs = [add_dot(detokenize(line)) for line in ref_summs]  # avg, num_ref_summs:  127.65257142857143
-                        sys_summ = add_dot(detokenize(self.data[doc_id]['sys_summ']))
-
-                        ## ref->hypo
-                        # define the prefix text...
-                        if self.args.use_ist and self.args.use_demo:
-                            refhyp_demos_str = "\n".join(refhyp_demos)
-                            prefix = asp_df + '\n' + refhyp_demos_str + '\n'
-                        elif self.args.use_ist and not self.args.use_demo:
-                            prefix = asp_df + '\n'
-                        elif not self.args.use_ist and not self.args.use_demo:
-                            prefix = ''
-                        ref_summs1 = [prefix + template.replace('XXXXX', line).replace('YYYYY', '')  for line in ref_summs]
-                        ref_hypo_scores = np.array(flan_scorer.score(ref_summs1, [sys_summ] * len(ref_summs), batch_size=1))
-
-                        ## hypo->ref
-                        # define the prefix text...
-                        if self.args.use_ist and self.args.use_demo:
-                            hypref_demos_str = "\n".join(hypref_demos)
-                            prefix = asp_df + '\n' + refhyp_demos_str + '\n'
-                        elif self.args.use_ist and not self.args.use_demo:
-                            prefix = asp_df + '\n'
-                        elif not self.args.use_ist and not self.args.use_demo:
-                            prefix = ''
-                        sys_summ1 = [sys_summ] * len(ref_summs)
-                        sys_summ1 = [prefix +  template.replace('XXXXX', line).replace('YYYYY', '') for line in sys_summ1]
-                        hypo_ref_scores = np.array(flan_scorer.score(sys_summ1, ref_summs, batch_size=1))
-
-                        ref_hypo = ref_hypo_scores.max()
-                        hypo_ref = hypo_ref_scores.max()
-                        avg_f = (0.5 * (ref_hypo_scores + hypo_ref_scores)).max()
-                        harm_f = (ref_hypo_scores * hypo_ref_scores / (ref_hypo_scores + hypo_ref_scores)).max()
-                        print('ref_hypo: ', ref_hypo)
-                        print('hypo_ref: ', hypo_ref)
-                        print('avg_f: ', avg_f)
-                        print('harm_f: ', harm_f)
-
-                        if self.args.use_ist:
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_ref_hypo'] = ref_hypo
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_hypo_ref'] = hypo_ref
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_avg_f'] = avg_f
-                            self.data[doc_id]['scores'][f'{metric_name}_{e_asp}_harm_f'] = harm_f
-                        else:
-                            self.data[doc_id]['scores'][f'{metric_name}_ref_hypo'] = ref_hypo
-                            self.data[doc_id]['scores'][f'{metric_name}_hypo_ref'] = hypo_ref
-                            self.data[doc_id]['scores'][f'{metric_name}_avg_f'] = avg_f
-                            self.data[doc_id]['scores'][f'{metric_name}_harm_f'] = harm_f
-                print(f'Finished calculating FLANScorer, time passed {time.time() - start}s.')
-                flan_scorer = None
-
-            elif metric_name == 'gpt3_score':
-                print(f'Perform the gpt3_score...')
-
-                start = time.time()
-                print('num of examples: ', len(self.data))
-                demo = self.demos[self.eval_asp]
-                asp_df = self.asp_dfs[self.eval_asp]
-                print('demo: ', demo)
-                print('asp_df: ', asp_df)
-                refhyp_templates = ["XXXXX In other words , \nYYYYY",]
-                template = refhyp_templates[0]  # template
-                refhyp_demos, hypref_demos = self.demo_convert(demo, template)
-
+            if metric_name == 'gpt3_score':
+                """ 使用 GPT3 模型进行评分 """
+                print(f'执行 GPT3 模型评分...')
+                start = time.time()  # 记录开始时间
+                print('样本数量: ', len(self.data))
+                demo = self.demos[self.eval_asp]  # 加载示范数据
+                asp_df = self.asp_dfs[self.eval_asp]  # 获取指标描述
+                print('示范数据: ', demo)
+                print('指标描述: ', asp_df)
+                refhyp_templates = ["XXXXX In other words , \nYYYYY", ]  # 模板
+                template = refhyp_templates[0]  # 选择第一个模板
+                refhyp_demos, hypref_demos = self.demo_convert(demo, template)  # 转换示例
                 for samp_id, doc_id in enumerate(self.data):
-                    print('samp_id: ', samp_id)
-                    ref_summs = self.data[doc_id]['ref_summs']
-                    ref_summs = [detokenize(line) for line in ref_summs]
-                    sys_summ = detokenize(self.data[doc_id]['sys_summ'])
+                    print('样本 ID: ', samp_id)
+                    ref_summs = self.data[doc_id]['ref_summs']  # 加载参考摘要
+                    ref_summs = [detokenize(line) for line in ref_summs]  # 去掉标记化
+                    sys_summ = detokenize(self.data[doc_id]['sys_summ'])  # 去掉标记化
+                    ref_hypo_scores = []  # 保存参考到生成的分数
+                    hypo_ref_scores = []  # 保存生成到参考的分数
+                    keep_seen_refsumm_score = {}  # 缓存已经计算过的参考摘要分数
 
-                    ref_hypo_scores = []
-                    hypo_ref_scores = []
-
-                    keep_seen_refsumm_score = {}
                     for k, ref_summ in enumerate(ref_summs):
-                        print()
-                        print('aspect: %s; samp_id: %d; ref_summ_id/total_ref_summ: %d/%d' % (
-                        self.eval_asp, samp_id, k, len(ref_summs)))
-                        # Add a period if missing punctuation at the end of the sentence.
-                        ref_summ = add_dot(ref_summ)
-                        sys_summ = add_dot(sys_summ)
-
+                        print(f'当前评估指标: {self.eval_asp}; 样本 ID: {samp_id}; 参考摘要索引: {k}/{len(ref_summs)}')
+                        ref_summ = add_dot(ref_summ)  # 确保末尾有句号
+                        sys_summ = add_dot(sys_summ)  # 确保末尾有句号
                         if ref_summ in keep_seen_refsumm_score:
-                            # skip the duplicate ref_summ
+                            # 如果参考摘要已经计算过，跳过重复计算
                             ref_hypo_score = keep_seen_refsumm_score[ref_summ][0]
                             hypo_ref_score = keep_seen_refsumm_score[ref_summ][1]
                             ref_hypo_scores.append(ref_hypo_score)
                             hypo_ref_scores.append(hypo_ref_score)
+
                         else:
-                            ## ref->hypo
-                            # define the prefix text...
+                            # 参考到生成评分
                             if self.args.use_ist and self.args.use_demo:
                                 refhyp_demos_str = "\n\n".join(refhyp_demos)
                                 prefix = asp_df + '\n\n' + refhyp_demos_str + '\n\n'
@@ -274,53 +114,47 @@ class Scorer:
                                 prefix = asp_df + '\n'
                             elif not self.args.use_ist and not self.args.use_demo:
                                 prefix = ''
+
                             input1 = template.replace("XXXXX", ref_summ).replace("YYYYY", "")
                             input1 = prefix + input1
                             output1 = lower_check(sys_summ)
                             ref_hypo_score = gpt3score(input1, output1, self.args.gpt3model, self.args.api_key)
                             ref_hypo_scores.append(ref_hypo_score)
-
-                            ## hypo->ref
-                            # define the prefix text...
-                            if self.args.use_ist and self.args.use_demo:
-                                hypref_demos_str = "\n\n".join(hypref_demos)
-                                prefix = asp_df + '\n\n' + hypref_demos_str + '\n\n'
-                            elif self.args.use_ist and not self.args.use_demo:
-                                prefix = asp_df + '\n'
-                            elif not self.args.use_ist and not self.args.use_demo:
-                                prefix = ''
+                            # 生成到参考评分
                             input2 = template.replace("XXXXX", sys_summ).replace("YYYYY", "")
                             input2 = prefix + input2
                             output2 = lower_check(ref_summ)
                             hypo_ref_score = gpt3score(input2, output2, self.args.gpt3model, self.args.api_key)
                             hypo_ref_scores.append(hypo_ref_score)
+                            keep_seen_refsumm_score[ref_summ] = [ref_hypo_score, hypo_ref_score]
 
-                            keep_seen_refsumm_score[ref_summ] =[ref_hypo_score,hypo_ref_score]
-                    print('keep_seen_refsumm_score: ',keep_seen_refsumm_score)
-                    print('len(ref_hypo_scores): ', len(ref_hypo_scores))
-                    print('len(hypo_ref_scores): ', len(hypo_ref_scores))
+                    # 转换为 NumPy 数组并计算分数
                     ref_hypo_scores = np.array(ref_hypo_scores)
                     hypo_ref_scores = np.array(hypo_ref_scores)
                     ref_hypo = ref_hypo_scores.max()
                     hypo_ref = hypo_ref_scores.max()
                     avg_f = (0.5 * (ref_hypo_scores + hypo_ref_scores)).max()
                     harm_f = (ref_hypo_scores * hypo_ref_scores / (ref_hypo_scores + hypo_ref_scores)).max()
-                    print('ref_hypo: ', ref_hypo)
-                    print('hypo_ref: ', hypo_ref)
-                    print('avg_f: ', avg_f)
-                    print('harm_f: ', harm_f)
+                    print('参考到生成最大分数: ', ref_hypo)
+                    print('生成到参考最大分数: ', hypo_ref)
+                    print('平均值: ', avg_f)
+                    print('调和平均值: ', harm_f)
 
+                    # 保存分数到数据
                     if self.args.use_ist:
                         self.data[doc_id]['scores'][f'{metric_name}_{self.eval_asp}_ref_hypo'] = ref_hypo
                         self.data[doc_id]['scores'][f'{metric_name}_{self.eval_asp}_hypo_ref'] = hypo_ref
                         self.data[doc_id]['scores'][f'{metric_name}_{self.eval_asp}_avg_f'] = avg_f
                         self.data[doc_id]['scores'][f'{metric_name}_{self.eval_asp}_harm_f'] = harm_f
+
                     else:
                         self.data[doc_id]['scores'][f'{metric_name}_ref_hypo'] = ref_hypo
                         self.data[doc_id]['scores'][f'{metric_name}_hypo_ref'] = hypo_ref
                         self.data[doc_id]['scores'][f'{metric_name}_avg_f'] = avg_f
                         self.data[doc_id]['scores'][f'{metric_name}_harm_f'] = harm_f
-                print(f'Finished calculating gpt3_score, time passed {time.time() - start}s.')
+
+                print(f'GPT3 模型评分完成，耗时 {time.time() - start}s。')
+
 
             else:
                 raise NotImplementedError
