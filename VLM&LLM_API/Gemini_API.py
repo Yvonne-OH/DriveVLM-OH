@@ -65,20 +65,6 @@ def parse_list_boxes_with_label(text):
         print(f"JSON parsing error: {e}. Returning empty result.")
         return {}
 
-def postproc_bbox_str(height, width):
-    """
-    后处理边界框字符串，将百分比坐标转换为绝对像素坐标
-    :param height:
-    :param width:
-    :return: str
-    """
-    x0, y0, x1, y1 = [float(x) for x in bbox_str.removeprefix('[').removesuffix(']').split(',')]
-    x0 = int(np.round(x0 / width * 1000))
-    y0 = int(np.round(y0 / height * 1000))
-    x1 = int(np.round(x1 / width * 1000))
-    y1 = int(np.round(y1 / height * 1000))
-    return f'{y0} {x0} {y1} {x1}'
-
 def postproc_bbox_hist(height, width):
     """
     后处理边界框字符串，将百分比坐标转换为绝对像素坐标
