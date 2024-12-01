@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="-">
-      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_DriveLM_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLoader/convert2Gemini.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/convert2Gemini.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini-1.5-Flash-Finetuning.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini-1.5-Flash-Finetuning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_API.py" afterDir="false" />
-    </list>
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="增加Gemini答题功能" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -240,7 +234,7 @@
       <workItem from="1732906743999" duration="989000" />
       <workItem from="1732907737969" duration="11738000" />
       <workItem from="1732988622057" duration="12799000" />
-      <workItem from="1733020651723" duration="18419000" />
+      <workItem from="1733020651723" duration="18739000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -458,7 +452,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733033494921</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="增加Gemini答题功能">
+      <option name="closed" value="true" />
+      <created>1733090165997</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1733090165997</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +501,8 @@
     <MESSAGE value="增加GPT-SCORE" />
     <MESSAGE value="增加Geval" />
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="-" />
+    <MESSAGE value="增加Gemini答题功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加Gemini答题功能" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DriveVLM_OH$meta_eval_summeval.coverage" NAME="meta_eval_summeval 覆盖结果" MODIFIED="1733027506730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
