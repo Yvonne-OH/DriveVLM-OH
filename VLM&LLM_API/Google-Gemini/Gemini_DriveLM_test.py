@@ -41,7 +41,7 @@ if __name__ == '__main__':
 
     # 配置参数
     Api_key = "AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII"
-    Model_name = "gemini-1.5-pro"
+    Model_name = "gemini-1.5-flash"
 
     prompt = (
         "Return bounding boxes for cars, and trees in the"
@@ -68,6 +68,9 @@ if __name__ == '__main__':
     # 遍历样本，限制为 Sample_num
 
     for i, sample in enumerate(tqdm(Gemini_Json_file, desc="Generate responses: ")):
+
+        time.sleep(10)  # 限制请求速率
+
         if i >= Sample_num:  # 如果处理数量达到限制则停止
             break
 
@@ -141,23 +144,31 @@ if __name__ == '__main__':
         ]
 
         # 调用生成模型
-        try:
-            response = model.generate_content(
-                Prompt, generation_config=Responses_config
-            )
-        except Exception as e:
-            print(f"Error generating response for sample {i}: {e}")
-            response = "Error: Could not generate response."
+        for attempt in range(3):
+            try:
+                response = model.generate_content(
+                    Prompt, generation_config=Responses_config
+                )
+                break
+            except Exception as e:
+                print(f"Error generating response for sample {i}, attempt {attempt + 1}: {e}")
+                if attempt < 2:
+                    time.sleep(60)
+                else:
+                    response = "Error: Could not generate response."
 
         # 在 conversations 中添加 "Model_Output"
-        modified_sample = sample.copy()  # 复制原始样本
-        modified_sample["conversations"].append({
-            "from": "Model_Output",
-            "value": response.text
-        })
+        try:
+            modified_sample = sample.copy()  # 复制原始样本
+            modified_sample["conversations"].append({
+                "from": "Model_Output",
+                "value": response.text
+            })
 
-        # 将修改后的样本添加到新数据列表
-        output_data.append(modified_sample)
+            # 将修改后的样本添加到新数据列表
+            output_data.append(modified_sample)
+        except Exception as e:
+            print(f"Error adding response to sample {i}: {e}")
 
     # 写入新的 JSON 文件
     output_json_path = Result_path

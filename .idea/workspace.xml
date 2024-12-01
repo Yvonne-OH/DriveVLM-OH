@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="增加Gemini答题功能" />
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="增加Gemini答题功能">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_DriveLM_test.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -234,7 +237,7 @@
       <workItem from="1732906743999" duration="989000" />
       <workItem from="1732907737969" duration="11738000" />
       <workItem from="1732988622057" duration="12799000" />
-      <workItem from="1733020651723" duration="18739000" />
+      <workItem from="1733020651723" duration="20066000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -460,7 +463,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733090165997</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="增加Gemini答题功能">
+      <option name="closed" value="true" />
+      <created>1733090320436</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1733090320436</updated>
+    </task>
+    <task id="LOCAL-00030" summary="增加Gemini答题功能">
+      <option name="closed" value="true" />
+      <created>1733090518364</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1733090518364</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
