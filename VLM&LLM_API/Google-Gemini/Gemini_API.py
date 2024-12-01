@@ -174,7 +174,7 @@ if __name__ == "__main__":
     # 配置参数
     Api_key = "AIzaSyAeDUmN1KvGENCHJh1_jDDI8bea215ZM3I"
     Model_name = "gemini-1.5-pro"
-    sample_file_1 = "media/traffic.png"
+    sample_file_1 = "../media/traffic.png"
     prompt =     (
         "Return bounding boxes for cars, and trees in the"
         " following format as a list. \n {'car_0' : [ymin, xmin, ymax,"

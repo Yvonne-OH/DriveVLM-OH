@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="增加Geval">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/Geval/gpt4_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluator/Geval/gpt4_eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/Geval/meta_eval_summeval.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluator/Geval/meta_eval_summeval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Evaluator/Geval/results/gpt4_flu_detailed.json" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluator/Geval/results/gpt4_flu_detailed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/Gemini_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_API.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,39 +46,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.DriveLM_Nuscenes.executor": "Run",
-    "Python.Gemini_API.executor": "Run",
-    "Python.convert2llama.executor": "Run",
-    "Python.convert_data.executor": "Run",
-    "Python.extract_data.executor": "Run",
-    "Python.gpt3_score.executor": "Run",
-    "Python.gpt4_eval.executor": "Run",
-    "Python.gpt_inference.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.meta_eval_summeval.executor": "Run",
-    "Python.score_d2t.executor": "Run",
-    "Python.util.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/oh/Documents/Diffusion/DriveVLM-OH/Evaluator",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.DriveLM_Nuscenes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gemini_API.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert2llama.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert_data.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extract_data.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt3_score.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt4_eval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt_inference.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.meta_eval_summeval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.score_d2t.executor&quot;: &quot;Run&quot;,
+    &quot;Python.util.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/oh/Documents/Diffusion/DriveVLM-OH/Evaluator&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Evaluator" />
       <recent name="$PROJECT_DIR$/DataLoader" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
       <recent name="$PROJECT_DIR$/Evaluator/GPT_Score" />
       <recent name="$PROJECT_DIR$/Metric" />
       <recent name="$PROJECT_DIR$" />
@@ -115,6 +114,9 @@
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Evaluator/Geval" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -237,7 +239,8 @@
       <workItem from="1732904543208" duration="1396000" />
       <workItem from="1732906743999" duration="989000" />
       <workItem from="1732907737969" duration="11738000" />
-      <workItem from="1732988622057" duration="12104000" />
+      <workItem from="1732988622057" duration="12799000" />
+      <workItem from="1733020651723" duration="63000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -431,7 +434,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732999215443</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="增加Geval">
+      <option name="closed" value="true" />
+      <created>1733006690407</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1733006690407</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
