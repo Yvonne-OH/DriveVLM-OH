@@ -13,7 +13,7 @@ os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 Responses_config = genai.types.GenerationConfig(
     candidate_count=1,
     stop_sequences=["x"],
-    max_output_tokens=200,  # 增加 token 数，确保完整返回边界框信息
+    max_output_tokens=500,  # 增加 token 数，确保完整返回边界框信息
     temperature=1.0,
 )
 
@@ -172,7 +172,7 @@ def get_bounding_boxes(image_path, model, prompt):
 
 if __name__ == "__main__":
     # 配置参数
-    Api_key = "AIzaSyAeDUmN1KvGENCHJh1_jDDI8bea215ZM3I"
+    Api_key = "AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII"
     Model_name = "gemini-1.5-pro"
     sample_file_1 = "../media/traffic.png"
     prompt =     (
