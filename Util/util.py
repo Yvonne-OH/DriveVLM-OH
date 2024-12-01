@@ -36,6 +36,11 @@ def check_and_fix_json(json_text):
             print(f"Unable to fix JSON: {e}")
             return {}
 
+def DriveLM2Gemini (Json_path : str, Image_path : str):
+    Gemini_dataset_json=""
+
+    return Gemini_dataset_json
+
 if __name__ == '__main__':
     # 示例用法
     response_text = """```json
@@ -50,6 +55,9 @@ if __name__ == '__main__':
       'car_7': [170
     """
     # 检查并修复 JSON
-    fixed_json = check_and_fix_json(response_text)
-    print("Fixed JSON:", fixed_json)
+    #fixed_json = check_and_fix_json(response_text)
+    #print("Fixed JSON:", fixed_json)
+
+    json_path = ""
+
 
