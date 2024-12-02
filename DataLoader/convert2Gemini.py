@@ -250,8 +250,7 @@ if __name__ == '__main__':
 
 
     #convert2Gemini(Json_path,  Image_path,Save_path, type = "prediction")
-    convert2Gemini_MultiChoice(Json_path, Image_path, Save_path, type = "perception")
-
+    convert2Gemini_MultiChoice(Json_path, Image_path, Save_path, type = "behavior")
 
 
 
