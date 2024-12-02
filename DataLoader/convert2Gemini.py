@@ -1,9 +1,11 @@
 
+import os
 import json
 import tqdm
+import re
+from PIL import Image
 
 
-import os
 
 import google.generativeai as genai
 
@@ -74,9 +76,7 @@ def GminiJson2List(Json_path, Image_path, API_key, Sample_num=3):
     return files_list, response_list
 
 
-def convert2Gemini(Json_path, Image_path, Save_path):
-
-
+def convert2Gemini(Json_path, Image_path, Save_path, type = "perception"):
 
     with open(Json_path, 'r') as f:
         test_file = json.load(f)
@@ -94,8 +94,9 @@ def convert2Gemini(Json_path, Image_path, Save_path):
             image_paths = [image_paths[key].replace("..", Image_path) for key in image_paths.keys()]
 
             frame_data_qa = scene_data[frame_id]['QA']
-            QA_pairs = frame_data_qa["perception"] + frame_data_qa["prediction"] + frame_data_qa["planning"] + \
-                       frame_data_qa["behavior"]
+            #QA_pairs = frame_data_qa["perception"] + frame_data_qa["prediction"] + frame_data_qa["planning"] + frame_data_qa["behavior"]
+
+            QA_pairs = frame_data_qa[type]
 
             for idx, qa in enumerate(QA_pairs):
                 question = qa['Q']
@@ -116,6 +117,8 @@ def convert2Gemini(Json_path, Image_path, Save_path):
                         ]
                     }
                 )
+
+    Save_path = Save_path+type+"_test_Gemini.json"
 
     with open(Save_path, 'w') as f:
         json.dump(output, f, indent=4)
@@ -164,13 +167,8 @@ def convert2Gemini_MultiChoice(Json_path, Image_path, Save_path):
     with open(Save_path, 'w') as f:
         json.dump(output, f, indent=4)
 
-import json
-import tqdm
 
-import json
-import tqdm
-import re
-from PIL import Image
+
 
 def get_image_resolution(image_path):
     """
@@ -179,7 +177,7 @@ def get_image_resolution(image_path):
     with Image.open(image_path) as img:
         return img.width, img.height
 
-def convert2Gemini_MultiChoice(Json_path, Image_path, Save_path):
+def convert2Gemini_MultiChoice(Json_path, Image_path, Save_path, type = "perception"):
     with open(Json_path, 'r') as f:
         test_file = json.load(f)
 
@@ -202,8 +200,8 @@ def convert2Gemini_MultiChoice(Json_path, Image_path, Save_path):
                 width, height = 1600, 900  # 默认值
 
             frame_data_qa = scene_data[frame_id]['QA']
-            QA_pairs = frame_data_qa["perception"] + frame_data_qa["prediction"] + frame_data_qa["planning"] + \
-                       frame_data_qa["behavior"]
+            #QA_pairs = frame_data_qa["perception"] + frame_data_qa["prediction"] + frame_data_qa["planning"] + frame_data_qa["behavior"]
+            QA_pairs = frame_data_qa[type]
 
             for idx, qa in enumerate(QA_pairs):
                 question = qa['Q']
@@ -237,24 +235,22 @@ def convert2Gemini_MultiChoice(Json_path, Image_path, Save_path):
                         }
                     )
 
+    Save_path = Save_path+"Multi_choice_"+type+"_test_Gemini.json"
     with open(Save_path, 'w') as f:
         json.dump(output, f, indent=4)
 
 
-    with open(Save_path, 'w') as f:
-        json.dump(output, f, indent=4)
 
 
 if __name__ == '__main__':
     # 加载数据
     Json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_eval.json"
     Image_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/"
-    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_Gemini.json"
+    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/"
 
 
-
-    #convert2Gemini(Json_path,  Image_path,Save_path)
-    convert2Gemini_MultiChoice(Json_path, Image_path, "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_Gemini_MultiChoice.json")
+    #convert2Gemini(Json_path,  Image_path,Save_path, type = "prediction")
+    convert2Gemini_MultiChoice(Json_path, Image_path, Save_path, type = "perception")
 
 
 

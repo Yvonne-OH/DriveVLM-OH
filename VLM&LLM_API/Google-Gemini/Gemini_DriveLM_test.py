@@ -20,7 +20,7 @@ os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 Responses_config = genai.types.GenerationConfig(
     candidate_count=1,
     stop_sequences=["x"],
-    max_output_tokens=2048,  # 增加 token 数，确保完整返回边界框信息
+    max_output_tokens=8192,  # 增加 token 数，确保完整返回边界框信息
     temperature=1.0,
 )
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     # 加载数据
     Json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_eval.json"
     Image_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/"
-    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_Gemini_MultiChoice.json"
+    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/Multi_choice_perception_test_Gemini.json"
     Result_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_result_Gemini.json"
 
     # 配置参数
@@ -103,7 +103,8 @@ if __name__ == '__main__':
         
         -------------------------------------------------------------------------------
         Using these images and the information provided, answer the following question:
-        For multiple-choice questions, provide a single-letter answer: <A>, <B>, <C>, or <D> (Just output the correct option, not any other text.).
+        For multiple-choice questions, provide a single-letter answer: <A>, <B>, <C>, or <D>  (answer wrap in < >)
+        Let's think step by step!
         **Question**:
         {input_1}"""
             f"{input_1}"
