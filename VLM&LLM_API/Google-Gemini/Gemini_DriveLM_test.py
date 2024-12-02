@@ -36,25 +36,18 @@ if __name__ == '__main__':
     # 加载数据
     Json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_eval.json"
     Image_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/"
-    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_Gemini.json"
+    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_Gemini_MultiChoice.json"
     Result_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_result_Gemini.json"
 
     # 配置参数
     Api_key = "AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII"
-    Model_name = "gemini-1.5-flash"
-
-    prompt = (
-        "Return bounding boxes for cars, and trees in the"
-        " following format as a list. \n {'car_0' : [ymin, xmin, ymax,"
-        " xmax], ...} \n If there are more than one instance of an object, add"
-        " them to the dictionary as 'object_0', 'object_1', etc."
-    )
+    Model_name = "gemini-exp-1121"
 
     # 初始化模型
     model = Model_initialize(Api_key, Model_name)
 
     root = Save_path
-    Sample_num = 50
+    Sample_num = 20
 
     # 定义变量
     files_list = []
@@ -69,7 +62,7 @@ if __name__ == '__main__':
 
     for i, sample in enumerate(tqdm(Gemini_Json_file, desc="Generate responses: ")):
 
-        time.sleep(10)  # 限制请求速率
+        time.sleep(5)  # 限制请求速率
 
         if i >= Sample_num:  # 如果处理数量达到限制则停止
             break
@@ -91,41 +84,26 @@ if __name__ == '__main__':
 
         # 构建对话格式
         input_2 = (
-        """The six images above were captured by a car's cameras positioned as follows: front, left front, right front, rear, left rear, and right rear. Based on these images, answer the following questions. All coordinates are based on the image pixels. The relationships are defined as follows:
-        
-        - The absolute pixel coordinates are calculated as:
-          - `abs_x1 = int(x1 / 1000 * width)`
-          - `abs_y1 = int(y1 / 1000 * height)`
-        
-        - The image resolution is defined as:
-          - `width = 1600`
-          - `height = 900`
-        
-        Guidelines for the format:
-        - **ID1**: Represents the object identifier, composed of:
-          - A letter indicating the object type:
-            - **C**: Car
-            - **P**: Pedestrian
-            - **V**: Truck/Van
-            - **T**: Traffic Sign
-            - **O**: Other
-          - A numeric sequence (e.g., c1, p2, v3).
-        - **CAM_ID**: Specifies the camera source from which the object is detected:
-          - {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.
-        - **x, y**: The object's pixel coordinates within the image, with the origin located at the top-left corner.
-        
-        Answer format:
-        1. For questions requiring a description, use the following format:
-           "Firstly notice that <ID1, CAM_ID, x, y>. The object is a [type of object], so the ego vehicle should [action]."
-           "Secondly notice that <ID2, CAM_ID, x, y>. The object is a [type of object], so the ego vehicle should [action]."
-           "Thirdly notice that <ID3, CAM_ID, x, y>. The object is a [type of object], so the ego vehicle should [action]."
-        
-        2. For multiple-choice questions, answer with a single letter: A, B, C, or D.
-        
-        Example:
-        "Firstly notice that <c3, CAM_FRONT, 1043, 82>. The object is a traffic sign, so the ego vehicle should keep going ahead at the same speed. Secondly notice that <c1, CAM_BACK, 1088, 497>. The object is turning left, so the ego vehicle should keep going ahead at the same speed. Thirdly notice that <c2, CAM_BACK, 864, 468>. The object is going ahead, so the ego vehicle should keep going ahead at the same speed."
+        """The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows): 
+            
+            {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.
+
+            In the format <object_id,camera_name,x_coord,y_coord>:
+            
+            object_id represents the unique identifier for the object.
+            camera_name specifies the camera that captured the object.
+            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.
+            Coordinates are specified as percentages, adhering to the following conventions:
+            
+            The origin (0, 0) is located at the top-left corner of the image.
+            The bottom-right corner of the image corresponds to (1000, 1000).
+            The x-axis extends horizontally, increasing from left (0) to right (1000).
+            The y-axis extends vertically, increasing from top (0) to bottom (1000).
+                
         
         -------------------------------------------------------------------------------
+        Using these images and the information provided, answer the following question:
+        For multiple-choice questions, provide a single-letter answer: <A>, <B>, <C>, or <D> (Just output the correct option, not any other text.).
         **Question**:
         {input_1}"""
             f"{input_1}"
@@ -133,7 +111,7 @@ if __name__ == '__main__':
 
         # 构建 Prompt
         Prompt = [
-            "input: ",
+            "input image in the order {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}",
             files[0],
             files[1],
             files[2],
@@ -153,7 +131,7 @@ if __name__ == '__main__':
             except Exception as e:
                 print(f"Error generating response for sample {i}, attempt {attempt + 1}: {e}")
                 if attempt < 2:
-                    time.sleep(60)
+                    time.sleep(30)
                 else:
                     response = "Error: Could not generate response."
 
