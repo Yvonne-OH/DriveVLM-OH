@@ -89,7 +89,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.convert2Gemini">
+  <component name="RunManager" selected="Python.Gemini_DriveLM_test">
     <configuration name="Gemini-1.5-Flash-Finetuning" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
@@ -141,9 +141,6 @@
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -211,8 +208,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.convert2Gemini" />
         <item itemvalue="Python.Gemini_DriveLM_test" />
+        <item itemvalue="Python.convert2Gemini" />
         <item itemvalue="Python.Gemini_API" />
         <item itemvalue="Python.Gemini-1.5-Flash-Finetuning" />
         <item itemvalue="Python.convert2llama" />
@@ -245,7 +242,7 @@
       <workItem from="1733092012090" duration="6857000" />
       <workItem from="1733135799048" duration="95000" />
       <workItem from="1733167893120" duration="1155000" />
-      <workItem from="1733169387664" duration="788000" />
+      <workItem from="1733169387664" duration="5175000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -511,7 +508,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733098122930</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <option name="closed" value="true" />
+      <created>1733170539789</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1733170539789</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
