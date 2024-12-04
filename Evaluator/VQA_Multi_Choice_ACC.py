@@ -38,7 +38,7 @@ def extract_answer_from_model_output(model_output):
 
 if __name__ == "__main__":
 
-    result_json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/perception_test_result_Gemini.jsonperception_test_result_Gemini.json"
+    result_json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/behavior_test_result_Gemini.json"
 
     try:
         with open(result_json_path, "r") as f:
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     print(f"No Answer Count: {no_answer_count}")
     print(f"Accuracy: {accuracy:.2f}%")
 
-    print(extract_answer_from_model_output("<ans>B. The ego vehicle is going straight. The ego vehicle is driving slowly.</ans>\n"))
+    
 
 
 

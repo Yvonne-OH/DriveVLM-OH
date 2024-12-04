@@ -1,15 +1,15 @@
-import json
-import os
-from tqdm import tqdm
 import base64
-from openai import OpenAI
+import re
+import json
+import ast
+import openai
+from PIL import Image
+from Util.util import parse_list_boxes_with_label, plot_bounding_boxes
 
-# Suppress logging warnings
-os.environ["GRPC_VERBOSITY"] = "ERROR"
+from PIL import Image, ImageDraw, ImageFont
 
 
-
-client = OpenAI()
+openai.api_key = "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"
 
 # Function to encode the image
 def encode_image(image_path):
@@ -17,20 +17,40 @@ def encode_image(image_path):
     return base64.b64encode(image_file.read()).decode('utf-8')
 
 # Path to your image
-image_path = "path_to_your_image.jpg"
+image_path = "../media/traffic.png"
+
 
 # Getting the base64 string
 base64_image = encode_image(image_path)
 
-response = client.chat.completions.create(
+response = openai.chat.completions.create(
   model="gpt-4o-mini",
   messages=[
+{
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text":
+           """Coordinates are specified as percentages, adhering to the following conventions:
+            The origin (0, 0) is located at the top-left corner of the image.
+            The bottom-right corner of the image corresponds to (100, 100).
+            The x-axis extends horizontally, increasing from left (0) to right (100).
+            The y-axis extends vertically, increasing from top (0) to bottom (100)."""
+
+        }
+      ]
+    },
     {
       "role": "user",
       "content": [
         {
           "type": "text",
-          "text": "What is in this image?",
+          "text": "Return bounding boxes for cars in the"
+                  " following format as a list. \n {'car_0' : [ymin, xmin, ymax,"
+                  " xmax], ...} \n If there are more than one instance of an object, add"
+                  " them to the dictionary as 'object_0', 'object_1', etc."
+                  "Just output the results as requested and don't add anything else! Wrap the answer in </ans> <ans/>."
         },
         {
           "type": "image_url",
@@ -43,16 +63,30 @@ response = client.chat.completions.create(
   ],
 )
 
-print(response.choices[0])
+print(response.choices[0].message.content)
 
+text = response.choices[0].message.content
+# 使用正则表达式提取 <ans> 和 </ans> 中的内容
+match = re.search(r"</ans>(.*?)<ans/>", text, re.DOTALL)
 
-if __name__ == '__main__':
-    # File paths
-    Json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_eval.json"
-    Image_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/"
-    Result_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_result_GPT4.json"
+if match:
+    extracted_data = match.group(1).strip()  # 提取匹配到的内容并去掉两边的空格
 
-    # Config
-    Task_type = "behavior"
+    # 将字符串转换为字典
+    data_dict = ast.literal_eval(extracted_data)
 
+    # 将字典转换为 JSON 格式
+    json_data = json.dumps(data_dict, indent=4, ensure_ascii=False)
 
+    print("转换为 JSON 格式：")
+    print(json_data)
+else:
+    print("未找到匹配的数据。")
+
+print(parse_list_boxes_with_label(json_data))
+bounding_boxes = parse_list_boxes_with_label(json_data)
+
+# 加载图像并绘制边界框
+image = Image.open(image_path)
+
+plot_bounding_boxes(image, bounding_boxes)

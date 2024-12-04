@@ -83,7 +83,7 @@ def postproc_bbox_hist(height, width):
         results.append(f" (x = {(x0 + x1) // 2}, y = {(y0 + y1)//2}); ")
     return results
 
-def plot_bounding_boxes(im, noun_phrases_and_positions):
+def plot_bounding_boxes(im, bounding_boxes):
     """
     绘制边界框和文字标注
     """
@@ -158,7 +158,7 @@ def get_bounding_boxes(image_path, model, prompt):
             [image, prompt], generation_config=Responses_config
         )
 
-        #print ("Response:", response.text)
+        print ("Response:", response.text)
 
         # 解析边界框
         boxes = parse_list_boxes_with_label(response.text)  # 使用解析工具
