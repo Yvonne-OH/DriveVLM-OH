@@ -13,7 +13,6 @@ os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 
 
-openai.api_key = "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"
 
 # Function to encode the image
 def encode_image(image_path):
@@ -123,7 +122,7 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
 
             try:
                 response = openai.chat.completions.create(
-                    model="gpt-4",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
                     messages=conversation_history,
                     temperature=0.7,  # 控制回复的随机性
                 )
@@ -191,7 +190,7 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
                 # 添加用户消息到对话历史
                 conversation_history.append(user_input_1)
                 response = openai.chat.completions.create(
-                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
                     messages=conversation_history,
                     temperature=0.7,  # 控制回复的随机性
                 )
@@ -215,7 +214,7 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
                 # 添加用户消息到对话历史
                 conversation_history.append(user_input_2)
                 response = openai.chat.completions.create(
-                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
                     messages=conversation_history,
                     temperature=0.7,  # 控制回复的随机性
                 )
@@ -236,7 +235,7 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
                 # 添加用户消息到对话历史
                 conversation_history.append(user_input_3)
                 response = openai.chat.completions.create(
-                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
                     messages=conversation_history,
                     temperature=0.7,  # 控制回复的随机性
                 )
@@ -283,9 +282,6 @@ if __name__ == '__main__':
     Api_key = "AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII"
     #Model_name = "gemini-exp-1121"
     Model_name = "gemini-1.5-pro"
-
-
-
 
     Gpt4_VQA_Nusence_COT_benchmark(Save_path, Image_path, Result_path, Model_name, "behavior", 20, 50)
 
