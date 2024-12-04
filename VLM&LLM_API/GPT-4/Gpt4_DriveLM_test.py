@@ -33,13 +33,14 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         sample_num (int): Number of samples to process.
     """
     # Load API key from environment variable
-    api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key =  "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"
+
     # Write to JSON file after each response
     result_path = result_path + task_type + "_test_result_GPT4.json"
 
-    if not api_key:
-        print("Error: API_KEY environment variable is not set.")
-        return
+    # if not os.getenv("OPENAI_API_KEY"):
+    #     print("Error: API_KEY environment variable is not set.")
+    #     return
 
     if task_type == "behavior":
         system_instruction =("Now you will answer the questions as a driver. "
@@ -61,8 +62,6 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         print("Error: Invalid task type.")
         return
 
-    # Initialize the model
-    model = Model_initialize(api_key, model_name,system_instruction)
 
     # Load JSON file
     try:
@@ -86,7 +85,7 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
             continue
 
         try:
-            files = [Image.open(image) for image in sample['image']]
+            files = [encode_image(image) for image in sample['image']]
         except Exception as e:
             print(f"Error opening files for sample {i}: {e}")
             continue
@@ -113,89 +112,155 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
             The y-axis extends vertically, increasing from top (0) to bottom (1000)."""
         )
 
+        conversation_history = [
+            {"role": "system", "content": system_instruction},
+            {"role": "user", "content": "Hello"},
+            {"role": "assistant", "content": "Great to meet you. What would you like to know?"},
+        ]
+
         # Start chat session
         if task_type == "behavior":
+
             try:
-                chat = model.start_chat(
-                    history=[
-                        {"role": "user", "parts": "Hello"},
-                        {"role": "model", "parts": "Great to meet you. What would you like to know?"},
-                    ]
+                response = openai.chat.completions.create(
+                    model="gpt-4",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    messages=conversation_history,
+                    temperature=0.7,  # 控制回复的随机性
                 )
 
+                # 获取 GPT 的回复
+                assistant_message = response.choices[0].message.content
+                print(f"GPT: {assistant_message}")
+                conversation_history.append({"role": "assistant", "content": assistant_message})
+
+                # Path to your image
+                image_path = "../media/traffic.png"
+
+                # Getting the base64 string
+                base64_image = encode_image(image_path)
+
+
                 # Step 1: Provide input content
-                user_input_1 = [
-                    "input image in the order {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}",
-                    files[0], files[1], files[2], files[3], files[4], files[5],
-                    f"input 2: {repr(input_2)}",
+                user_input_1 = {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text" : f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**"},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[0]}"
+                                },
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[1]}"
+                                },
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[2]}"
+                                },
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[3]}"
+                                },
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[4]}"
+                                },
+                            },
+                            {"type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{files[5]}"
+                                },
+                            },
 
-                    "Can you help me analyze images and answer questions step by step?"
-                ]
-                response = chat.send_message(user_input_1)
-                print(f"Model: {response.text}")
+                            {"type": "text",
+                             "text": f"{input_2}"},
+                            {"type": "text",
+                             "text": "Can you help me analyze the images and answer questions step by step?"},
+                        ],
+                    }
 
-                # Step 2: Provide detailed context
-                user_input_2 = (
-                    """Analyze the image and assess the following:
+                # 添加用户消息到对话历史
+                conversation_history.append(user_input_1)
+                response = openai.chat.completions.create(
+                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    messages=conversation_history,
+                    temperature=0.7,  # 控制回复的随机性
+                )
+                # 获取 GPT 的回复
+                assistant_message = response.choices[0].message.content
+                print("*"*50)
+                print(f"GPT: {assistant_message}")
+                conversation_history.append({"role": "assistant", "content": assistant_message})
+
+                user_input_2 = {
+                    "role": "user",
+                    "content": [
+                        {"type": "text",
+                         "text": """Analyze the image and assess the following:
                     What is the current state of the ego vehicle (position, speed, or behavior)?
                     What are the states of the surrounding vehicles and pedestrians, and how might they influence the ego vehicle's actions?
-                    Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""
-                )
-                response = chat.send_message(user_input_2)
-                print(f"Model: {response.text}")
+                    Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""},
+                    ],
+                }
 
-                # Step 3: Derive final answer
-                user_input_4 = f"The question is: {Q} Now, using this information, can you provide the final answer in the following format: </ans>answer</ans>"
-                final_response = chat.send_message(user_input_4)
-                print(f"Model: {final_response.text}")
+                # 添加用户消息到对话历史
+                conversation_history.append(user_input_2)
+                response = openai.chat.completions.create(
+                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    messages=conversation_history,
+                    temperature=0.7,  # 控制回复的随机性
+                )
+                # 获取 GPT 的回复
+                assistant_message = response.choices[0].message.content
+                print("*"*50)
+                print(f"GPT: {assistant_message}")
+                conversation_history.append({"role": "assistant", "content": assistant_message})
+
+                user_input_3 = {
+                    "role": "user",
+                    "content": [
+                        {"type": "text",
+                         "text": f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"},
+                    ],
+                }
+
+                # 添加用户消息到对话历史
+                conversation_history.append(user_input_3)
+                response = openai.chat.completions.create(
+                    model="gpt-4o-mini",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
+                    messages=conversation_history,
+                    temperature=0.7,  # 控制回复的随机性
+                )
+                # 获取 GPT 的回复
+                assistant_message = response.choices[0].message.content
+                print("*"*50)
+                print(f"GPT: {assistant_message}")
+                conversation_history.append({"role": "assistant", "content": assistant_message})
+
+                final_response = assistant_message
+                print("*"*50)
+                print(f"Model: {final_response}")
 
             except Exception as e:
                 print(f"Error during conversation: {e}")
                 continue
 
-        elif task_type == "perception":
-            try:
-                chat = model.start_chat(
-                    history=[
-                        {"role": "user", "parts": "Hello"},
-                        {"role": "model", "parts": "Great to meet you. What would you like to know?"},
-                    ]
-                )
-
-                user_input_1 = [
-                    input_2,
-                    "input image in the order {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}",
-                    files[0], files[1], files[2], files[3], files[4], files[5],
-                    "Can you understand the coordinate representations and picture meanings above?"
-                ]
-
-                response = chat.send_message(user_input_1)
-                print(f"Model: {response.text}")
-
-                # Step 1: Provide input content
-                user_input_2 = [
-                    input_2,
-                    "input image in the order {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}",
-                    files[0], files[1], files[2], files[3], files[4], files[5],
-
-                    f"The question is: {Q} Now, using this information, think step by step,and provide the final answer in the following format: </ans>answer</ans>"
-
-                ]
-
-
-                final_response = chat.send_message(user_input_2)
-                print(f"Model: {final_response.text}")
-
-            except Exception as e:
-                print(f"Error during conversation: {e}")
-                continue
 
         # Add "Model_Output" to conversations
         try:
             modified_sample = sample.copy()
             modified_sample["conversations"].append({
                 "from": "Model_Output",
-                "value": final_response.text
+                "value": final_response
             })
 
 
@@ -220,7 +285,9 @@ if __name__ == '__main__':
     Model_name = "gemini-1.5-pro"
 
 
-    Gemini_VQA_Nusence_COT_benchmark(Save_path, Image_path, Result_path, Model_name, "perception", 20, 50)
+
+
+    Gpt4_VQA_Nusence_COT_benchmark(Save_path, Image_path, Result_path, Model_name, "behavior", 20, 50)
 
 
 
