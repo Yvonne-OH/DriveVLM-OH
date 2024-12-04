@@ -1,37 +1,26 @@
+import base64
+import re
 import json
-import os
+import ast
+import openai
 import time
 from tqdm import tqdm
-
 import os
-import json
-import numpy as np
-from PIL import Image, ImageDraw, ImageColor
-import google.generativeai as genai
-from Util.util import check_and_fix_json
+from PIL import Image
 
 # Suppress logging warnings
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 
 
-def Model_initialize(Api_key, Model_name, System_instruction=""):
-    """
-    初始化模型
-    """
-    genai.configure(api_key=Api_key)
-    # 生成配置
-    Responses_config = genai.types.GenerationConfig(
-        candidate_count=1,
-        stop_sequences=["x"],
-        max_output_tokens=8192,  # 增加 token 数，确保完整返回边界框信息
-        temperature=1.0,
-    )
+openai.api_key = "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"
 
-    model = genai.GenerativeModel(Model_name,system_instruction=System_instruction)
-    return model
+# Function to encode the image
+def encode_image(image_path):
+  with open(image_path, "rb") as image_file:
+    return base64.b64encode(image_file.read()).decode('utf-8')
 
-def Gemini_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_name, task_type , max_request_rate=1 ,sample_num=20):
+def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_name, task_type , max_request_rate=1 ,sample_num=20):
     """
     Process QA dataset, analyze images, and generate responses using a specified model.
 
@@ -44,9 +33,9 @@ def Gemini_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_n
         sample_num (int): Number of samples to process.
     """
     # Load API key from environment variable
-    api_key = os.getenv("API_KEY")
+    api_key = os.getenv("OPENAI_API_KEY")
     # Write to JSON file after each response
-    result_path = result_path + task_type + "_test_result_Gemini.json"
+    result_path = result_path + task_type + "_test_result_GPT4.json"
 
     if not api_key:
         print("Error: API_KEY environment variable is not set.")
