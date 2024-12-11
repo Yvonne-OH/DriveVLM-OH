@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DataLoader/Nuscenes_image/2D_label_parser" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DataLoader/Nuscenes_image/nuscenes-devkit" vcs="Git" />
   </component>
 </project>
