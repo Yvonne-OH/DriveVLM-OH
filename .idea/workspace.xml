@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Add CoT">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataLoader/Nuscenes_image/2D_label_parser/label_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/Nuscenes_image/2D_label_parser/label_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLoader/Nuscenes_image/2D_label_parser/labels/2D_nuscenes.json" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/Nuscenes_image/2D_label_parser/labels/2D_nuscenes.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLoader/Nuscenes_image/nuscenes_tutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/Nuscenes_image/nuscenes_tutorial.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,7 +254,7 @@
       <workItem from="1733193206975" duration="2456000" />
       <workItem from="1733219515336" duration="20611000" />
       <workItem from="1733886553136" duration="7664000" />
-      <workItem from="1733941162843" duration="2271000" />
+      <workItem from="1733941162843" duration="2573000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -612,7 +608,31 @@
       <option name="project" value="LOCAL" />
       <updated>1733891751449</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Add CoT">
+      <option name="closed" value="true" />
+      <created>1733945004735</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1733945004735</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Add CoT">
+      <option name="closed" value="true" />
+      <created>1733945048916</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1733945048916</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Add CoT">
+      <option name="closed" value="true" />
+      <created>1733945114762</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1733945114762</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
