@@ -396,7 +396,7 @@ RadarPointCloud.disable_filters()
 nusc.render_sample_data(my_sample['data']['RADAR_FRONT'], nsweeps=5, underlay_map=True)
 RadarPointCloud.default_filters()
 
-"""We can even render a specific annotation."""
+"""We  can even render a specific annotation."""
 
 nusc.render_annotation(my_sample['anns'][22])
 
