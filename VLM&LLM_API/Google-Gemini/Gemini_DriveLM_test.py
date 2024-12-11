@@ -157,8 +157,15 @@ def Gemini_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_n
 
                 # Step 3: Derive final answer
                 user_input_4 = f"The question is: {Q} Now, using this information, can you provide the final answer in the following format: </ans>answer</ans>"
-                final_response = chat.send_message(user_input_4)
+                response = chat.send_message(user_input_4)
+
+                user_input_5 = [
+                    "Provide the final Choice Option in the following format: </ans>answer</ans>"
+                ]
+
+                final_response = chat.send_message(user_input_5)
                 print(f"Model: {final_response.text}")
+
 
             except Exception as e:
                 print(f"Error during conversation: {e}")
@@ -193,8 +200,14 @@ def Gemini_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_n
 
                 ]
 
+                response = chat.send_message(user_input_2)
 
-                final_response = chat.send_message(user_input_2)
+                user_input_3 = [
+                    "Provide the final Choice Option in the following format: </ans>answer</ans>"
+                ]
+
+                final_response = chat.send_message(user_input_3)
+
                 print(f"Model: {final_response.text}")
 
             except Exception as e:
@@ -209,11 +222,28 @@ def Gemini_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_n
                 "value": final_response.text
             })
 
+            # Check if result file exists
+            if os.path.exists(result_path):
+                with open(result_path, "r") as outfile:
+                    # Read the current data
+                    try:
+                        all_results = json.load(outfile)
+                    except json.JSONDecodeError:
+                        all_results = []  # If the file is empty or corrupted
 
-            with open(result_path, "a") as outfile:
-                json.dump(modified_sample, outfile, indent=4)
-                outfile.write("\n")  # Add a newline for better readability
-            print(f"Sample {i} has been written to {result_path}")
+                # Append the new result
+                all_results.append(modified_sample)
+
+                # Write the updated JSON back to the file
+                with open(result_path, "w") as outfile:
+                    json.dump(all_results, outfile, indent=4)
+                    print(f"Sample {i} has been written to {result_path}")
+
+            else:
+                # If file doesn't exist, create it and start with an empty array
+                with open(result_path, "w") as outfile:
+                    json.dump([modified_sample], outfile, indent=4)
+                    print(f"Sample {i} has been written to {result_path}")
 
         except Exception as e:
             print(f"Error adding response or writing sample {i}: {e}")

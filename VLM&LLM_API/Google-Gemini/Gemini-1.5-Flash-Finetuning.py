@@ -1,10 +1,9 @@
-import os
 import json
 import time
 import pandas as pd
 
 import google.generativeai as genai
-from DataLoader.convert2Gemini import GminiJson2List
+from DataLoader.DriveLM.convert2Gemini import GminiJson2List
 
 genai.configure(api_key="AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII")
 
