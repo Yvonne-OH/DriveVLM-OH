@@ -3,4 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="CG" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="VLM" project-jdk-type="Python SDK" />
 </project>

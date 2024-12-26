@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/DataLoader/Nuscenes_image/nuscenes-devkit" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Model/YoloV4/darknet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DataLoader/Nuscenes_image/nuscenes-devkit" vcs="" />
+    <mapping directory="$PROJECT_DIR$/Model/YoloV4/darknet" vcs="" />
   </component>
 </project>
