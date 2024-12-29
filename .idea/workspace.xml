@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Add CoT">
-      <change beforePath="$PROJECT_DIR$/.idea/DriveVLM-OH.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DriveVLM-OH.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Example.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Model_download.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +34,9 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Yvonne-OH/DriveVLM-OH.git&quot;,
-    &quot;accountId&quot;: &quot;fc2dac5d-3d17-473d-8568-c3f5fd37a9b3&quot;
+    &quot;accountId&quot;: &quot;ab713fd8-fb9b-4e57-a62b-800786c787d2&quot;
   }
 }</component>
-  <component name="PerforceDirect.Settings">
-    <option name="CHARSET" value="none" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -54,6 +51,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.DriveLM_Nuscenes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Example.executor&quot;: &quot;Run&quot;,
     &quot;Python.Gemini-1.5-Flash-Finetuning.executor&quot;: &quot;Run&quot;,
     &quot;Python.Gemini_API.executor&quot;: &quot;Run&quot;,
     &quot;Python.Gemini_DriveLM_test.executor&quot;: &quot;Run&quot;,
@@ -75,13 +73,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/media/nec/6D3563AC52DC77EA/DriveVLM-OH&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/workstation/DriveVLM-OH&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -98,8 +96,8 @@
       <recent name="$PROJECT_DIR$/Metric" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.nuscenes_tutorial">
-    <configuration name="Gemini_API" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Example">
+    <configuration name="Example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -108,14 +106,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini/Gemini_API.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Example.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -169,7 +167,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="gpt4_API" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -178,14 +176,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4/gpt4_API.py" />
-      <option name="PARAMETERS" value="OPENAI_API_KEY = &quot;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&quot;" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -216,19 +214,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.nuscenes_tutorial" />
-      <item itemvalue="Python.Gpt4_DriveLM_test" />
-      <item itemvalue="Python.gpt4_API" />
-      <item itemvalue="Python.Gemini_API" />
+      <item itemvalue="Python.Example" />
       <item itemvalue="Python.Gemini_DriveLM_test" />
+      <item itemvalue="Python.Gpt4_DriveLM_test" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.nuscenes_tutorial" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Example" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.nuscenes_tutorial" />
         <item itemvalue="Python.Gemini_DriveLM_test" />
         <item itemvalue="Python.Gpt4_DriveLM_test" />
-        <item itemvalue="Python.gpt4_API" />
-        <item itemvalue="Python.Gemini_API" />
       </list>
     </recent_temporary>
   </component>
@@ -269,6 +267,13 @@
       <workItem from="1735177786035" duration="333000" />
       <workItem from="1735178123571" duration="86000" />
       <workItem from="1735178213779" duration="166000" />
+      <workItem from="1735183346534" duration="2535000" />
+      <workItem from="1735202997410" duration="8000" />
+      <workItem from="1735203007876" duration="479000" />
+      <workItem from="1735203490907" duration="1113000" />
+      <workItem from="1735204608903" duration="647000" />
+      <workItem from="1735210403451" duration="2298000" />
+      <workItem from="1735260882757" duration="4494000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -709,24 +714,25 @@
     <option name="LAST_COMMIT_MESSAGE" value="Add CoT" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$meta_eval_summeval.coverage" NAME="meta_eval_summeval 覆盖结果" MODIFIED="1733027506730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2llama.coverage" NAME="convert2llama 覆盖结果" MODIFIED="1733032302486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$VQA_Multi_Choice_ACC.coverage" NAME="VQA_Multi_Choice_ACC 覆盖结果" MODIFIED="1733182803517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$score_d2t.coverage" NAME="score_d2t 覆盖结果" MODIFIED="1732997629098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$main.coverage" NAME="main 覆盖结果" MODIFIED="1735184527898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$DriveLM_Nuscenes.coverage" NAME="DriveLM_Nuscenes 覆盖结果" MODIFIED="1732839826471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_1_5_Flash_Finetuning.coverage" NAME="Gemini-1.5-Flash-Finetuning 覆盖结果" MODIFIED="1733083516736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2Gemini.coverage" NAME="convert2Gemini 覆盖结果" MODIFIED="1733027555580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_DriveLM_test.coverage" NAME="Gemini_DriveLM_test 覆盖结果" MODIFIED="1733087932808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gpt4_DriveLM_test.coverage" NAME="Gpt4_DriveLM_test 覆盖结果" MODIFIED="1733280691638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt3_score.coverage" NAME="gpt3_score 覆盖结果" MODIFIED="1732997163675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$nuscenes_tutorial.coverage" NAME="nuscenes_tutorial 覆盖结果" MODIFIED="1733940601680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader/Nuscenes_image" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$util.coverage" NAME="util 覆盖结果" MODIFIED="1732944887961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Util" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$main.coverage" NAME="main 覆盖结果" MODIFIED="1732944497173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_API.coverage" NAME="gpt4_API 覆盖结果" MODIFIED="1733273172803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert_data.coverage" NAME="convert_data 覆盖结果" MODIFIED="1733032289196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_API.coverage" NAME="Gemini_API 覆盖结果" MODIFIED="1733271504905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_eval.coverage" NAME="gpt4_eval 覆盖结果" MODIFIED="1733005927810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH$extract_data.coverage" NAME="extract_data 覆盖结果" MODIFIED="1732838135048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt_inference.coverage" NAME="gpt_inference 覆盖结果" MODIFIED="1732997623618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_DriveLM_test.coverage" NAME="Gemini_DriveLM_test 覆盖结果" MODIFIED="1733087932808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$VQA_Multi_Choice_ACC.coverage" NAME="VQA_Multi_Choice_ACC 覆盖结果" MODIFIED="1733182803517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2Gemini.coverage" NAME="convert2Gemini 覆盖结果" MODIFIED="1733027555580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_1_5_Flash_Finetuning.coverage" NAME="Gemini-1.5-Flash-Finetuning 覆盖结果" MODIFIED="1733083516736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt3_score.coverage" NAME="gpt3_score 覆盖结果" MODIFIED="1732997163675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$Example.coverage" NAME="Example 覆盖结果" MODIFIED="1735260892533" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$meta_eval_summeval.coverage" NAME="meta_eval_summeval 覆盖结果" MODIFIED="1733027506730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$score_d2t.coverage" NAME="score_d2t 覆盖结果" MODIFIED="1732997629098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2llama.coverage" NAME="convert2llama 覆盖结果" MODIFIED="1733032302486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$extract_data.coverage" NAME="extract_data 覆盖结果" MODIFIED="1732838135048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_API.coverage" NAME="Gemini_API 覆盖结果" MODIFIED="1733271504905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$Gpt4_DriveLM_test.coverage" NAME="Gpt4_DriveLM_test 覆盖结果" MODIFIED="1733280691638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$convert_data.coverage" NAME="convert_data 覆盖结果" MODIFIED="1733032289196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_eval.coverage" NAME="gpt4_eval 覆盖结果" MODIFIED="1733005927810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_API.coverage" NAME="gpt4_API 覆盖结果" MODIFIED="1733273172803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH$nuscenes_tutorial.coverage" NAME="nuscenes_tutorial 覆盖结果" MODIFIED="1733940601680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader/Nuscenes_image" />
   </component>
 </project>
