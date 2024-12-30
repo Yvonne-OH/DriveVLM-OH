@@ -6,6 +6,7 @@ from accelerate import Accelerator
 from PIL import Image as PIL_Image
 from peft import PeftModel
 from transformers import MllamaForConditionalGeneration, MllamaProcessor
+from huggingface_hub import HfFolder
 
 # Initialize accelerator
 accelerator = Accelerator()
@@ -16,6 +17,20 @@ DEFAULT_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 MAX_OUTPUT_TOKENS = 2048
 MAX_IMAGE_SIZE = (1120, 1120)
 
+def get_hf_token():
+    """Retrieve Hugging Face token from the cache or environment."""
+    # Check if a token is explicitly set in the environment
+    token = os.getenv("HUGGINGFACE_TOKEN")
+    if token:
+        return token
+
+    # Automatically retrieve the token from the Hugging Face cache (set via huggingface-cli login)
+    token = HfFolder.get_token()
+    if token:
+        return token
+
+    print("Hugging Face token not found. Please login using `huggingface-cli login`.")
+    sys.exit(1)
 
 def load_model_and_processor(model_name: str, finetuning_path: str = None, device: str = "auto", max_memory: dict = None):
     """
