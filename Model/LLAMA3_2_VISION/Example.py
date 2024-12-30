@@ -1,18 +1,51 @@
+import torch
+import base64
 import transformers
 from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+from accelerate import infer_auto_device_map, init_empty_weights, dispatch_model
 
+from PIL import Image
+import matplotlib
+import matplotlib.pyplot as plt
+
+# 设置非交互式后端
+matplotlib.use('Agg')
+
+def display_local_image(image_path, save_path='output_image.png'):
+    img = Image.open(image_path)
+    plt.imshow(img)
+    plt.axis('off')  # 隐藏坐标轴
+    plt.savefig(save_path, bbox_inches='tight')  # 保存图片到文件
+    print(f"Image saved to {save_path}")
+
+def  encode_image(image_path):
+    with open(image_path, "rb") as f:
+        return base64.b64encode(f.read()).decode('utf-8')
+
+encode_image('car.png')
+
+# 显示并保存图像
+display_local_image('car.png', save_path='car_output.png')
+
+#%%
+# Print the number of GPUs available
+print("Number of GPUs available:", torch.cuda.device_count())
+for i in range(torch.cuda.device_count()):
+    print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
+
+# Auto-detect device
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print(f"Using device: {device}")
+
+
+
+# Define the directory for the model
 model_dir = r'/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
 
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
-model = AutoModelForCausalLM.from_pretrained(model_dir, torch_dtype='auto', device_map='auto')
+model = AutoModelForCausalLM.from_pretrained(model_dir, torch_dtype='auto', device_map='sequential')
 
-pipeline = transformers.pipeline(
-    task = 'text-generation',
-    model=model_dir,
-    torch_dtype='auto',
-    device_map = 'auto')
-
+#%%
 while 1:
     print(f'Enter a prompt to generate a response:')
     prompt = input()
@@ -20,7 +53,6 @@ while 1:
         {'role': 'system', 'content': 'aaa'},
         {'role': 'user', 'content': prompt}
     ]
-
 
     text = tokenizer.apply_chat_template(
         messages,
