@@ -7,7 +7,6 @@ from PIL import Image as PIL_Image
 from peft import PeftModel
 from transformers import MllamaForConditionalGeneration, MllamaProcessor
 
-from huggingface_hub import HfFolder
 # Initialize accelerator
 accelerator = Accelerator()
 device = accelerator.device
@@ -16,26 +15,6 @@ device = accelerator.device
 DEFAULT_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 MAX_OUTPUT_TOKENS = 2048
 MAX_IMAGE_SIZE = (1120, 1120)
-
-def get_hf_token():
-    """Retrieve Hugging Face token from the cache or environment."""
-
-    # 检查是否在环境变量中设置了 Hugging Face 的访问令牌。
-    # 如果存在，则直接返回这个令牌。
-    token = os.getenv("HUGGINGFACE_TOKEN")
-    if token:
-        return token
-
-    # 如果环境变量未设置，尝试从 Hugging Face 的缓存中获取令牌。
-    # 这要求用户通过 `huggingface-cli login` 登录后，令牌被存储在本地。
-    token = HfFolder.get_token()
-    if token:
-        return token
-
-    # 如果两种方法都无法找到令牌，提示用户登录 Hugging Face。
-    print("Hugging Face token not found. Please login using `huggingface-cli login`.")
-    # 退出程序，返回状态码 1，表示错误。
-    sys.exit(1)
 
 
 def load_model_and_processor(model_name: str, finetuning_path: str = None, device: str = "auto", max_memory: dict = None):
@@ -54,7 +33,7 @@ def load_model_and_processor(model_name: str, finetuning_path: str = None, devic
     print(f"Loading model: {model_name}")
 
     # Step 2: 获取 Hugging Face 的访问令牌，用于认证加载模型和处理器
-    hf_token = get_hf_token()
+    #hf_token = get_hf_token()
 
     # Step 3: 加载模型
     # 使用 `MllamaForConditionalGeneration` 加载模型：
@@ -68,14 +47,14 @@ def load_model_and_processor(model_name: str, finetuning_path: str = None, devic
         use_safetensors=True,
         device_map=device,
         max_memory=max_memory,
-        token=hf_token
+        #token=hf_token
     )
 
     # Step 4: 加载处理器
     # 使用 `MllamaProcessor` 加载处理器以处理输入数据（如文本和图像）。
     processor = MllamaProcessor.from_pretrained(
         model_name,
-        token=hf_token,
+        #token=hf_token,
         use_safetensors=True
     )
 
@@ -123,7 +102,7 @@ if __name__ == "__main__":
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
     finetuning_path = None  # 如果有微调路径可以设置
-    image_path = "example_image.jpg"  # 替换为本地图片路径
+    image_path = "car.png"  # 替换为本地图片路径
     prompt_text = "Describe this image in detail."
     temperature = 0.7
     top_p = 0.9
@@ -139,7 +118,7 @@ if __name__ == "__main__":
             model_name=model_name,
             finetuning_path=finetuning_path,
             device="auto",  # 自动设备映射
-            max_memory={0: "21GB", 1: "7GB"}  # GPU 显存限制
+            max_memory={0: "21GB", 1: "6GB"}  # GPU 显存限制
         )
         print("Model and processor loaded successfully.")
     except Exception as e:
