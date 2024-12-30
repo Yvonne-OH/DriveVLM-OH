@@ -67,6 +67,7 @@ while 1:
         max_new_tokens=512,
         attention_mask=attention_mask,
         pad_token_id=tokenizer.eos_token_id,
+        do_sample=True,
     )
 
     generated_ids = [output_ids[len(input_ids):] for input_ids, output_ids in zip(model_input.input_ids, generated_ids)]
