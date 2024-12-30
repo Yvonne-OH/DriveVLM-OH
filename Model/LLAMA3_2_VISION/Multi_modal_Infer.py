@@ -5,7 +5,6 @@ import torch
 from accelerate import Accelerator
 from PIL import Image as PIL_Image
 from peft import PeftModel
-import gradio as gr
 from transformers import MllamaForConditionalGeneration, MllamaProcessor
 
 from huggingface_hub import HfFolder
@@ -119,3 +118,57 @@ def generate_text_from_image(model, processor, image, prompt_text: str, temperat
     inputs = processor(image, prompt, return_tensors="pt").to(device)
     output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
     return processor.decode(output[0])[len(prompt):]
+
+if __name__ == "__main__":
+    # 配置参数
+    model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
+    finetuning_path = None  # 如果有微调路径可以设置
+    image_path = "example_image.jpg"  # 替换为本地图片路径
+    prompt_text = "Describe this image in detail."
+    temperature = 0.7
+    top_p = 0.9
+
+    # 确保 CUDA 可用
+    if not torch.cuda.is_available():
+        print("CUDA is not available. Please check your GPU configuration.")
+        #return
+
+        # 加载模型和处理器
+    try:
+        model, processor = load_model_and_processor(
+            model_name=model_name,
+            finetuning_path=finetuning_path,
+            device="auto",  # 自动设备映射
+            max_memory={0: "21GB", 1: "7GB"}  # GPU 显存限制
+        )
+        print("Model and processor loaded successfully.")
+    except Exception as e:
+        print(f"Failed to load model and processor: {e}")
+        #return
+
+        # 加载并处理图像
+    try:
+        image = process_image(image_path=image_path)
+        print("Image loaded and processed successfully.")
+    except Exception as e:
+        print(f"Failed to process image: {e}")
+        #return
+
+        # 生成文本
+    try:
+        generated_text = generate_text_from_image(
+            model=model,
+            processor=processor,
+            image=image,
+            prompt_text=prompt_text,
+            temperature=temperature,
+            top_p=top_p
+        )
+        print("Generated Text:")
+        print(generated_text)
+    except Exception as e:
+        print(f"Failed to generate text: {e}")
+
+
+
+
