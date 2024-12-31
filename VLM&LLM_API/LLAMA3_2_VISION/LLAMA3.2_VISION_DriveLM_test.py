@@ -1,3 +1,14 @@
+import Multi_modal_Infer
+
+import re
+import json
+import ast
+import openai
+from PIL import Image
+from Util.util import parse_list_boxes_with_label, plot_bounding_boxes
+
+from PIL import Image, ImageDraw, ImageFont
+
 import base64
 import re
 import json
@@ -11,6 +22,43 @@ from PIL import Image
 # Suppress logging warnings
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
+
+
+import torch
+
+# 配置参数
+model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
+finetuning_path = None  # 如果有微调路径可以设置
+image_path = "car.png"  # 替换为本地图片路径
+prompt_text = "Describe this image in detail."
+temperature = 0.7
+top_p = 0.9
+
+# 确保 CUDA 可用
+if not torch.cuda.is_available():
+    print("CUDA is not available. Please check your GPU configuration.")
+    #return
+
+    # 加载模型和处理器
+try:
+    model, processor = Multi_modal_Infer.load_model_and_processor(
+        model_name=model_name,
+        finetuning_path=finetuning_path,
+        device="auto",  # 自动设备映射
+        max_memory={0: "21GB", 1: "6GB"}  # GPU 显存限制
+    )
+    print("Model and processor loaded successfully.")
+except Exception as e:
+    print(f"Failed to load model and processor: {e}")
+    #return
+
+    # 加载并处理图像
+try:
+    image =  Multi_modal_Infer.process_image(image_path=image_path)
+    print("Image loaded and processed successfully.")
+except Exception as e:
+    print(f"Failed to process image: {e}")
+    #return
 
 
 
@@ -284,6 +332,9 @@ if __name__ == '__main__':
     Model_name = "gemini-1.5-pro"
 
     Gpt4_VQA_Nusence_COT_benchmark(Save_path, Image_path, Result_path, Model_name, "behavior", 20, 50)
+
+
+
 
 
 

@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Add LLAMA-MULTI INTERFACE">
+      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/bike.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/car_output.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4/Gpt4_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4/Gpt4_DriveLM_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,63 +61,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.DriveLM_Nuscenes.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Example.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Gemini-1.5-Flash-Finetuning.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Gemini_API.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Gemini_DriveLM_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Gpt4_DriveLM_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Multi_modal_Infer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.VQA_Multi_Choice_ACC.executor&quot;: &quot;Run&quot;,
-    &quot;Python.convert2Gemini.executor&quot;: &quot;Run&quot;,
-    &quot;Python.convert2llama.executor&quot;: &quot;Run&quot;,
-    &quot;Python.convert_data.executor&quot;: &quot;Run&quot;,
-    &quot;Python.example_Ollama.executor&quot;: &quot;Run&quot;,
-    &quot;Python.extract_data.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gpt3_score.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gpt4_API.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gpt4_eval.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gpt_inference.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.meta_eval_summeval.executor&quot;: &quot;Run&quot;,
-    &quot;Python.parse.executor&quot;: &quot;Run&quot;,
-    &quot;Python.score_d2t.executor&quot;: &quot;Run&quot;,
-    &quot;Python.util.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
-    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/oh/Documents/Diffusion/DriveVLM-OH/Evaluator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.DriveLM_Nuscenes.executor": "Run",
+    "Python.Example.executor": "Run",
+    "Python.Gemini-1.5-Flash-Finetuning.executor": "Run",
+    "Python.Gemini_API.executor": "Run",
+    "Python.Gemini_DriveLM_test.executor": "Run",
+    "Python.Gpt4_DriveLM_test.executor": "Run",
+    "Python.Multi_modal_Infer (1).executor": "Run",
+    "Python.Multi_modal_Infer.executor": "Run",
+    "Python.VQA_Multi_Choice_ACC.executor": "Run",
+    "Python.convert2Gemini.executor": "Run",
+    "Python.convert2llama.executor": "Run",
+    "Python.convert_data.executor": "Run",
+    "Python.example_Ollama.executor": "Run",
+    "Python.extract_data.executor": "Run",
+    "Python.gpt3_score.executor": "Run",
+    "Python.gpt4_API.executor": "Run",
+    "Python.gpt4_eval.executor": "Run",
+    "Python.gpt_inference.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.meta_eval_summeval.executor": "Run",
+    "Python.parse.executor": "Run",
+    "Python.score_d2t.executor": "Run",
+    "Python.util.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "/home/oh/Documents/Diffusion/DriveVLM-OH/Evaluator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Evaluator" />
       <recent name="$PROJECT_DIR$/DataLoader" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API\LLAMA3_2_VISION" />
+      <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API" />
       <recent name="$PROJECT_DIR$/VLM&amp;LLM_API/media" />
       <recent name="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
       <recent name="$PROJECT_DIR$/Evaluator/GPT_Score" />
-      <recent name="$PROJECT_DIR$/Metric" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Multi_modal_Infer">
+  <component name="RunManager" selected="Python.Multi_modal_Infer (1)">
     <configuration name="Example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH-local" />
       <option name="ENV_FILES" value="" />
@@ -139,7 +143,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Gpt4_DriveLM_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Multi_modal_Infer (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,13 +152,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4/Gpt4_DriveLM_test.py" />
-      <option name="PARAMETERS" value="OPENAI_API_KEY = &quot;AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -232,19 +236,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Multi_modal_Infer (1)" />
       <item itemvalue="Python.parse" />
       <item itemvalue="Python.Multi_modal_Infer" />
       <item itemvalue="Python.example_Ollama" />
       <item itemvalue="Python.Example" />
-      <item itemvalue="Python.Gpt4_DriveLM_test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Multi_modal_Infer (1)" />
         <item itemvalue="Python.Multi_modal_Infer" />
         <item itemvalue="Python.parse" />
         <item itemvalue="Python.example_Ollama" />
         <item itemvalue="Python.Example" />
-        <item itemvalue="Python.Gpt4_DriveLM_test" />
       </list>
     </recent_temporary>
   </component>
@@ -280,7 +284,7 @@
       <workItem from="1735530523253" duration="343000" />
       <workItem from="1735530884771" duration="3500000" />
       <workItem from="1735537475510" duration="7191000" />
-      <workItem from="1735544976466" duration="364000" />
+      <workItem from="1735544976466" duration="10359000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <option name="closed" value="true" />
@@ -634,7 +638,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735544935395</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Add LLAMA-MULTI INTERFACE">
+      <option name="closed" value="true" />
+      <created>1735545856277</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1735545856277</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -697,6 +709,7 @@
     <SUITE FILE_PATH="coverage/DriveVLM_OH$util.coverage" NAME="util 覆盖结果" MODIFIED="1732944887961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Util" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Multi_modal_Infer.coverage" NAME="Multi_modal_Infer Coverage Results" MODIFIED="1735542548624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_1_5_Flash_Finetuning.coverage" NAME="Gemini-1.5-Flash-Finetuning 覆盖结果" MODIFIED="1733083516736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Multi_modal_Infer__1_.coverage" NAME="Multi_modal_Infer (1) Coverage Results" MODIFIED="1735612090445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$example_Ollama.coverage" NAME="example_Ollama Coverage Results" MODIFIED="1735537524635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt3_score.coverage" NAME="gpt3_score 覆盖结果" MODIFIED="1732997163675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$score_d2t.coverage" NAME="score_d2t 覆盖结果" MODIFIED="1732997629098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
