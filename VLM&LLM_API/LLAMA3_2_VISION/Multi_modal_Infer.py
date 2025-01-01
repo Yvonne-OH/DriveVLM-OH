@@ -3,11 +3,11 @@ import os
 import sys
 import torch
 from accelerate import Accelerator
-from PIL import Image as PIL_Image
+from PIL import Image, ImageDraw, ImageFont
 from peft import PeftModel
 from transformers import MllamaForConditionalGeneration, MllamaProcessor
 from huggingface_hub import HfFolder
-
+from transformers import BitsAndBytesConfig
 from torch.quantization import quantize_dynamic
 
 # Initialize accelerator
@@ -58,10 +58,16 @@ def load_model_and_processor(model_name: str, finetuning_path: str = None, devic
     # - `use_safetensors=True`: 指定使用 `safetensors` 格式以提高加载安全性。
     # - `device_map=device`: 自动分配设备（如 GPU）。
     # - `token=hf_token`: 提供 Hugging Face 的认证令牌。
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_use_double_quant=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16
+    )
+
     model = MllamaForConditionalGeneration.from_pretrained(
         model_name,
-        #torch_dtype=torch.bfloat16,
-        load_in_8bit=True,  # 启用 INT8 精度
+        quantization_config=bnb_config,
         use_safetensors=True,
         torch_dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
@@ -103,9 +109,31 @@ def load_model_and_processor(model_name: str, finetuning_path: str = None, devic
     # Step 7: 返回加载后的模型和处理器
     return model, processor
 
-def process_image(image_paths: list = None, images: list = None, resize_to: tuple = None) -> list:
+def process_image(image_paths: list = None, images: list = None, resize_to: tuple = None, merge: str = None, grid_size: tuple = None, max_dimensions: tuple = None) -> list:
     """Process and validate image input, with optional resizing"""
     processed_images = []
+
+    # Check if all images have the same dimensions before processing
+    all_image_paths = []
+    if image_paths is not None:
+        all_image_paths.extend(image_paths)
+    if images is not None:
+        all_image_paths.extend(images)
+
+    if len(all_image_paths) > 1:
+        dimensions = []
+        for img_path in all_image_paths:
+            if isinstance(img_path, str) and os.path.exists(img_path):
+                img = Image.open(img_path)
+            elif isinstance(img_path, Image.Image):
+                img = img_path
+            else:
+                raise ValueError(f"Invalid image or path: {img_path}")
+            dimensions.append(img.size)
+
+        if len(set(dimensions)) > 1:
+            raise ValueError("All images must have the same dimensions before further processing.")
+
 
     if images is not None:
         for img in images:
@@ -116,7 +144,7 @@ def process_image(image_paths: list = None, images: list = None, resize_to: tupl
     if image_paths is not None:
         for path in image_paths:
             if os.path.exists(path):
-                img = PIL_Image.open(path)
+                img = Image.open(path)
                 if resize_to:
                     img = img.resize(resize_to)
                 processed_images.append(img.convert("RGB"))
@@ -126,8 +154,89 @@ def process_image(image_paths: list = None, images: list = None, resize_to: tupl
     if not processed_images:
         raise ValueError("No valid images provided")
 
-    return processed_images
+    if merge:
+        # Add borders and numbering to each image
+        bordered_images = []
+        for idx, img in enumerate(processed_images):
+            border_size = 10  # Size of the border
+            bordered_img = Image.new("RGB", (img.width + 2 * border_size, img.height + 2 * border_size), "black")
+            bordered_img.paste(img, (border_size, border_size))
 
+            # Add numbering with dynamic font size
+            draw = ImageDraw.Draw(bordered_img)
+            font_size = max(20, min(img.width, img.height) // 10)  # Dynamic font size based on image size
+            try:
+                font = ImageFont.truetype("arial.ttf", font_size)
+            except IOError:
+                font = ImageFont.load_default()  # Fallback to default font if arial.ttf is not available
+            draw.text((10, 10), f"{idx + 1}", fill="red", font=font)
+            bordered_images.append(bordered_img)
+
+        # Update processed_images to bordered_images
+        processed_images = bordered_images
+
+        # Determine merging layout
+        if merge == 'auto':
+            num_images = len(processed_images)
+            rows = int(num_images ** 0.5)
+            cols = (num_images + rows - 1) // rows  # Ensure all images fit
+            grid_size = (rows, cols)
+            merge = 'grid'
+
+        if merge == 'horizontal':
+            # Horizontal layout
+            total_width = sum(img.width for img in processed_images)
+            total_height = max(img.height for img in processed_images)
+            merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+            x_offset = 0
+            for img in processed_images:
+                merged_image.paste(img, (x_offset, 0))
+                x_offset += img.width
+
+        elif merge == 'vertical':
+            # Vertical layout
+            total_width = max(img.width for img in processed_images)
+            total_height = sum(img.height for img in processed_images)
+            merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+            y_offset = 0
+            for img in processed_images:
+                merged_image.paste(img, (0, y_offset))
+                y_offset += img.height
+
+        elif merge == 'grid' and grid_size:
+            # Grid layout
+            rows, cols = grid_size
+            cell_width = max(img.width for img in processed_images)
+            cell_height = max(img.height for img in processed_images)
+
+            total_width = cols * cell_width
+            total_height = rows * cell_height
+            merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+            for idx, img in enumerate(processed_images):
+                row = idx // cols
+                col = idx % cols
+                x_offset = col * cell_width
+                y_offset = row * cell_height
+                merged_image.paste(img, (x_offset, y_offset))
+
+        else:
+            raise ValueError("Invalid merge option or missing grid_size for grid layout")
+
+        # Scale merged image if it exceeds max_dimensions
+        if max_dimensions:
+            max_width, max_height = max_dimensions
+            if merged_image.width > max_width or merged_image.height > max_height:
+                scale_ratio = min(max_width / merged_image.width, max_height / merged_image.height)
+                new_width = int(merged_image.width * scale_ratio)
+                new_height = int(merged_image.height * scale_ratio)
+                merged_image = merged_image.resize((new_width, new_height), Image.ANTIALIAS)
+
+        return [merged_image]
+
+    return processed_images
 
 
 def generate_text_from_image(model, processor, images, prompt_text: str, temperature: float, top_p: float):
@@ -167,7 +276,7 @@ if __name__ == "__main__":
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
     finetuning_path = None  # 如果有微调路径可以设置
-    image_path = ["car.png","bike.png"]  # 替换为本地图片路径
+    image_path = ["bike.png","bike.png","bike.png","bike.png","bike.png","bike.png"]  # 替换为本地图片路径
     prompt_text = "Describe this image in detail."
     temperature = 0.7
     top_p = 0.9
@@ -194,7 +303,8 @@ if __name__ == "__main__":
 
         # 加载并处理图像
     try:
-        image = process_image(image_paths=image_path, resize_to=resize_to)
+        image = process_image(image_paths=image_path, resize_to=resize_to, merge="auto")
+        image[0].save("merged_image.png")
         print("Image loaded and processed successfully.")
     except Exception as e:
         print(f"Failed to process image: {e}")
