@@ -3,71 +3,57 @@ import Multi_modal_Infer
 import re
 import json
 import ast
-import openai
-from PIL import Image
-from Util.util import parse_list_boxes_with_label, plot_bounding_boxes
+
 
 from PIL import Image, ImageDraw, ImageFont
 
 import base64
-import re
 import json
-import ast
-import openai
+import torch
+
+
 import time
 from tqdm import tqdm
 import os
-from PIL import Image
 
 # Suppress logging warnings
 os.environ["GRPC_VERBOSITY"] = "ERROR"
 os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
 
 
-import torch
 
-# 配置参数
-model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
-finetuning_path = None  # 如果有微调路径可以设置
-image_path = "car.png"  # 替换为本地图片路径
-prompt_text = "Describe this image in detail."
-temperature = 0.7
-top_p = 0.9
-
-# 确保 CUDA 可用
-if not torch.cuda.is_available():
-    print("CUDA is not available. Please check your GPU configuration.")
-    #return
-
-    # 加载模型和处理器
-try:
-    model, processor = Multi_modal_Infer.load_model_and_processor(
-        model_name=model_name,
-        finetuning_path=finetuning_path,
-        device="auto",  # 自动设备映射
-        max_memory={0: "21GB", 1: "6GB"}  # GPU 显存限制
-    )
-    print("Model and processor loaded successfully.")
-except Exception as e:
-    print(f"Failed to load model and processor: {e}")
-    #return
-
-    # 加载并处理图像
-try:
-    image =  Multi_modal_Infer.process_image(image_path=image_path)
-    print("Image loaded and processed successfully.")
-except Exception as e:
-    print(f"Failed to process image: {e}")
-    #return
+def assistant(content: str):
+    return { "role": "assistant", "content": content }
 
 
+def user_input(prompt_text: str, images: list = None):
+    """
+    构造用户输入，可以包含文本和图片。
 
-# Function to encode the image
-def encode_image(image_path):
-  with open(image_path, "rb") as image_file:
-    return base64.b64encode(image_file.read()).decode('utf-8')
+    Args:
+        prompt_text (str): 用户输入的文本内容。
+        images (list, optional): 图片 URL 列表。如果没有图片，默认为 None。
 
-def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_name, task_type , max_request_rate=1 ,sample_num=20):
+    Returns:
+        dict: 用户输入的结构化消息。
+    """
+    content = []
+    if images:
+        # 添加图片内容
+        content.extend([{"type": "image"} for _ in images])
+    # 添加文本内容
+    content.append({"type": "text", "text": prompt_text})
+
+    return {"role": "user", "content": content}
+
+def system(content: str):
+    return { "role": "system", "content": content }
+
+
+def llama3_VQA_Nusence_COT_benchmark(
+        json_path, image_path, result_path,
+        model,processor, device,
+        task_type  ,sample_num=20, MAX_OUTPUT_TOKENS = 2048):
     """
     Process QA dataset, analyze images, and generate responses using a specified model.
 
@@ -79,15 +65,9 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         model_name (str): Name of the model.
         sample_num (int): Number of samples to process.
     """
-    # Load API key from environment variable
-    openai.api_key =  "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"
 
     # Write to JSON file after each response
-    result_path = result_path + task_type + "_test_result_GPT4.json"
-
-    # if not os.getenv("OPENAI_API_KEY"):
-    #     print("Error: API_KEY environment variable is not set.")
-    #     return
+    result_path = result_path + task_type + "_test_result_LLAMA3.2.json"
 
     if task_type == "behavior":
         system_instruction =("Now you will answer the questions as a driver. "
@@ -109,7 +89,6 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         print("Error: Invalid task type.")
         return
 
-
     # Load JSON file
     try:
         with open(json_path, 'r') as f:
@@ -121,8 +100,6 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
     # Iterate through samples with a limit of `sample_num`
     for i, sample in enumerate(tqdm(qa_data, desc="Generating responses: ")):
 
-        time.sleep(int(60/max_request_rate))  # Limit request rate
-
         if i >= sample_num:
             break
 
@@ -132,7 +109,9 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
             continue
 
         try:
-            files = [encode_image(image) for image in sample['image']]
+            images = Multi_modal_Infer.process_image( image_paths = sample['image'], merge = "auto", max_dimensions=(1120,1120))
+            """Process and validate image input, with optional resizing"""
+            #files = [encode_image(image) for image in sample['image']]
         except Exception as e:
             print(f"Error opening files for sample {i}: {e}")
             continue
@@ -144,7 +123,8 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         input_2 = (
             """The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):
 
-                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.
+                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;
+                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.
 
                 In the format <object_id,camera_name,x_coord,y_coord>:
 
@@ -159,139 +139,103 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
             The y-axis extends vertically, increasing from top (0) to bottom (1000)."""
         )
 
-        conversation_history = [
-            {"role": "system", "content": system_instruction},
-            {"role": "user", "content": "Hello"},
-            {"role": "assistant", "content": "Great to meet you. What would you like to know?"},
+        conversation = [
+            system(system_instruction),
+            user_input(f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**", images),
+            user_input(input_2),
+            #user_input("Can you help me analyze the images and answer questions step by step?"),
         ]
+
+        #print(conversation)
+
 
         # Start chat session
         if task_type == "behavior":
 
             try:
-                response = openai.chat.completions.create(
-                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
-                    messages=conversation_history,
-                    temperature=0.7,  # 控制回复的随机性
-                )
+                """
+                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+                with torch.no_grad():  # Disable gradient computation to save memory
+                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+                assistant_message = processor.decode(output[0])[len(prompt):]
 
-                # 获取 GPT 的回复
-                assistant_message = response.choices[0].message.content
-                print(f"GPT: {assistant_message}")
-                conversation_history.append({"role": "assistant", "content": assistant_message})
-
-                # Path to your image
-                image_path = "../media/traffic.png"
-
-                # Getting the base64 string
-                base64_image = encode_image(image_path)
-
-
-                # Step 1: Provide input content
-                user_input_1 = {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text" : f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**"},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[0]}"
-                                },
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[1]}"
-                                },
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[2]}"
-                                },
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[3]}"
-                                },
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[4]}"
-                                },
-                            },
-                            {"type": "image_url",
-                                "image_url": {
-                                    "url": f"data:image/jpeg;base64,{files[5]}"
-                                },
-                            },
-
-                            {"type": "text",
-                             "text": f"{input_2}"},
-                            {"type": "text",
-                             "text": "Can you help me analyze the images and answer questions step by step?"},
-                        ],
-                    }
+                print(f"LLAMA: {assistant_message}")
+                print("*" * 50)
+                conversation.append(assistant(assistant_message))
+"""
 
                 # 添加用户消息到对话历史
-                conversation_history.append(user_input_1)
-                response = openai.chat.completions.create(
-                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
-                    messages=conversation_history,
-                    temperature=0.7,  # 控制回复的随机性
-                )
-                # 获取 GPT 的回复
-                assistant_message = response.choices[0].message.content
-                print("*"*50)
-                print(f"GPT: {assistant_message}")
-                conversation_history.append({"role": "assistant", "content": assistant_message})
-
-                user_input_2 = {
-                    "role": "user",
-                    "content": [
-                        {"type": "text",
-                         "text": """Analyze the image and assess the following:
+                conversation.append(user_input("""Analyze the image and assess the following:
                     What is the current state of the ego vehicle (position, speed, or behavior)?
                     What are the states of the surrounding vehicles and pedestrians, and how might they influence the ego vehicle's actions?
-                    Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""},
-                    ],
-                }
+                    Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""))
 
-                # 添加用户消息到对话历史
-                conversation_history.append(user_input_2)
-                response = openai.chat.completions.create(
-                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
-                    messages=conversation_history,
-                    temperature=0.7,  # 控制回复的随机性
+
+                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+                with torch.no_grad():  # Disable gradient computation to save memory
+                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+
+                # 提取生成的新部分（避免重复提示）
+                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+
+                # 解码生成的 token
+                assistant_message = processor.decode(
+                    generated_tokens[0],  # 解码第一个样本
+                    skip_special_tokens=True,  # 跳过特殊标记
+                    clean_up_tokenization_spaces=True  # 自动清理多余空格
                 )
-                # 获取 GPT 的回复
-                assistant_message = response.choices[0].message.content
-                print("*"*50)
-                print(f"GPT: {assistant_message}")
-                conversation_history.append({"role": "assistant", "content": assistant_message})
 
-                user_input_3 = {
-                    "role": "user",
-                    "content": [
-                        {"type": "text",
-                         "text": f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"},
-                    ],
-                }
+                print(f"LLAMA: {assistant_message}")
+                print("*" * 50)
+                conversation.append(assistant(assistant_message))
 
-                # 添加用户消息到对话历史
-                conversation_history.append(user_input_3)
-                response = openai.chat.completions.create(
-                    model="gpt-4o",  # 选择模型，"gpt-4" 或 "gpt-3.5-turbo"
-                    messages=conversation_history,
-                    temperature=0.7,  # 控制回复的随机性
+                conversation.append(user_input( f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
+
+                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+                with torch.no_grad():  # Disable gradient computation to save memory
+                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+
+                # 提取生成的新部分（避免重复提示）
+                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+
+                # 解码生成的 token
+                assistant_message = processor.decode(
+                    generated_tokens[0],  # 解码第一个样本
+                    skip_special_tokens=True,  # 跳过特殊标记
+                    clean_up_tokenization_spaces=True  # 自动清理多余空格
                 )
-                # 获取 GPT 的回复
-                assistant_message = response.choices[0].message.content
-                print("*"*50)
-                print(f"GPT: {assistant_message}")
-                conversation_history.append({"role": "assistant", "content": assistant_message})
+
+                print(f"LLAMA: {assistant_message}")
+                print("*" * 50)
+                conversation.append(assistant(assistant_message))
+
+                conversation.append(user_input(
+                    "provide the final answer in the following format: </ans>answer</ans>"))
+
+                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+                with torch.no_grad():  # Disable gradient computation to save memory
+                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+
+                # 提取生成的新部分（避免重复提示）
+                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+
+                # 解码生成的 token
+                assistant_message = processor.decode(
+                    generated_tokens[0],  # 解码第一个样本
+                    skip_special_tokens=True,  # 跳过特殊标记
+                    clean_up_tokenization_spaces=True  # 自动清理多余空格
+                )
+
+                print(f"LLAMA: {assistant_message}")
+                print("*" * 50)
 
                 final_response = assistant_message
                 print("*"*50)
@@ -300,7 +244,6 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
             except Exception as e:
                 print(f"Error during conversation: {e}")
                 continue
-
 
         # Add "Model_Output" to conversations
         try:
@@ -319,19 +262,64 @@ def Gpt4_VQA_Nusence_COT_benchmark(json_path, image_path, result_path, model_nam
         except Exception as e:
             print(f"Error adding response or writing sample {i}: {e}")
 
+
+def get_optimal_device():
+    if not torch.cuda.is_available():
+        return "cpu"
+
+    # 获取所有设备的显存信息
+    devices = list(range(torch.cuda.device_count()))
+    free_memory = [torch.cuda.get_device_properties(i).total_memory - torch.cuda.memory_allocated(i) for i in devices]
+
+    # 选择可用显存最大的设备
+    optimal_device = f"cuda:{free_memory.index(max(free_memory))}"
+    return optimal_device
+
+
 if __name__ == '__main__':
     # 加载数据
-    Json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/test_eval.json"
-    Image_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/"
-    Save_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/Multi_choice_behavior_test_Gemini.json"
-    Result_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/"
+
+    Json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test_eval.json"
+    Image_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/"
+    Save_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/Multi_choice_behavior_test_Llama.json"
+    Result_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/"
 
     # 配置参数
-    Api_key = "AIzaSyCQSNKK5sH4yN87JQFnyEVQVhsOcam8VII"
-    #Model_name = "gemini-exp-1121"
-    Model_name = "gemini-1.5-pro"
+    model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
+    finetuning_path = None  # 如果有微调路径可以设置
 
-    Gpt4_VQA_Nusence_COT_benchmark(Save_path, Image_path, Result_path, Model_name, "behavior", 20, 50)
+    temperature = 0.7
+    top_p = 0.9
+
+    # 确保 CUDA 可用
+    if not torch.cuda.is_available():
+        print("CUDA is not available. Please check your GPU configuration.")
+        # return
+
+        # 加载模型和处理器
+    try:
+        model, processor = Multi_modal_Infer.load_model_and_processor(
+            model_name=model_name,
+            finetuning_path=finetuning_path,
+            device="sequential",  # 自动设备映射
+            max_memory={0: "22GB", 1: "5GB"}  # GPU 显存限制
+        )
+        print("Model and processor loaded successfully.")
+    except Exception as e:
+        print(f"Failed to load model and processor: {e}")
+        # return
+
+    # 获取当前设备
+    device = get_optimal_device()
+    print(f"Selected optimal device: {device}")
+
+
+    llama3_VQA_Nusence_COT_benchmark(
+        Save_path, Image_path, Result_path,
+        model,processor, device,
+        "behavior", 20 , 512)
+
+
 
 
 

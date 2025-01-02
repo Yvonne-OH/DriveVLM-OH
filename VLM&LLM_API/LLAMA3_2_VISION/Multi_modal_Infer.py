@@ -232,7 +232,7 @@ def process_image(image_paths: list = None, images: list = None, resize_to: tupl
                 scale_ratio = min(max_width / merged_image.width, max_height / merged_image.height)
                 new_width = int(merged_image.width * scale_ratio)
                 new_height = int(merged_image.height * scale_ratio)
-                merged_image = merged_image.resize((new_width, new_height), Image.ANTIALIAS)
+                merged_image = merged_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
         return [merged_image]
 
@@ -264,7 +264,7 @@ def generate_text_from_image(model, processor, images, prompt_text: str, tempera
     inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
     with torch.no_grad():  # Disable gradient computation to save memory
         output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
-    generated_text = processor.decode(output[0])[len(prompt):]
+    generated_text = processor.decode(output[0], skip_special_tokens=True)
 
     return generated_text
 
