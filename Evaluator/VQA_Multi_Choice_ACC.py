@@ -36,12 +36,14 @@ def extract_answer_from_model_output(model_output):
         return None
 
 
+
+
 if __name__ == "__main__":
 
-    result_json_path = "/media/oh/0E4A12890E4A1289/DriveLM/data/QA_dataset_nus/behavior_test_result_Gemini.json"
+    result_json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/behavior_test_result_LLAMA3.2.json"
 
     try:
-        with open(result_json_path, "r") as f:
+        with open (result_json_path, "r") as f:
             data = json.load(f)
     except Exception as e:
         print(f"Error reading result json: {e}")

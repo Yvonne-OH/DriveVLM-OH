@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Fix image order bug">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluator/VQA_Multi_Choice_ACC.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluator/VQA_Multi_Choice_ACC.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,6 +209,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="VQA_Multi_Choice_ACC" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DriveVLM-OH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="VLM" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Evaluator" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Evaluator/VQA_Multi_Choice_ACC.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="convert2Llama3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
@@ -228,43 +251,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="example_Ollama (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/example_Ollama.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
+      <item itemvalue="Python.VQA_Multi_Choice_ACC" />
       <item itemvalue="Python.convert2Llama3" />
       <item itemvalue="Python.Multi_modal_Infer" />
       <item itemvalue="Python.Multi_modal_Infer_1" />
-      <item itemvalue="Python.example_Ollama (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
+        <item itemvalue="Python.VQA_Multi_Choice_ACC" />
         <item itemvalue="Python.Multi_modal_Infer" />
         <item itemvalue="Python.convert2Llama3" />
         <item itemvalue="Python.Multi_modal_Infer_1" />
-        <item itemvalue="Python.example_Ollama (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -302,15 +302,7 @@
       <workItem from="1735537475510" duration="7191000" />
       <workItem from="1735544976466" duration="15386000" />
       <workItem from="1735720649969" duration="2000" />
-      <workItem from="1735720667359" duration="28592000" />
-    </task>
-    <task id="LOCAL-00002" summary="-">
-      <option name="closed" value="true" />
-      <created>1732842612397</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1732842612397</updated>
+      <workItem from="1735720667359" duration="35467000" />
     </task>
     <task id="LOCAL-00003" summary="-">
       <option name="closed" value="true" />
@@ -696,7 +688,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735809110286</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Fix image order bug">
+      <option name="closed" value="true" />
+      <created>1735809564570</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1735809564570</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -91,6 +91,17 @@ def llama3_VQA_Nusence_COT_benchmark(
         print(f"Error loading JSON file: {e}")
         return
 
+    # 检查并清空文件
+    if os.path.exists(result_path):
+        os.remove(result_path)  # 删除已存在的文件
+        print(f"{result_path} exists and has been removed.")
+    else:
+        print(f"{result_path} does not exist, creating a new file.")
+
+    # 初始化文件，写入 JSON 数组的开头
+    with open(result_path, "w") as outfile:
+        outfile.write("[\n")  # 开始 JSON 数组
+
     # Iterate through samples with a limit of `sample_num`
     for i, sample in enumerate(tqdm(qa_data, desc="Generating responses: ")):
 
@@ -242,22 +253,28 @@ def llama3_VQA_Nusence_COT_benchmark(
                 print(f"Error during conversation: {e}")
                 continue
 
-        # Add "Model_Output" to conversations
-        try:
+            # Modify sample and write to file
             modified_sample = sample.copy()
             modified_sample["conversations"].append({
                 "from": "Model_Output",
                 "value": final_response
             })
 
+            # 写入结果到文件
+            try:
+                with open(result_path, "a") as outfile:
+                    if i > 0:  # 如果不是第一个结果，添加逗号分隔
+                        outfile.write(",\n")
+                    json.dump(modified_sample, outfile, indent=4)
 
-            with open(result_path, "a") as outfile:
-                json.dump(modified_sample, outfile, indent=4)
-                outfile.write("\n")  # Add a newline for better readability
-            print(f"Sample {i} has been written to {result_path}")
+                print(f"Sample {i} written to {result_path}")
 
-        except Exception as e:
-            print(f"Error adding response or writing sample {i}: {e}")
+            except Exception as e:
+                print(f"Error writing sample {i} to JSON file: {e}")
+
+    # 在文件末尾关闭 JSON 数组
+    with open(result_path, "a") as outfile:
+        outfile.write("\n]\n")  # 关闭 JSON 数组
 
 
 def get_optimal_device():
@@ -314,7 +331,7 @@ if __name__ == '__main__':
     llama3_VQA_Nusence_COT_benchmark(
         Save_path, Image_path, Result_path,
         model,processor, device,
-        "behavior", 200 , 512)
+        "behavior", 5 , 512)
 
 
 
