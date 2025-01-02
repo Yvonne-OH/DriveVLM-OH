@@ -97,6 +97,7 @@ def llama3_VQA_Nusence_COT_benchmark(
         if i >= sample_num:
             break
 
+
         # Ensure each sample contains 6 images
         if len(sample.get('image', [])) != 6:
             print(f"Warning: Sample {i} does not have exactly 6 images. Skipping.")
