@@ -121,7 +121,7 @@
       <recent name="$PROJECT_DIR$/Evaluator/GPT_Score" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.LLAMA3.2_VISION_DriveLM_test">
+  <component name="RunManager" selected="Python.VQA_Multi_Choice_ACC">
     <configuration name="LLAMA3.2_VISION_DriveLM_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
@@ -260,8 +260,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
         <item itemvalue="Python.VQA_Multi_Choice_ACC" />
+        <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
         <item itemvalue="Python.Multi_modal_Infer" />
         <item itemvalue="Python.convert2Llama3" />
         <item itemvalue="Python.Multi_modal_Infer_1" />
