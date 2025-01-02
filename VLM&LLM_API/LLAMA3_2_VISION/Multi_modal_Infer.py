@@ -222,7 +222,33 @@ def process_image(image_paths: list = None, images: list = None, resize_to: tupl
                 y_offset = row * cell_height
                 merged_image.paste(img, (x_offset, y_offset))
 
+        if merge == 'custom_grid':
+            # Reorder processed images using fixed order
+            processed_images = arrange_images_in_logical_order(processed_images)
+
+            # Create the grid layout
+            grid_layout = [
+                ("front_left", "front", "front_right"),
+                ("back_left", "back", "back_right")
+            ]
+
+            rows, cols = len(grid_layout), len(grid_layout[0])
+            cell_width = max(img.width for img in processed_images)
+            cell_height = max(img.height for img in processed_images)
+
+            total_width = cols * cell_width
+            total_height = rows * cell_height
+            merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+            # Paste images in grid layout
+            for idx, img in enumerate(processed_images):
+                row, col = divmod(idx, cols)
+                x_offset = col * cell_width
+                y_offset = row * cell_height
+                merged_image.paste(img, (x_offset, y_offset))
+
         else:
+
             raise ValueError("Invalid merge option or missing grid_size for grid layout")
 
         # Scale merged image if it exceeds max_dimensions
@@ -237,6 +263,26 @@ def process_image(image_paths: list = None, images: list = None, resize_to: tupl
         return [merged_image]
 
     return processed_images
+
+def arrange_images_in_logical_order(processed_images: list) -> list:
+    """
+    Arrange images into a fixed logical order based on their input order.
+    """
+    # Define the fixed order of the images
+    fixed_order = [
+        "front_left",  # processed_images[1]
+        "front",       # processed_images[0]
+        "front_right", # processed_images[2]
+        "back_left",   # processed_images[4]
+        "back",        # processed_images[3]
+        "back_right"   # processed_images[5]
+    ]
+
+    # Reorder images based on fixed logic
+    ordered_indices = [1, 0, 2, 4, 3, 5]  # Indices corresponding to the fixed order
+    ordered_images = [processed_images[idx] for idx in ordered_indices]
+
+    return ordered_images
 
 
 def generate_text_from_image(model, processor, images, prompt_text: str, temperature: float, top_p: float):
@@ -276,7 +322,7 @@ if __name__ == "__main__":
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
     finetuning_path = None  # 如果有微调路径可以设置
-    image_path = ["bike.png","bike.png","bike.png","bike.png","bike.png","bike.png"]  # 替换为本地图片路径
+    image_path = ["2.png","1.png","3.png","2.png","1.png","3.png"]  # 替换为本地图片路径
     prompt_text = "Describe this image in detail."
     temperature = 0.7
     top_p = 0.9
@@ -303,7 +349,7 @@ if __name__ == "__main__":
 
         # 加载并处理图像
     try:
-        image = process_image(image_paths=image_path, resize_to=resize_to, merge="auto")
+        image = process_image(image_paths=image_path, resize_to=resize_to, merge= "custom_grid")
         image[0].save("merged_image.png")
         print("Image loaded and processed successfully.")
     except Exception as e:

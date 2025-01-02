@@ -1,16 +1,10 @@
 import Multi_modal_Infer
-
-import re
 import json
-import ast
-
-
 from PIL import Image, ImageDraw, ImageFont
 
 import base64
 import json
 import torch
-
 
 import time
 from tqdm import tqdm
@@ -109,7 +103,7 @@ def llama3_VQA_Nusence_COT_benchmark(
             continue
 
         try:
-            images = Multi_modal_Infer.process_image( image_paths = sample['image'], merge = "auto", max_dimensions=(1120,1120))
+            images = Multi_modal_Infer.process_image( image_paths = sample['image'], merge='custom_grid', max_dimensions=(1120,1120))
             """Process and validate image input, with optional resizing"""
             #files = [encode_image(image) for image in sample['image']]
         except Exception as e:
@@ -179,6 +173,8 @@ def llama3_VQA_Nusence_COT_benchmark(
                     output = model.generate(**inputs, temperature=temperature, top_p=top_p,
                                             max_new_tokens=MAX_OUTPUT_TOKENS)
 
+                images[0].save("merged_image.png")
+
                 # 提取生成的新部分（避免重复提示）
                 generated_tokens = output[:, inputs['input_ids'].shape[1]:]
 
@@ -216,7 +212,8 @@ def llama3_VQA_Nusence_COT_benchmark(
                 conversation.append(assistant(assistant_message))
 
                 conversation.append(user_input(
-                    "provide the final answer in the following format: </ans>answer</ans>"))
+                    "Check your answer again, removing extraneous parts of the response. provide the final answer in the following format: </ans>answer</ans>. "
+                    "Your answer to the multiple choice question should be </ans>answer</ans> (answer = A, B, C or D)"))
 
                 prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
                 inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
@@ -317,7 +314,7 @@ if __name__ == '__main__':
     llama3_VQA_Nusence_COT_benchmark(
         Save_path, Image_path, Result_path,
         model,processor, device,
-        "behavior", 20 , 512)
+        "behavior", 200 , 512)
 
 
 
