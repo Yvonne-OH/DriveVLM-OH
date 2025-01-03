@@ -300,23 +300,7 @@
       <workItem from="1735537475510" duration="7191000" />
       <workItem from="1735544976466" duration="15386000" />
       <workItem from="1735720649969" duration="2000" />
-      <workItem from="1735720667359" duration="55772000" />
-    </task>
-    <task id="LOCAL-00006" summary="OBJECT DETECTION &amp; PLOT">
-      <option name="closed" value="true" />
-      <created>1732915129567</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1732915129567</updated>
-    </task>
-    <task id="LOCAL-00007" summary="OBJECT DETECTION &amp; PLOT">
-      <option name="closed" value="true" />
-      <created>1732916024844</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1732916024844</updated>
+      <workItem from="1735720667359" duration="56086000" />
     </task>
     <task id="LOCAL-00008" summary="新增加截断消息处理功能">
       <option name="closed" value="true" />
@@ -694,7 +678,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735906053353</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Fix json">
+      <option name="closed" value="true" />
+      <created>1735906300047</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1735906300047</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Fix json">
+      <option name="closed" value="true" />
+      <created>1735906362239</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1735906362239</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
