@@ -57,6 +57,7 @@ def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path)
                 x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.
                 Coordinates are specified as percentages, adhering to the following conventions:
 
+
                 The origin (0, 0) is located at the top-left corner of the image.
                 The bottom-right corner of the image corresponds to (100%, 100%).
                 The x-axis extends horizontally, increasing from left (0) to right (100%).
