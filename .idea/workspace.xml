@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Fix json">
-      <change afterPath="$PROJECT_DIR$/DataLoader/DriveLM/convert2Llama_finetuning.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataLoader/DriveLM/output.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Evaluator/fixed_result.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Example.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Model_download.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/Multi_modal_Infer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/car.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/car_output.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/example_Ollama.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/merged_image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" afterDir="false" />
-    </list>
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Fix json" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -317,15 +300,7 @@
       <workItem from="1735537475510" duration="7191000" />
       <workItem from="1735544976466" duration="15386000" />
       <workItem from="1735720649969" duration="2000" />
-      <workItem from="1735720667359" duration="55470000" />
-    </task>
-    <task id="LOCAL-00005" summary="gemini api">
-      <option name="closed" value="true" />
-      <created>1732908085766</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1732908085766</updated>
+      <workItem from="1735720667359" duration="55772000" />
     </task>
     <task id="LOCAL-00006" summary="OBJECT DETECTION &amp; PLOT">
       <option name="closed" value="true" />
@@ -711,7 +686,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735820871366</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Fix json">
+      <option name="closed" value="true" />
+      <created>1735906053353</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1735906053353</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
