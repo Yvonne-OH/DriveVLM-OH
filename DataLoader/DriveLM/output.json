@@ -1,0 +1,1452 @@
+[
+    {
+        "id": "54cdaaae372d421fa4734d66f51a8c48_542eaf1fc9b34895a9e55fab57cb4cf4",
+        "image": "54cdaaae372d421fa4734d66f51a8c48_542eaf1fc9b34895a9e55fab57cb4cf4.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a red car to the front of the ego vehicle, a white SUV to the front of the ego vehicle, a white sedan to the front of the ego vehicle, a black sedan to the front of the ego vehicle, and a red light to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,714.3,503.6>, <c2,CAM_FRONT,993.3,503.3>, <c3,CAM_FRONT,1300.8,531.7>, <c4,CAM_FRONT,892.5,507.5>, and <c5,CAM_FRONT,712.6,361.8>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,44.64%,55.96%>? Please select the correct answer from the following options: A. Stopped. B. Drive backward. C. Going ahead. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,44.64%,55.96%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,44.64%,55.96%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to brake gently to a stop. The reason is to follow the traffic rules, and the probability is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,44.64%,55.96%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerate and go straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, brake suddenly, and slightly offset to the left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is slightly steering to the right. The ego vehicle is driving with normal speed. C. The ego vehicle is going straight. The ego vehicle is driving slowly. D. The ego vehicle is slightly steering to the left. The ego vehicle is driving fast."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            }
+        ]
+    },
+    {
+        "id": "54cdaaae372d421fa4734d66f51a8c48_1b45a97a0e5e49fe9cd345dd4bd729c3",
+        "image": "54cdaaae372d421fa4734d66f51a8c48_1b45a97a0e5e49fe9cd345dd4bd729c3.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white sedan car to the front of the ego vehicle, a blue sedan to the front right of the ego vehicle, a white sedan to the front right of the ego vehicle, a white van to the front of the ego vehicle, and a red light to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,767.5,513.3>, <c2,CAM_FRONT_RIGHT,420.0,540.0>, <c3,CAM_FRONT_RIGHT,787.5,529.2>, <c4,CAM_FRONT,13.3,475.0>, and <c5,CAM_FRONT,710.5,340.9>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,47.97%,57.03%>? Please select the correct answer from the following options: A. Stopped. B. Turn right. C. Going ahead. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,47.97%,57.03%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,47.97%,57.03%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for this action is to follow the traffic rules. The probability of this action is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,47.97%,57.03%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the right, and slightly offset to the left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. B. The ego vehicle is steering to the left. The ego vehicle is driving very fast. C. The ego vehicle is steering to the right. The ego vehicle is driving fast. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    },
+    {
+        "id": "54cdaaae372d421fa4734d66f51a8c48_d5e16062410f4e329d31a881b28e5c1c",
+        "image": "54cdaaae372d421fa4734d66f51a8c48_d5e16062410f4e329d31a881b28e5c1c.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white truck to the front right of the ego vehicle, a white sedan to the front of the ego vehicle, a gray sedan to the front of the ego vehicle, a white sedan to the front right of the ego vehicle, and a no entry to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT_RIGHT,850.0,484.2>, <c2,CAM_FRONT,684.2,500.0>, <c3,CAM_FRONT,1180.8,541.7>, <c4,CAM_FRONT_RIGHT,338.3,540.0>, and <c5,CAM_FRONT,713.2,321.9>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT_RIGHT,53.12%,53.80%>? Please select the correct answer from the following options: A. Going ahead. B. Stopped. C. Turn left. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT_RIGHT,53.12%,53.80%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT_RIGHT,53.12%,53.80%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for taking this action is to follow traffic rules. The probability of this action is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT_RIGHT,53.12%,53.80%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Turning right and accelerating."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving with normal speed. D. The ego vehicle is going straight. The ego vehicle is driving with normal speed."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "54cdaaae372d421fa4734d66f51a8c48_7abe79e5d3d745bcb237a4b7e03d1577",
+        "image": "54cdaaae372d421fa4734d66f51a8c48_7abe79e5d3d745bcb237a4b7e03d1577.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white truck to the front of the ego vehicle, a white sedan to the front of the ego vehicle, a white van to the front of the ego vehicle, and a red light to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1458.3,492.5>, <c2,CAM_FRONT,889.2,515.8>, <c3,CAM_FRONT,107.5,480.8>, and <c4,CAM_FRONT,740.7,369.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,91.14%,54.72%>? Please select the correct answer from the following options: A. Drive backward. B. Going ahead. C. Reverse parking. D. Stopped."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,91.14%,54.72%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,91.14%,54.72%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary, the reason is to follow the traffic rules, high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,91.14%,54.72%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Moderate right turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the right."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is going straight. The ego vehicle is not moving. C. The ego vehicle is going straight. The ego vehicle is driving very fast. D. The ego vehicle is going straight. The ego vehicle is driving fast."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "54cdaaae372d421fa4734d66f51a8c48_0dd14c14cea14dc1b0c0c9b0c9c7c4c3",
+        "image": "54cdaaae372d421fa4734d66f51a8c48_0dd14c14cea14dc1b0c0c9b0c9c7c4c3.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white sedan to the front of the ego vehicle, a white van to the front of the ego vehicle, a black sedan to the front of the ego vehicle, and a no entry to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1321.7,495.0>, <c2,CAM_FRONT,629.2,475.0>, <c3,CAM_FRONT,769.2,485.0>, and <c4,CAM_FRONT,688.8,371.7>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,82.61%,55.00%>? Please select the correct answer from the following options: A. Going ahead. B. Drive backward. C. Turn left. D. Back up."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,82.61%,55.00%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,82.61%,55.00%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed, the reason being that there is no safety issue. The probability of this action is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c2,CAM_FRONT,39.33%,52.78%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight can lead to a collision with <c2,CAM_FRONT,629.2,475.0>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is going straight. The ego vehicle is driving with normal speed. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving fast. D. The ego vehicle is steering to the right. The ego vehicle is driving very fast."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_bd8a5e326b804b069d497d29dbf19c2b",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_bd8a5e326b804b069d497d29dbf19c2b.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There are pedestrians preparing to cross the road to the front of the ego vehicle, a white truck to the front left of the ego vehicle, a silver sedan to the back left of the ego vehicle, a silver sedan to the back of the ego vehicle, and a pedestrian preparing to cross the road to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1035.0,586.7>, <c2,CAM_FRONT_LEFT,1431.7,404.2>, <c3,CAM_BACK_LEFT,385.0,655.8>, <c4,CAM_BACK,950.0,544.2>, and <c5,CAM_FRONT,831.7,626.7>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c2,CAM_FRONT_LEFT,89.48%,44.91%>? Please select the correct answer from the following options: A. Going ahead. B. Reverse parking. C. Turn left. D. Drive backward."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,64.69%,65.19%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,64.69%,65.19%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for this action is to follow the traffic rules, which is considered to be high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,64.69%,65.19%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake suddenly, brake gently to a stop."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is going straight. The ego vehicle is driving slowly. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving with normal speed. D. The ego vehicle is steering to the right. The ego vehicle is driving very fast."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_7903e67446c64958b0a660f10bdadf19",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_7903e67446c64958b0a660f10bdadf19.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a people preparing to cross the road to the front of the ego vehicle, a white truck to the front of the ego vehicle, a white sedan to the back of the ego vehicle, a white truck to the front of the ego vehicle, a silver sedan to the back of the ego vehicle, and a people crossing the road to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1035.8,587.5>, <c2,CAM_FRONT,746.7,468.3>, <c3,CAM_BACK,1173.3,557.5>, <c4,CAM_FRONT,63.6,456.7>, <c5,CAM_BACK,885.0,515.8>, and <c6,CAM_FRONT,834.2,630.0>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,64.74%,65.28%>? Please select the correct answer from the following options: A. Stopped. B. Drive backward. C. Turn left. D. Going ahead."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,64.74%,65.28%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,64.74%,65.28%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed. The reason is that there is no safety issue. The probability is medium."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,64.74%,65.28%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Decelerate gradually without braking and continue at the same speed."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving with normal speed. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving very fast. D. The ego vehicle is going straight. The ego vehicle is driving fast."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_b6bf5a2bcb094969ace1023f8fe0b9e2",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_b6bf5a2bcb094969ace1023f8fe0b9e2.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a man wearing black pants to the front of the ego vehicle, a gray sedan to the back of the ego vehicle, a white truck to the back of the ego vehicle, and a man wearing blue jeans to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,915.0,597.5>, <c2,CAM_BACK,1366.0,705.3>, <c3,CAM_BACK,838.3,464.2>, and <c4,CAM_FRONT,695.8,628.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,57.19%,66.39%>? Please select the correct answer from the following options: A. Turn right. B. Going ahead. C. Reverse parking. D. Turn left."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,57.19%,66.39%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,57.19%,66.39%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for this action is to follow the traffic rules, which has a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,57.19%,66.39%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake suddenly, brake gently to a stop."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. C. The ego vehicle is steering to the right. The ego vehicle is driving very fast. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_0a208b6bd70a45c9b77b4acff048b2e4",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_0a208b6bd70a45c9b77b4acff048b2e4.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a person wearing a white shirt to the front of the ego vehicle, a black sedan to the back of the ego vehicle, a silver sedan to the front left of the ego vehicle, and a person wearing a hat to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1030.0,587.5>, <c2,CAM_BACK,1170.0,639.2>, <c3,CAM_FRONT_LEFT,877.1,694.1>, and <c4,CAM_FRONT,819.2,617.5>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c2,CAM_BACK,73.12%,71.02%>? Please select the correct answer from the following options: A. Drive backward. B. Going ahead. C. Back up. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,64.38%,65.28%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,64.38%,65.28%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary, the reason is to maintain a safe distance, which is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,64.38%,65.28%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed, and brake gently to a stop."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. C. The ego vehicle is going straight. The ego vehicle is driving very fast. D. The ego vehicle is going straight. The ego vehicle is driving with normal speed."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_947c1b70cff6486b87903d9665064ad8",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_947c1b70cff6486b87903d9665064ad8.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a person wearing a white shirt to the front of the ego vehicle, a white sedan to the front of the ego vehicle, a yellow truck to the back left of the ego vehicle, and a white truck to the back of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,354.2,617.5>, <c2,CAM_FRONT,716.7,547.5>, <c3,CAM_BACK_LEFT,363.1,450.8>, and <c4,CAM_BACK,838.3,464.2>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,22.14%,68.61%>? Please select the correct answer from the following options: A. Stopped. B. Drive backward. C. Reverse parking. D. Going ahead."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,22.14%,68.61%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,22.14%,68.61%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason is to follow the traffic rules, which has a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,22.14%,68.61%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Slight left turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the right."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is driving slowly. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving fast. C. The ego vehicle is going straight. The ego vehicle is driving with normal speed. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_a59f97b9ba4b451e92487285f27ffb52",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_a59f97b9ba4b451e92487285f27ffb52.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white car to the front of the ego vehicle, a black car to the back left of the ego vehicle, and a black car to the back of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,715.0,547.5>, <c2,CAM_BACK_LEFT,480.6,738.6>, and <c3,CAM_BACK,385.0,478.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat object should the ego vehicle notice first when the ego vehicle is getting to the next possible location? What is the state of the object that is first noticed by the ego vehicle and what action should the ego vehicle take? What object should the ego vehicle notice second when the ego vehicle is getting to the next possible location? What is the state of the object perceived by the ego vehicle as second and what action should the ego vehicle take? What object should the ego vehicle notice third? What is the state of the object perceived by the ego vehicle as third and what action should the ego vehicle take?"
+            },
+            {
+                "from": "gpt",
+                "value": "Firstly, notice <c1,CAM_FRONT,715.0,547.5>. It is stationary, so the ego vehicle should also remain stationary. Secondly, notice <c2,CAM_BACK_LEFT,480.6,738.6>. It is stationary, so the ego vehicle should remain stationary Thirdly, notice <c3,CAM_BACK,385.0,478.3>. It is stationary, so the ego vehicle should remain stationary"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,44.69%,60.83%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,44.69%,60.83%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary because there is no safety issue. The probability of taking this action is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,44.69%,60.83%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerate and go straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed and brake suddenly."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is driving slowly. B. The ego vehicle is steering to the right. The ego vehicle is driving slowly. C. The ego vehicle is going straight. The ego vehicle is not moving. D. The ego vehicle is steering to the right. The ego vehicle is driving with normal speed."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_fc4a9c4a635348468d38b9e4452b3b0f",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_fc4a9c4a635348468d38b9e4452b3b0f.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a pedestrian wearing a white top and black trousers to the front of the ego vehicle, a black sedan to the back left of the ego vehicle, a white truck to the back of the ego vehicle, and a pedestrian wearing black top and black pants to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,740.8,604.2>, <c2,CAM_BACK_LEFT,484.6,747.1>, <c3,CAM_BACK,838.3,464.2>, and <c4,CAM_FRONT,384.2,615.8>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,46.30%,67.13%>? Please select the correct answer from the following options: A. Turn left. B. Stopped. C. Going ahead. D. Drive backward."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,46.30%,67.13%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,46.30%,67.13%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for this action is to avoid a collision, which has a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,46.30%,67.13%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight can lead to a collision with <c1, CAM_FRONT, 740.8, 604.2>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Slightly offset to the left, slightly offset to the right, and brake gently to a stop."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the left. The ego vehicle is driving very fast. B. The ego vehicle is going straight. The ego vehicle is not moving. C. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. D. The ego vehicle is going straight. The ego vehicle is driving very fast."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_12ce09b5190048678bcd70e83943907f",
+        "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_12ce09b5190048678bcd70e83943907f.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a person wearing a white shirt to the front of the ego vehicle, a red van to the front of the ego vehicle, a white truck to the front of the ego vehicle, a white truck to the front left of the ego vehicle, a gray sedan to the back of the ego vehicle, and a pedestrian wearing a gray short-sleeved shirt to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1035.8,588.3>, <c2,CAM_FRONT,570.8,508.3>, <c3,CAM_FRONT,747.5,468.3>, <c4,CAM_FRONT_LEFT,1255.8,436.7>, <c5,CAM_BACK,862.5,505.0>, and <c6,CAM_FRONT,837.5,631.7>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c2,CAM_FRONT,35.67%,56.48%>? Please select the correct answer from the following options: A. Going ahead. B. Stopped. C. Turn right. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,64.74%,65.37%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,64.74%,65.37%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep stationary. The reason is to avoid a collision, which has a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,64.74%,65.37%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerate and go straight can lead to a collision with <c1,CAM_FRONT,1035.8,588.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake suddenly, slightly offset to the right, decelerate gradually without braking."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is steering to the right. The ego vehicle is driving fast. C. The ego vehicle is going straight. The ego vehicle is driving very fast. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_2fd8f9bd71664143bc0e643a914791be",
+        "image": "ba76f4185aa34ed3bff467ac640da902_2fd8f9bd71664143bc0e643a914791be.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a red traffic cone to the front of the ego vehicle, a white van to the front right of the ego vehicle, a white sedan to the front right of the ego vehicle, a person wearing a white shirt to the front of the ego vehicle, and a red light to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,305.0,690.8>, <c2,CAM_FRONT_RIGHT,1107.5,495.8>, <c3,CAM_FRONT_RIGHT,480.0,536.7>, <c4,CAM_FRONT,549.2,595.0>, and <c5,CAM_FRONT,1576.3,269.2>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c4,CAM_FRONT,34.33%,66.11%>? Please select the correct answer from the following options: A. Going ahead. B. Stopped. C. Turn right. D. Turn left."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,19.06%,76.76%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "Yes."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c2,CAM_FRONT_RIGHT,69.22%,55.09%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to turn right. The reason is to follow the traffic rules, and the probability is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c2,CAM_FRONT_RIGHT,69.22%,55.09%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Sharp right turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Turn right, decelerate gradually without braking, and slightly offset to the right."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving slowly. B. The ego vehicle is slightly steering to the right. The ego vehicle is driving fast. C. The ego vehicle is slightly steering to the left. The ego vehicle is driving very fast. D. The ego vehicle is steering to the left. The ego vehicle is driving very fast."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_b48b532c3e1943578c4cf9e1a8230541",
+        "image": "ba76f4185aa34ed3bff467ac640da902_b48b532c3e1943578c4cf9e1a8230541.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a person riding a motorcycle to the back of the ego vehicle, a black sedan to the front of the ego vehicle, a white sedan to the front of the ego vehicle, a white van to the front right of the ego vehicle, a roadblock to the front of the ego vehicle, and a please proceed to the front left of the ego vehicle. The IDs of these objects are <c1,CAM_BACK,926.7,510.8>, <c2,CAM_FRONT,1295.8,547.5>, <c3,CAM_FRONT,682.5,519.2>, <c4,CAM_FRONT_RIGHT,715.8,513.3>, <c5,CAM_FRONT,105.0,696.7>, and <c6,CAM_FRONT_LEFT,1288.2,242.1>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_BACK,57.92%,56.76%>? Please select the correct answer from the following options: A. Going ahead. B. Stopped. C. Turn left. D. Turn right."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_BACK,57.92%,56.76%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_BACK,57.92%,56.76%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed. The reason is that there is no safety issue, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_BACK,57.92%,56.76%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake suddenly."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed, brake gently to a stop, decelerate gradually without braking, slightly offset to the right, turn right, or turn left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is steering to the right. The ego vehicle is driving fast. B. The ego vehicle is steering to the left. The ego vehicle is driving fast. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving with normal speed. D. The ego vehicle is going straight. The ego vehicle is driving fast."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_019813f350c743f1ad27e115e4d3a55c",
+        "image": "ba76f4185aa34ed3bff467ac640da902_019813f350c743f1ad27e115e4d3a55c.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a person wearing a white shirt and black pants to the front of the ego vehicle, a red seahorse to the front of the ego vehicle, and a white SUV to the front right of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,224.2,486.7>, <c2,CAM_FRONT,963.3,529.2>, and <c3,CAM_FRONT_RIGHT,1290.0,635.8>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,14.01%,54.08%>? Please select the correct answer from the following options: A. Back up. B. Reverse parking. C. Going ahead. D. Stopped."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat object should the ego vehicle notice first when the ego vehicle is getting to the next possible location? What is the state of the object that is first noticed by the ego vehicle and what action should the ego vehicle take? What object should the ego vehicle notice second when the ego vehicle is getting to the next possible location? What is the state of the object perceived by the ego vehicle as second and what action should the ego vehicle take? What object should the ego vehicle notice third? What is the state of the object perceived by the ego vehicle as third and what action should the ego vehicle take?"
+            },
+            {
+                "from": "gpt",
+                "value": "Firstly notice that <c2,CAM_FRONT,963.3,529.2>. The object is stationary, so the ego vehicle should keep going ahead at the same speed. Secondly notice that <c1,CAM_FRONT,224.2,486.7>. The object is going ahead, so the ego vehicle should keep going ahead at the same speed. Thirdly notice that <c3,CAM_FRONT_RIGHT,1290.0,635.8>. The object is going ahead, so the ego vehicle should keep going ahead at the same speed."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,14.01%,54.08%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,14.01%,54.08%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed. The reason is that the object has little reference value for the ego vehicle, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,14.01%,54.08%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Moderate left turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed and turn left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is steering to the left. The ego vehicle is driving fast. B. The ego vehicle is going straight. The ego vehicle is driving fast. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving fast. D. The ego vehicle is slightly steering to the left. The ego vehicle is driving with normal speed."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_cfc098728fb64a6d8cc60e0f8b268198",
+        "image": "ba76f4185aa34ed3bff467ac640da902_cfc098728fb64a6d8cc60e0f8b268198.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white motorcycle to the back of the ego vehicle, a yellow bridge car to the front of the ego vehicle, a black car to the front of the ego vehicle, a white sedan to the front of the ego vehicle, a white commercial vehicle to the front right of the ego vehicle, and a green light to the front of the ego vehicle. The IDs of these objects are <c1,CAM_BACK,949.2,531.7>, <c2,CAM_FRONT,695.0,516.7>, <c3,CAM_FRONT,1550.4,560.0>, <c4,CAM_FRONT,400.0,522.5>, <c5,CAM_FRONT_RIGHT,965.8,502.5>, and <c6,CAM_FRONT,449.8,261.7>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_BACK,59.33%,59.08%>? Please select the correct answer from the following options: A. Turn right. B. Drive backward. C. Going ahead. D. Reverse parking."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_BACK,59.33%,59.08%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_BACK,59.33%,59.08%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed because there is no safety issue, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c2,CAM_FRONT,43.44%,57.41%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Slight right turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Decelerate gradually without braking; keep going at the same speed."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving slowly. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. C. The ego vehicle is going straight. The ego vehicle is driving very fast. D. The ego vehicle is steering to the right. The ego vehicle is driving slowly."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_a4ba4660331c461b9d95ea4154fe2053",
+        "image": "ba76f4185aa34ed3bff467ac640da902_a4ba4660331c461b9d95ea4154fe2053.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a pedestrian wearing yellow and black clothes to the front of the ego vehicle, a person wearing an orange shirt to the front right of the ego vehicle, a no entry to the front left of the ego vehicle, and a white sedan to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1008.3,513.3>, <c2,CAM_FRONT_RIGHT,575.0,646.7>, <c3,CAM_FRONT_LEFT,1361.9,471.2>, and <c4,CAM_FRONT,830.6,488.4>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,63.02%,57.03%>? Please select the correct answer from the following options: A. Stopped. B. Back up. C. Turn left. D. Going ahead."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,63.02%,57.03%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,63.02%,57.03%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to slightly offset to the left in maneuvering. The reason for taking this action is to avoid a collision, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,63.02%,57.03%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Accelerating and going straight."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Decelerate gradually without braking, slightly offset to the left, and change to the left lane."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is not moving. B. The ego vehicle is going straight. The ego vehicle is driving very fast. C. The ego vehicle is going straight. The ego vehicle is driving slowly. D. The ego vehicle is steering to the left. The ego vehicle is driving with normal speed."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "ba76f4185aa34ed3bff467ac640da902_d0c8108acf3a43ada1a6dd6c221abd18",
+        "image": "ba76f4185aa34ed3bff467ac640da902_d0c8108acf3a43ada1a6dd6c221abd18.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is an orange roadblock to the front of the ego vehicle, a yellow bicycle to the front of the ego vehicle, and a blue sedan car to the front of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1331.7,718.1>, <c2,CAM_FRONT,233.3,512.5>, and <c3,CAM_FRONT,1310.0,553.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c3,CAM_FRONT,81.88%,61.48%>? Please select the correct answer from the following options: A. Going ahead. B. Turn right. C. Back up. D. Turn left."
+            },
+            {
+                "from": "gpt",
+                "value": "A"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat object should the ego vehicle notice first when the ego vehicle is getting to the next possible location? What is the state of the object that is first noticed by the ego vehicle and what action should the ego vehicle take? What object should the ego vehicle notice second when the ego vehicle is getting to the next possible location? What is the state of the object perceived by the ego vehicle as second and what action should the ego vehicle take? What object should the ego vehicle notice third? What is the state of the object perceived by the ego vehicle as third and what action should the ego vehicle take?"
+            },
+            {
+                "from": "gpt",
+                "value": "Firstly notice that <c1,CAM_FRONT,1331.7,718.1>; it is stationary, so the ego vehicle should keep going ahead at the same speed. Secondly notice that <c3,CAM_FRONT,1310.0,553.3>; it is going ahead, so the ego vehicle should keep going ahead at the same speed. Thirdly notice that <c2,CAM_FRONT,233.3,512.5>; it is stationary, so the ego vehicle should keep going ahead at the same speed."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,83.23%,79.79%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "Yes."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c2,CAM_FRONT,14.58%,56.94%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed. The reason is that the object has little reference value for the ego vehicle, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c2,CAM_FRONT,14.58%,56.94%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "No such action will lead to a collision."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed, accelerate and go ahead, change to the left lane, slightly offset to the left, brake gently to a stop, decelerate gradually without braking."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the left. The ego vehicle is driving fast. B. The ego vehicle is steering to the right. The ego vehicle is driving with normal speed. C. The ego vehicle is going straight. The ego vehicle is driving fast. D. The ego vehicle is slightly steering to the right. The ego vehicle is driving slowly."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            }
+        ]
+    },
+    {
+        "id": "e0b14a8e11994763acba690bbcc3f56a_7138a5bb5798486d82d170558c4bd90d",
+        "image": "e0b14a8e11994763acba690bbcc3f56a_7138a5bb5798486d82d170558c4bd90d.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white van to the front left of the ego vehicle, a silver pickup truck to the front of the ego vehicle, a black sedan to the back right of the ego vehicle, and a white truck to the back of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT_LEFT,1162.5,511.7>, <c2,CAM_FRONT,1164.5,486.7>, <c3,CAM_BACK_RIGHT,901.7,542.5>, and <c4,CAM_BACK,746.8,495.1>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c2,CAM_FRONT,72.78%,54.08%>? Please select the correct answer from the following options: A. Turn right. B. Drive backward. C. Reverse parking. D. Going ahead."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT_LEFT,72.66%,56.86%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT_LEFT,72.66%,56.86%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to remain stationary. The reason for taking this action is to avoid a collision, which has a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT_LEFT,72.66%,56.86%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Slight left turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Turn right, turn left."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the left. The ego vehicle is driving with normal speed. B. The ego vehicle is slightly steering to the left. The ego vehicle is driving very fast. C. The ego vehicle is slightly steering to the right. The ego vehicle is driving fast. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    },
+    {
+        "id": "e0b14a8e11994763acba690bbcc3f56a_0e364b7146c848b5a5fd73bbe05e59ed",
+        "image": "e0b14a8e11994763acba690bbcc3f56a_0e364b7146c848b5a5fd73bbe05e59ed.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a silver pickup truck to the front of the ego vehicle, a white truck to the back of the ego vehicle, a black car to the front right of the ego vehicle, and a no entry to the front right of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,355.0,585.8>, <c2,CAM_BACK,751.7,489.8>, <c3,CAM_FRONT_RIGHT,881.7,538.3>, and <c4,CAM_FRONT_RIGHT,350.4,466.3>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT,22.19%,65.09%>? Please select the correct answer from the following options: A. Back up. B. Drive backward. C. Turn right. D. Turn left."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,22.19%,65.09%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,22.19%,65.09%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed. The reason is to avoid a collision, with a high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,22.19%,65.09%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "Slight left turn."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Brake gently to a stop, slightly offset to the right."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is going straight. The ego vehicle is driving slowly. C. The ego vehicle is slightly steering to the left. The ego vehicle is driving very fast. D. The ego vehicle is steering to the right. The ego vehicle is driving fast."
+            },
+            {
+                "from": "gpt",
+                "value": "B"
+            }
+        ]
+    },
+    {
+        "id": "e0b14a8e11994763acba690bbcc3f56a_8a009c674c60457da87f9386cbfee63a",
+        "image": "e0b14a8e11994763acba690bbcc3f56a_8a009c674c60457da87f9386cbfee63a.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white sedan to the front right of the ego vehicle, a gray sedan to the front of the ego vehicle, a blue sedan to the front right of the ego vehicle, and a white truck to the back of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT_RIGHT,347.5,495.0>, <c2,CAM_FRONT,161.7,713.3>, <c3,CAM_FRONT_RIGHT,180.8,514.2>, and <c4,CAM_BACK,304.9,450.8>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c1,CAM_FRONT_RIGHT,21.72%,55.00%>? Please select the correct answer from the following options: A. Drive backward. B. Reverse parking. C. Back up. D. Turn right."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT_RIGHT,21.72%,55.00%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT_RIGHT,21.72%,55.00%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to turn right. The reason is that there is no safety issue, which is high probability."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT_RIGHT,21.72%,55.00%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "No such action will lead to a collision."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed, decelerate gradually without braking, and turn right."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is going straight. The ego vehicle is driving fast. B. The ego vehicle is going straight. The ego vehicle is driving with normal speed. C. The ego vehicle is steering to the right. The ego vehicle is driving with normal speed. D. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly."
+            },
+            {
+                "from": "gpt",
+                "value": "C"
+            }
+        ]
+    },
+    {
+        "id": "e0b14a8e11994763acba690bbcc3f56a_8a76c43c5a034741844748d3ed9c2fbc",
+        "image": "e0b14a8e11994763acba690bbcc3f56a_8a76c43c5a034741844748d3ed9c2fbc.jpg",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
+            },
+            {
+                "from": "gpt",
+                "value": "There is a white SUV to the front of the ego vehicle, a black sedan to the back right of the ego vehicle, and a white truck to the back of the ego vehicle. The IDs of these objects are <c1,CAM_FRONT,1030.0,493.3>, <c2,CAM_BACK_RIGHT,865.8,548.3>, and <c3,CAM_BACK,742.5,485.8>."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat is the moving status of object <<c3,CAM_BACK,46.41%,53.98%>? Please select the correct answer from the following options: A. Turn right. B. Stopped. C. Reverse parking. D. Going ahead."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat object should the ego vehicle notice first when the ego vehicle is getting to the next possible location? What is the state of the object that is first noticed by the ego vehicle and what action should the ego vehicle take? What object should the ego vehicle notice second when the ego vehicle is getting to the next possible location? What is the state of the object perceived by the ego vehicle as second and what action should the ego vehicle take? What object should the ego vehicle notice third? What is the state of the object perceived by the ego vehicle as third and what action should the ego vehicle take?"
+            },
+            {
+                "from": "gpt",
+                "value": "Firstly, notice that <c3,CAM_BACK,742.5,485.8>. The object is going ahead, so the ego vehicle should keep going ahead at the same speed. Secondly, notice that <c2,CAM_BACK_RIGHT,865.8,548.3>. The object is stationary, so the ego vehicle should keep going ahead at the same speed. Thirdly, notice that <c1,CAM_FRONT,1030.0,493.3>. The object is going ahead, so the ego vehicle should keep going ahead at the same speed."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIs <<c1,CAM_FRONT,64.38%,54.81%> a traffic sign or a road barrier?"
+            },
+            {
+                "from": "gpt",
+                "value": "No."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions could the ego vehicle take based on <<c1,CAM_FRONT,64.38%,54.81%>? Why take this action and what's the probability?"
+            },
+            {
+                "from": "gpt",
+                "value": "The action is to keep going at the same speed; the reason is that there is no safety issue. The probability is high."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nWhat actions taken by the ego vehicle can lead to a collision with <<c1,CAM_FRONT,64.38%,54.81%>?"
+            },
+            {
+                "from": "gpt",
+                "value": "No such action will lead to a collision."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nIn this scenario, what are safe actions to take for the ego vehicle?"
+            },
+            {
+                "from": "gpt",
+                "value": "Keep going at the same speed, decelerate gradually without braking."
+            },
+            {
+                "from": "human",
+                "value": "<image>\\nPredict the behavior of the ego vehicle. Please select the correct answer from the following options: A. The ego vehicle is slightly steering to the right. The ego vehicle is driving very fast. B. The ego vehicle is slightly steering to the right. The ego vehicle is driving slowly. C. The ego vehicle is slightly steering to the left. The ego vehicle is driving slowly. D. The ego vehicle is going straight. The ego vehicle is not moving."
+            },
+            {
+                "from": "gpt",
+                "value": "D"
+            }
+        ]
+    }
+]

@@ -331,7 +331,7 @@ if __name__ == '__main__':
     llama3_VQA_Nusence_COT_benchmark(
         Save_path, Image_path, Result_path,
         model,processor, device,
-        "behavior", 5 , 512)
+        "behavior", 500 , 512)
 
 
 
