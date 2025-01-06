@@ -26,7 +26,7 @@ def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path)
     result = []
 
     # 遍历场景和帧数据
-    for scene_id in tqdm(scene_ids, desc="Processing scenes"):
+    for scene_id in tqdm(scene_ids[0:50], desc="Processing scenes"):
         scene_data = data[scene_id]['key_frames']
         frame_ids = list(scene_data.keys())
 
@@ -61,20 +61,33 @@ def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path)
                 The origin (0, 0) is located at the top-left corner of the image.
                 The bottom-right corner of the image corresponds to (100%, 100%).
                 The x-axis extends horizontally, increasing from left (0) to right (100%).
-                The y-axis extends vertically, increasing from top (0) to bottom (100%).""")
+                The y-axis extends vertically, increasing from top (0) to bottom (100%).""",type='Fine_tuning'),
             ]
 
             frame_data_qa = scene_data[frame_id]['QA']
+
+            first_key_qa = True  # Flag to ensure <image>\n is added only once
 
             for key in frame_data_qa.keys():
                 QA_pairs = frame_data_qa[key]
                 for qa in QA_pairs:
                     question = qa['Q']
-                    question = re.sub(r"<[^>]*>", lambda match: Util.util.convert_to_percentage(base_width, base_height, match), question)
+                    question = re.sub(r"<[^>]*>",
+                                      lambda match: Util.util.convert_to_percentage(base_width, base_height, match),
+                                      question)
                     answer = qa['A']
-                    conservation.append(
-                        {"from": "human", "value": "<image>\n" + question}
-                    )
+
+                    # Add <image>\n only for the very first QA pair
+                    if first_key_qa:
+                        conservation.append(
+                            {"from": "human", "value": "<image>\n" + question}
+                        )
+                        first_key_qa = False  # Reset the flag after the first entry
+                    else:
+                        conservation.append(
+                            {"from": "human", "value": question}
+                        )
+
                     conservation.append(
                         {"from": "gpt", "value": answer}
                     )

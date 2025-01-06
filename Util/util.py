@@ -378,8 +378,12 @@ def user_input(prompt_text: str, images: list = None):
 
     return {"role": "user", "content": content}
 
-def system(content: str):
-    return { "role": "system", "content": content }
+def system(content: str, type: str ):
+    if type == 'Fine_tuning':
+        return { "from": "system", "value": content}
+    else:
+        return { "role": "system", "content": content }
+
 
 def convert_to_percentage(base_width,base_height, match):
 
