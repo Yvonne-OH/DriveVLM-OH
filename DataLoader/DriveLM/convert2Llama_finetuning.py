@@ -5,6 +5,7 @@ import shutil
 from tqdm import tqdm
 import Util.util
 from PIL import Image
+from datasets import load_dataset
 
 # 定义主函数
 def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path):
@@ -26,7 +27,7 @@ def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path)
     result = []
 
     # 遍历场景和帧数据
-    for scene_id in tqdm(scene_ids[0:50], desc="Processing scenes"):
+    for scene_id in tqdm(scene_ids, desc="Processing scenes"):
         scene_data = data[scene_id]['key_frames']
         frame_ids = list(scene_data.keys())
 
@@ -105,10 +106,130 @@ def create_nuscene_qa_llama_finetuning_dataset(Json_path, Image_path, Save_path)
 
     print("Dataset created and saved to", output_json_path)
 
+
+def convert_conservation_to_unsloth(sample, image_path):
+    """
+    将 conservation 数据转换为指定格式的 conversation 数据。
+
+    参数:
+        conservation (list): 输入的对话数据列表，每个元素是字典，包含 'from' 和 'value'。
+        image_folder (str): 存储图片的文件夹路径，用于加载图像。
+
+    返回:
+        list: 转换后的 conversation 数据列表。
+    """
+    conversation = []
+    for item in sample:
+        role = item['from']  # 提取角色 (system, human, gpt)
+        value = item['value']  # 提取对应的文本内容
+
+        # 根据角色构建内容
+        if role == "system":
+            conversation.append({
+                "role": "system",
+                "content": [
+                    {"type": "text", "text": value}
+                ]
+            })
+        elif role == "human":
+            # 判断是否包含图片占位符 "<image>"
+            if "<image>" in value:
+                # 提取图像名称并加载图像
+                conversation.append({
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": value.replace("<image>", "").strip()},
+                        {"type": "image", "image": Image.open(image_path)}  # 替换为实际图片路径
+                    ]
+                })
+            else:
+                conversation.append({
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": value}
+                    ]
+                })
+        elif role == "gpt":
+            conversation.append({
+                "role": "assistant",
+                "content": [
+                    {"type": "text", "text": value}
+                ]
+            })
+    return {"messages": conversation}
+
 if __name__ == '__main__':
+
     create_nuscene_qa_llama_finetuning_dataset(
         Json_path="/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/v1_1_train_nus.json",
         Image_path="/media/workstation/6D3563AC52DC77EA/Data//DriveLM/data/",
         Save_path="/media/workstation/6D3563AC52DC77EA/Data//DriveLM/data/QA_dataset_nus/NusceneQA_Llama_finetuning"
     )
+
+    datasets_json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/NusceneQA_Llama_finetuning/NusceneQA_Llama_finetuning_dataset.json"
+    image_folder = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/NusceneQA_Llama_finetuning/image_folder"
+
+    with open(datasets_json_path, 'r') as f:
+        dataset_json = json.load(f)
+
+    converted_dataset= [ ]
+
+    for _ in dataset_json:
+        image = _["image"]
+        conservation = _["conversations"]
+        converted_dataset.append(convert_conservation_to_unsloth(conservation, image_folder+'/'+image))
+
+
+
+
+
+    dataset = load_dataset("unsloth/Radiology_mini", split="train")
+
+    """Let's take a look at the dataset, and check what the 1st example shows:"""
+
+    dataset
+
+    dataset[0]["image"]
+
+    dataset[0]["caption"]
+
+
+
+
+    def convert_to_conversation(sample):
+
+        instruction = "You are an expert radiographer. Describe accurately what you see in this image."
+
+        conversation = [
+            {"role": "system",
+             "content": [
+                 {"type": "text", "text": instruction}]
+             },
+            {"role": "user",
+             "content": [
+                 {"type": "text", "text": instruction},
+                 {"type": "image", "image": sample["image"]}]
+             },
+            {"role": "assistant",
+             "content": [
+                 {"type": "text", "text": sample["caption"]}]
+             },
+        ]
+        return {"messages": conversation}
+
+
+    """Let's convert the dataset into the "correct" format for finetuning:"""
+
+    converted_dataset2 = [convert_to_conversation(sample) for sample in dataset]
+
+    """The first example is now structured like below:"""
+
+    converted_dataset2[0]
+
+    """Before we do any finetuning, maybe the vision model already knows how to analyse the images? Let's check if this is the case!"""
+
+
+    image = dataset[0]["image"]
+    instruction = "You are an expert radiographer. Describe accurately what you see in this image."
+
 

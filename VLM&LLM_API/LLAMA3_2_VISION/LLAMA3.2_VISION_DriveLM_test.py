@@ -223,8 +223,10 @@ def llama3_VQA_Nusence_COT_benchmark(
                 conversation.append(assistant(assistant_message))
 
                 conversation.append(user_input(
-                    "Check your answer again, removing extraneous parts of the response. provide the final answer in the following format: </ans>answer</ans>. "
-                    "Your answer to the multiple choice question should be </ans>answer</ans> (answer = A, B, C or D)"))
+                    "It's a choice question. Compare your answer with the options given and choose the most relevant option. "
+                    "Wrap the final answer in the following format "
+                    " </ans>Your_Choice</ans>  "
+                   ))
 
                 prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
                 inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
@@ -300,10 +302,11 @@ if __name__ == '__main__':
 
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
-    finetuning_path = None  # 如果有微调路径可以设置
+    Lora_name =  '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'
+    #finetuning_path = None  # 如果有微调路径可以设置
 
-    temperature = 0.7
-    top_p = 0.9
+    temperature = 0.1
+    top_p = 0.3
 
     # 确保 CUDA 可用
     if not torch.cuda.is_available():
@@ -314,7 +317,7 @@ if __name__ == '__main__':
     try:
         model, processor = Multi_modal_Infer.load_model_and_processor(
             model_name=model_name,
-            finetuning_path=finetuning_path,
+            finetuning_path= Lora_name,
             device="sequential",  # 自动设备映射
             max_memory={0: "22GB", 1: "5GB"}  # GPU 显存限制
         )
@@ -331,7 +334,7 @@ if __name__ == '__main__':
     llama3_VQA_Nusence_COT_benchmark(
         Save_path, Image_path, Result_path,
         model,processor, device,
-        "behavior", 500 , 512)
+        "behavior", 100 , 512)
 
 
 

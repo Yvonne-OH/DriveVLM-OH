@@ -321,7 +321,7 @@ if __name__ == "__main__":
 
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
-    finetuning_path = None  # 如果有微调路径可以设置
+    finetuning_path = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'  # 如果有微调路径可以设置
     image_path = ["2.png","1.png","3.png","2.png","1.png","3.png"]  # 替换为本地图片路径
     prompt_text = "Describe this image in detail."
     temperature = 0.7

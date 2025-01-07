@@ -378,7 +378,7 @@ def user_input(prompt_text: str, images: list = None):
 
     return {"role": "user", "content": content}
 
-def system(content: str, type: str ):
+def system(content: str, type ):
     if type == 'Fine_tuning':
         return { "from": "system", "value": content}
     else:
