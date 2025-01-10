@@ -215,6 +215,7 @@ class DataPreprocessor:
             "back_right"  # processed_images[5]
         ]
 
+
         ordered_indices = [1, 0, 2, 4, 3, 5]  # Indices corresponding to the fixed order
         ordered_images = [processed_images[idx] for idx in ordered_indices]
         return ordered_images\
