@@ -220,9 +220,6 @@ class DataPreprocessor:
         ordered_images = [processed_images[idx] for idx in ordered_indices]
         return ordered_images\
 
-
-
-
     def _add_borders_and_numbering(self, processed_images: list) -> list:
         """
         Add borders and numbering to each image.
@@ -263,6 +260,95 @@ class DataPreprocessor:
         ordered_images = [processed_images[idx] for idx in ordered_indices]
 
         return ordered_images
+
+    def _merge_images(self, processed_images: list, merge: str, grid_size: tuple = None) -> Image:
+        """
+        Merge the images based on the selected merge type (horizontal, vertical, grid, etc.)
+        """
+        if merge == 'horizontal':
+            return self._merge_horizontal(processed_images)
+        elif merge == 'vertical':
+            return self._merge_vertical(processed_images)
+        elif merge == 'grid' and grid_size:
+            return self._merge_grid(processed_images, grid_size)
+        elif merge == 'custom_grid':
+            ordered_images = self.arrange_images_in_logical_order(processed_images)
+            return self._merge_grid(ordered_images, (2, 3))  # Assuming fixed 2x3 grid for custom grid
+        else:
+            raise ValueError("Invalid merge option or missing grid_size for grid layout")
+
+    def _merge_horizontal(self, processed_images: list) -> Image:
+        """
+        Merge images in a horizontal layout.
+        """
+        total_width = sum(img.width for img in processed_images)
+        total_height = max(img.height for img in processed_images)
+        merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+        x_offset = 0
+        for img in processed_images:
+            merged_image.paste(img, (x_offset, 0))
+            x_offset += img.width
+        return merged_image
+
+    def _merge_vertical(self, processed_images: list) -> Image:
+        """
+        Merge images in a vertical layout.
+        """
+        total_width = max(img.width for img in processed_images)
+        total_height = sum(img.height for img in processed_images)
+        merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+        y_offset = 0
+        for img in processed_images:
+            merged_image.paste(img, (0, y_offset))
+            y_offset += img.height
+        return merged_image
+
+    def _merge_grid(self, processed_images: list, grid_size: tuple) -> Image:
+        """
+        Merge images in a grid layout.
+        """
+        rows, cols = grid_size
+        cell_width = max(img.width for img in processed_images)
+        cell_height = max(img.height for img in processed_images)
+
+        total_width = cols * cell_width
+        total_height = rows * cell_height
+        merged_image = Image.new("RGB", (total_width, total_height), "white")
+
+        for idx, img in enumerate(processed_images):
+            row, col = divmod(idx, cols)
+            x_offset = col * cell_width
+            y_offset = row * cell_height
+            merged_image.paste(img, (x_offset, y_offset))
+        return merged_image
+
+    def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None) -> list:
+        """
+        Main method to merge vehicle camera views.
+        """
+        processed_images = self._load_images()
+
+        if not processed_images:
+            raise ValueError("No valid images provided")
+
+        # Add borders and numbering to images
+        processed_images = self._add_borders_and_numbering(processed_images)
+
+        # Merge the images based on the selected option
+        merged_image = self._merge_images(processed_images, merge, grid_size)
+
+        # Scale merged image if it exceeds max_dimensions
+        if self.max_dimensions:
+            max_width, max_height = self.max_dimensions
+            if merged_image.width > max_width or merged_image.height > max_height:
+                scale_ratio = min(max_width / merged_image.width, max_height / merged_image.height)
+                new_width = int(merged_image.width * scale_ratio)
+                new_height = int(merged_image.height * scale_ratio)
+                merged_image = merged_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+
+        return [merged_image]
 
     def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None):
 
