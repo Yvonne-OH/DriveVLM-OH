@@ -318,8 +318,8 @@ if __name__ == '__main__':
         model, processor = Multi_modal_Infer.load_model_and_processor(
             model_name=model_name,
             finetuning_path= Lora_name,
-            device="sequential",  # 自动设备映射
-            max_memory={0: "22GB", 1: "5GB"}  # GPU 显存限制
+            device="auto",  # 自动设备映射
+            max_memory={0: "22GB", 1: "16GB"}  # GPU 显存限制
         )
         print("Model and processor loaded successfully.")
     except Exception as e:

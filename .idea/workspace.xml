@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Fix json">
+      <change afterPath="$PROJECT_DIR$/Util/stress.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLoader/DriveLM/convert2Llama_finetuning.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/DriveLM/convert2Llama_finetuning.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +91,7 @@
     "Python.meta_eval_summeval.executor": "Run",
     "Python.parse.executor": "Run",
     "Python.score_d2t.executor": "Run",
+    "Python.stress.executor": "Run",
     "Python.util.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -128,7 +127,7 @@
       <recent name="$PROJECT_DIR$/Evaluator/GPT_Score" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.LLAMA3.2_VISION_DriveLM_test">
+  <component name="RunManager" selected="Python.stress">
     <configuration name="LLAMA3.2_VISION_DriveLM_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
@@ -214,27 +213,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="convert2Llama3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="VLM" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataLoader/DriveLM" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataLoader/DriveLM/convert2Llama3.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="convert2Llama_finetuning" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
@@ -255,20 +233,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="stress" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DriveVLM-OH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="VLM" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Util" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Util/stress.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Python.stress" />
       <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
       <item itemvalue="Python.VQA_Multi_Choice_ACC" />
-      <item itemvalue="Python.convert2Llama3" />
       <item itemvalue="Python.convert2Llama_finetuning" />
       <item itemvalue="Python.Multi_modal_Infer" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.stress" />
         <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
         <item itemvalue="Python.VQA_Multi_Choice_ACC" />
         <item itemvalue="Python.Multi_modal_Infer" />
         <item itemvalue="Python.convert2Llama_finetuning" />
-        <item itemvalue="Python.convert2Llama3" />
       </list>
     </recent_temporary>
   </component>
@@ -306,15 +305,7 @@
       <workItem from="1735537475510" duration="7191000" />
       <workItem from="1735544976466" duration="15386000" />
       <workItem from="1735720649969" duration="2000" />
-      <workItem from="1735720667359" duration="90384000" />
-    </task>
-    <task id="LOCAL-00011" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988676880</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988676880</updated>
+      <workItem from="1735720667359" duration="98518000" />
     </task>
     <task id="LOCAL-00012" summary="-">
       <option name="closed" value="true" />
@@ -700,7 +691,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736160562121</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Fix json">
+      <option name="closed" value="true" />
+      <created>1736256844736</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1736256844736</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
