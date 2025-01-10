@@ -221,6 +221,7 @@ class DataPreprocessor:
         return ordered_images\
 
 
+
     def _add_borders_and_numbering(self, processed_images: list) -> list:
         """
         Add borders and numbering to each image.
