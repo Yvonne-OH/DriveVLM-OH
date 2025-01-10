@@ -171,7 +171,8 @@ class Gemini_ImageProcessor:
             # 显示图像
             img.show()
 
-
+#__________________________________________________________________________________
+#__________________________________________________________________________________
 class DataPreprocessor:
     def __init__(self, image_paths: list = None, images: list = None,resize_to: tuple = None,max_dimensions: tuple = None):
         self.image_paths = image_paths
@@ -202,7 +203,7 @@ class DataPreprocessor:
             processed_images.append(img.convert("RGB"))
         return processed_images
 
-    def arrange_images_in_logical_order(self, processed_images: list) -> list:
+    def arrange_images_in_logical_order(self, processed_images: list, order: list) -> list:
         """
         Arrange images into a fixed logical order based on their input order.
         """
@@ -215,10 +216,11 @@ class DataPreprocessor:
             "back_right"  # processed_images[5]
         ]
 
+        assert len(order) == len(processed_images), "Invalid order list"
 
         ordered_indices = [1, 0, 2, 4, 3, 5]  # Indices corresponding to the fixed order
         ordered_images = [processed_images[idx] for idx in ordered_indices]
-        return ordered_images\
+        return ordered_images
 
     def _add_borders_and_numbering(self, processed_images: list) -> list:
         """
@@ -350,219 +352,98 @@ class DataPreprocessor:
 
         return [merged_image]
 
-    def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None):
-
-        processed_images = []
-
-        image_paths = self.image_paths
-        images = self.images
-        resize_to = self.resize_to
-        max_dimensions = self.max_dimensions
-
-        # Check if all images have the same dimensions before processing
-        all_image_paths = []
-        if image_paths is not None:
-            all_image_paths.extend(image_paths)
-        if images is not None:
-            all_image_paths.extend(images)
-
-        if len(all_image_paths) > 1:
-            dimensions = []
-            for img_path in all_image_paths:
-                if isinstance(img_path, str) and os.path.exists(img_path):
-                    img = Image.open(img_path)
-                elif isinstance(img_path, Image.Image):
-                    img = img_path
-                else:
-                    raise ValueError(f"Invalid image or path: {img_path}")
-                dimensions.append(img.size)
-
-            if len(set(dimensions)) > 1:
-                raise ValueError("All images must have the same dimensions before further processing.")
-
-        if images is not None:
-            for img in images:
-                if resize_to:
-                    img = img.resize(resize_to)
-                processed_images.append(img.convert("RGB"))
-
-        if image_paths is not None:
-            for path in image_paths:
-                if os.path.exists(path):
-                    img = Image.open(path)
-                    if resize_to:
-                        img = img.resize(resize_to)
-                    processed_images.append(img.convert("RGB"))
-                else:
-                    raise ValueError(f"Image path does not exist: {path}")
-
-        if not processed_images:
-            raise ValueError("No valid images provided")
-
-        if merge:
-            # Add borders and numbering to each image
-            bordered_images = []
-            for idx, img in enumerate(processed_images):
-                border_size = 10  # Size of the border
-                bordered_img = Image.new("RGB", (img.width + 2 * border_size, img.height + 2 * border_size), "black")
-                bordered_img.paste(img, (border_size, border_size))
-
-                # Add numbering with dynamic font size
-                draw = ImageDraw.Draw(bordered_img)
-                font_size = max(20, min(img.width, img.height) // 10)  # Dynamic font size based on image size
-                try:
-                    font = ImageFont.truetype("arial.ttf", font_size)
-                except IOError:
-                    font = ImageFont.load_default()  # Fallback to default font if arial.ttf is not available
-                draw.text((10, 10), f"{idx + 1}", fill="red", font=font)
-                bordered_images.append(bordered_img)
-
-            # Update processed_images to bordered_images
-            processed_images = bordered_images
-
-            # Determine merging layout
-            if merge == 'auto':
-                num_images = len(processed_images)
-                rows = int(num_images ** 0.5)
-                cols = (num_images + rows - 1) // rows  # Ensure all images fit
-                grid_size = (rows, cols)
-                merge = 'grid'
-
-            if merge == 'horizontal':
-                # Horizontal layout
-                total_width = sum(img.width for img in processed_images)
-                total_height = max(img.height for img in processed_images)
-                merged_image = Image.new("RGB", (total_width, total_height), "white")
-
-                x_offset = 0
-                for img in processed_images:
-                    merged_image.paste(img, (x_offset, 0))
-                    x_offset += img.width
-
-            elif merge == 'vertical':
-                # Vertical layout
-                total_width = max(img.width for img in processed_images)
-                total_height = sum(img.height for img in processed_images)
-                merged_image = Image.new("RGB", (total_width, total_height), "white")
-
-                y_offset = 0
-                for img in processed_images:
-                    merged_image.paste(img, (0, y_offset))
-                    y_offset += img.height
-
-            elif merge == 'grid' and grid_size:
-                # Grid layout
-                rows, cols = grid_size
-                cell_width = max(img.width for img in processed_images)
-                cell_height = max(img.height for img in processed_images)
-
-                total_width = cols * cell_width
-                total_height = rows * cell_height
-                merged_image = Image.new("RGB", (total_width, total_height), "white")
-
-                for idx, img in enumerate(processed_images):
-                    row = idx // cols
-                    col = idx % cols
-                    x_offset = col * cell_width
-                    y_offset = row * cell_height
-                    merged_image.paste(img, (x_offset, y_offset))
-
-            if merge == 'custom_grid':
-                # Reorder processed images using fixed order
-                processed_images = arrange_images_in_logical_order(processed_images)
-
-                # Create the grid layout
-                grid_layout = [
-                    ("front_left", "front", "front_right"),
-                    ("back_left", "back", "back_right")
-                ]
-
-                rows, cols = len(grid_layout), len(grid_layout[0])
-                cell_width = max(img.width for img in processed_images)
-                cell_height = max(img.height for img in processed_images)
-
-                total_width = cols * cell_width
-                total_height = rows * cell_height
-                merged_image = Image.new("RGB", (total_width, total_height), "white")
-
-                # Paste images in grid layout
-                for idx, img in enumerate(processed_images):
-                    row, col = divmod(idx, cols)
-                    x_offset = col * cell_width
-                    y_offset = row * cell_height
-                    merged_image.paste(img, (x_offset, y_offset))
-
-            else:
-
-                raise ValueError("Invalid merge option or missing grid_size for grid layout")
-
-            # Scale merged image if it exceeds max_dimensions
-            if max_dimensions:
-                max_width, max_height = max_dimensions
-                if merged_image.width > max_width or merged_image.height > max_height:
-                    scale_ratio = min(max_width / merged_image.width, max_height / merged_image.height)
-                    new_width = int(merged_image.width * scale_ratio)
-                    new_height = int(merged_image.height * scale_ratio)
-                    merged_image = merged_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
-
-            return [merged_image]
-
-        return processed_images
 
 
+class MultimodalInputBuilder:
+    def __init__(self):
+        self.content = []
 
+    def assistant(self, content: str):
+        """
+        构造助手消息
 
+        Args:
+            content (str): 助手的文本内容。
 
+        Returns:
+            dict: 助手的结构化消息。
+        """
+        return {"role": "assistant", "content": content}
 
+    def user_input(self, prompt_text: str, images: list = None):
+        """
+        构造用户输入，可以包含文本和图片。
 
+        Args:
+            prompt_text (str): 用户输入的文本内容。
+            images (list, optional): 图片 URL 列表。如果没有图片，默认为 None。
 
+        Returns:
+            dict: 用户输入的结构化消息。
+        """
+        content = []
+        if images:
+            # 添加图片内容
+            content.extend([{"type": "image"} for _ in images])
+        # 添加文本内容
+        content.append({"type": "text", "text": prompt_text})
 
+        return {"role": "user", "content": content}
 
+    def system(self, content: str, type: str):
+        """
+        构造系统消息，支持 fine-tuning 类型和其他类型。
 
+        Args:
+            content (str): 系统消息的内容。
+            type (str): 消息类型，支持 'Fine_tuning' 或其他。
 
+        Returns:
+            dict: 系统消息的结构化内容。
+        """
+        if type == 'Fine_tuning':
+            return {"from": "system", "value": content}
+        else:
+            return {"role": "system", "content": content}
 
+    def convert_to_percentage(self, base_width, base_height, match):
+        """
+        将坐标转化为百分比形式。
 
+        Args:
+            base_width (float): 基准宽度。
+            base_height (float): 基准高度。
+            match (match object): 正则匹配对象，包含坐标信息。
 
+        Returns:
+            str: 转换后的百分比格式。
+        """
+        # 提取数值并计算百分比
+        values = match.group().split(",")
+        if len(values) == 4:
+            x_percent = float(values[2]) / base_width * 100
+            y_percent = float(values[3].strip(">")) / base_height * 100
+            return f"<{values[0]},{values[1]},{x_percent:.2f}%,{y_percent:.2f}%>"
+        return match.group()  # 如果没有匹配到正确的格式，直接返回原始数据
 
+    def build_input(self, role: str, content: str, images: list = None, system_type: str = None):
+        """
+        根据角色构建不同类型的输入。
 
+        Args:
+            role (str): 输入的角色，'user', 'assistant' 或 'system'。
+            content (str): 内容文本。
+            images (list, optional): 图片列表，默认为 None。
+            system_type (str, optional): 如果角色是系统，提供系统类型，默认为 None。
 
-def assistant(content: str):
-    return { "role": "assistant", "content": content }
-
-
-def user_input(prompt_text: str, images: list = None):
-    """
-    构造用户输入，可以包含文本和图片。
-
-    Args:
-        prompt_text (str): 用户输入的文本内容。
-        images (list, optional): 图片 URL 列表。如果没有图片，默认为 None。
-
-    Returns:
-        dict: 用户输入的结构化消息。
-    """
-    content = []
-    if images:
-        # 添加图片内容
-        content.extend([{"type": "image"} for _ in images])
-    # 添加文本内容
-    content.append({"type": "text", "text": prompt_text})
-
-    return {"role": "user", "content": content}
-
-def system(content: str, type ):
-    if type == 'Fine_tuning':
-        return { "from": "system", "value": content}
-    else:
-        return { "role": "system", "content": content }
-
-
-def convert_to_percentage(base_width,base_height, match):
-
-    # 提取数值并计算百分比
-    values = match.group().split(",")
-    if len(values) == 4:
-        x_percent = float(values[2]) / base_width * 100
-        y_percent = float(values[3].strip(">")) / base_height * 100
-        return f"<{values[0]},{values[1]},{x_percent:.2f}%,{y_percent:.2f}%>"
-    return match.group()
+        Returns:
+            dict: 对应角色的结构化输入。
+        """
+        if role == "assistant":
+            return self.assistant(content)
+        elif role == "user":
+            return self.user_input(content, images)
+        elif role == "system":
+            return self.system(content, system_type)
+        else:
+            raise ValueError("Invalid role. Must be 'assistant', 'user', or 'system'.")
