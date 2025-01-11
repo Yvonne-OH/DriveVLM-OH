@@ -175,8 +175,8 @@ class Gemini_ImageProcessor:
 #__________________________________________________________________________________
 class DataPreprocessor:
     def __init__(self, image_paths: list = None, images: list = None,resize_to: tuple = None,max_dimensions: tuple = None):
-        self.image_paths = image_paths
-        self.images = images
+        self.image_paths = image_paths if image_paths else []
+        self.images = images if images else []
         self.resize_to = resize_to
         self.max_dimensions = max_dimensions
 
@@ -185,14 +185,17 @@ class DataPreprocessor:
         Load images from paths or directly from the provided list.
         """
         processed_images = []
+        # Combine the image paths and PIL.Image objects into one list
         all_image_paths = self.image_paths + [img for img in self.images if isinstance(img, Image.Image)]
 
         for img_path in all_image_paths:
             if isinstance(img_path, str):
+                # If it's a path, load the image
                 if not os.path.exists(img_path):
                     raise ValueError(f"Image path does not exist: {img_path}")
                 img = Image.open(img_path)
             elif isinstance(img_path, Image.Image):
+                # If it's already a PIL image object, use it directly
                 img = img_path
             else:
                 raise ValueError(f"Invalid image or path: {img_path}")
@@ -202,25 +205,6 @@ class DataPreprocessor:
 
             processed_images.append(img.convert("RGB"))
         return processed_images
-
-    def arrange_images_in_logical_order(self, processed_images: list, order: list) -> list:
-        """
-        Arrange images into a fixed logical order based on their input order.
-        """
-        fixed_order = [
-            "front_left",  # processed_images[1]
-            "front",  # processed_images[0]
-            "front_right",  # processed_images[2]
-            "back_left",  # processed_images[4]
-            "back",  # processed_images[3]
-            "back_right"  # processed_images[5]
-        ]
-
-        assert len(order) == len(processed_images), "Invalid order list"
-
-        ordered_indices = [1, 0, 2, 4, 3, 5]  # Indices corresponding to the fixed order
-        ordered_images = [processed_images[idx] for idx in ordered_indices]
-        return ordered_images
 
     def _add_borders_and_numbering(self, processed_images: list) -> list:
         """
@@ -243,7 +227,7 @@ class DataPreprocessor:
             bordered_images.append(bordered_img)
         return bordered_images
 
-    def arrange_images_in_logical_order(processed_images: list) -> list:
+    def arrange_images_in_logical_order(self,processed_images: list, logical_order: list = [1,0,2,4,3,5]) -> list:
         """
         Arrange images into a fixed logical order based on their input order.
         """
@@ -258,15 +242,18 @@ class DataPreprocessor:
         ]
 
         # Reorder images based on fixed logic
-        ordered_indices = [1, 0, 2, 4, 3, 5]  # Indices corresponding to the fixed order
-        ordered_images = [processed_images[idx] for idx in ordered_indices]
+        ordered_images = [processed_images[idx] for idx in logical_order]
 
         return ordered_images
 
-    def _merge_images(self, processed_images: list, merge: str, grid_size: tuple = None) -> Image:
+    def _merge_images(self, processed_images: list, merge: str, grid_size: tuple = None, logical_order: list  = None) -> Image:
         """
         Merge the images based on the selected merge type (horizontal, vertical, grid, etc.)
         """
+
+        if logical_order:
+            processed_images = self.arrange_images_in_logical_order(processed_images, logical_order)
+
         if merge == 'horizontal':
             return self._merge_horizontal(processed_images)
         elif merge == 'vertical':
@@ -274,8 +261,7 @@ class DataPreprocessor:
         elif merge == 'grid' and grid_size:
             return self._merge_grid(processed_images, grid_size)
         elif merge == 'custom_grid':
-            ordered_images = self.arrange_images_in_logical_order(processed_images)
-            return self._merge_grid(ordered_images, (2, 3))  # Assuming fixed 2x3 grid for custom grid
+            return self._merge_grid(processed_images, (2, 3))  # Assuming fixed 2x3 grid for custom grid
         else:
             raise ValueError("Invalid merge option or missing grid_size for grid layout")
 
@@ -311,6 +297,7 @@ class DataPreprocessor:
         """
         Merge images in a grid layout.
         """
+
         rows, cols = grid_size
         cell_width = max(img.width for img in processed_images)
         cell_height = max(img.height for img in processed_images)
@@ -326,7 +313,7 @@ class DataPreprocessor:
             merged_image.paste(img, (x_offset, y_offset))
         return merged_image
 
-    def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None) -> list:
+    def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None, logical_order: list = None) -> list:
         """
         Main method to merge vehicle camera views.
         """
@@ -339,7 +326,7 @@ class DataPreprocessor:
         processed_images = self._add_borders_and_numbering(processed_images)
 
         # Merge the images based on the selected option
-        merged_image = self._merge_images(processed_images, merge, grid_size)
+        merged_image = self._merge_images(processed_images, merge, grid_size, logical_order)
 
         # Scale merged image if it exceeds max_dimensions
         if self.max_dimensions:
@@ -355,8 +342,9 @@ class DataPreprocessor:
 
 
 class MultimodalInputBuilder:
-    def __init__(self):
+    def __init__(self, Model_type: str = None):
         self.content = []
+        self.Model_type = Model_type
 
     def assistant(self, content: str):
         """
@@ -368,7 +356,10 @@ class MultimodalInputBuilder:
         Returns:
             dict: 助手的结构化消息。
         """
-        return {"role": "assistant", "content": content}
+        if self.Model_type == 'LLAMA':
+            return {"role": "assistant", "content": content}
+        else:
+            raise ValueError("Invalid Model type. Must be 'LLAMA'")
 
     def user_input(self, prompt_text: str, images: list = None):
         """
@@ -381,14 +372,16 @@ class MultimodalInputBuilder:
         Returns:
             dict: 用户输入的结构化消息。
         """
-        content = []
-        if images:
-            # 添加图片内容
-            content.extend([{"type": "image"} for _ in images])
-        # 添加文本内容
-        content.append({"type": "text", "text": prompt_text})
-
-        return {"role": "user", "content": content}
+        if self.Model_type == 'LLAMA':
+            content = []
+            if images:
+                # 添加图片内容
+                content.extend([{"type": "image"} for _ in images])
+            # 添加文本内容
+            content.append({"type": "text", "text": prompt_text})
+            return {"role": "user", "content": content}
+        else:
+            raise ValueError("Invalid Model type. Must be 'LLAMA'")
 
     def system(self, content: str, type: str):
         """
@@ -401,10 +394,13 @@ class MultimodalInputBuilder:
         Returns:
             dict: 系统消息的结构化内容。
         """
-        if type == 'Fine_tuning':
-            return {"from": "system", "value": content}
+        if self.Model_type == 'LLAMA':
+            if type == 'Fine_tuning':
+                return {"from": "system", "value": content}
+            else:
+                return {"role": "system", "content": content}
         else:
-            return {"role": "system", "content": content}
+            raise ValueError("Invalid Model type. Must be 'LLAMA'")
 
     def convert_to_percentage(self, base_width, base_height, match):
         """
@@ -447,3 +443,29 @@ class MultimodalInputBuilder:
             return self.system(content, system_type)
         else:
             raise ValueError("Invalid role. Must be 'assistant', 'user', or 'system'.")
+
+
+if __name__ == '__main__':
+    image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"]
+    resize_to = (224,224)
+    max_dimensions = (1120, 1120)
+
+    processor = DataPreprocessor(image_paths=image_paths, resize_to=resize_to, max_dimensions=max_dimensions)
+
+
+    merged_images_horizontal = processor.merge_vehicle_camera_views(merge='horizontal', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_horizontal[0].save("merged_horizontal.jpg")
+
+    merged_images_vertical = processor.merge_vehicle_camera_views(merge='vertical', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_vertical[0].save("merged_vertical.jpg")
+
+    merged_images_custom_grid = processor.merge_vehicle_camera_views(merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_custom_grid[0].save("merged_custom_grid.jpg")
+
+    Input = MultimodalInputBuilder(Model_type='LLAMA')
+    user_input = Input.build_input(role='user', content='Hello, how can I help you?', images=[Image.open("1.png")])
+    print (user_input)
+
+    system_message = Input.build_input(role='system', content="Fine-tuning message", system_type="Fine_tuning")
+    print(system_message)
+
