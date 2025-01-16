@@ -173,7 +173,7 @@ class Gemini_ImageProcessor:
 
 #__________________________________________________________________________________
 #__________________________________________________________________________________
-class DataPreprocessor:
+class ImagePreprocessor:
     def __init__(self, image_paths: list = None, images: list = None,resize_to: tuple = None,max_dimensions: tuple = None):
         self.image_paths = image_paths if image_paths else []
         self.images = images if images else []
@@ -450,7 +450,7 @@ if __name__ == '__main__':
     resize_to = (224,224)
     max_dimensions = (1120, 1120)
 
-    processor = DataPreprocessor(image_paths=image_paths, resize_to=resize_to, max_dimensions=max_dimensions)
+    processor = ImagePreprocessor(image_paths=image_paths, resize_to=resize_to, max_dimensions=max_dimensions)
 
 
     merged_images_horizontal = processor.merge_vehicle_camera_views(merge='horizontal', logical_order=[1, 0, 2, 4, 3, 5])
