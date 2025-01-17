@@ -4,11 +4,12 @@ from huggingface_hub import hf_hub_download
 # -*- coding: utf-8 -*-
 
 import os
-os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"  # 设置为hf的国内镜像网站
+
+#os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"  # 设置为hf的国内镜像网站
 
 from huggingface_hub import snapshot_download
 
-model_name = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+model_name = "meta-llama/Llama-3.2-3B"
 # while True 是为了防止断联
 while True:
     try:

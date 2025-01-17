@@ -10,6 +10,15 @@ from transformers import BitsAndBytesConfig
 from torch.quantization import quantize_dynamic
 from transformers import MllamaForConditionalGeneration, MllamaProcessor
 
+# Initialize accelerator
+accelerator = Accelerator()
+device = accelerator.device
+
+# Constants
+DEFAULT_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
+MAX_OUTPUT_TOKENS = 512
+MAX_IMAGE_SIZE = (512,512)
+
 class VisionModelHandler:
     def __init__(self, model_name: str = None, finetuning_path: str = None, max_memory: dict = None, **kwargs):
         # Validate inputs
@@ -106,17 +115,6 @@ class VisionModelHandler:
             )
         generated_text = self.processor.decode(output[0], skip_special_tokens=True)
         return generated_text
-
-
-# Initialize accelerator
-accelerator = Accelerator()
-device = accelerator.device
-
-# Constants
-DEFAULT_MODEL = "meta-llama/Llama-3.2-11B-Vision-Instruct"
-MAX_OUTPUT_TOKENS = 512
-MAX_IMAGE_SIZE = (512,512)
-
 
 
 def get_hf_token():

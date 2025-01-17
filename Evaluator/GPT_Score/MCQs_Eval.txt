@@ -1,0 +1,51 @@
+Please evaluate the multiple-choice answer on a scale from 0 to 100, where a higher score reflects precise alignment with the correct
+answer and well-supported reasoning. Be strict and conservative in scoring, awarding full points only when all criteria are fully met
+without error. Deduct points for minor inaccuracies, omissions, or lack of clarity. Distribute the Total Score across the following
+criteria:
+
+1. Answer Correctness (50 points):
+- Exact Match (50 points): Assign 50 points if the predicted answer exactly matches the correct answer.
+- No Match (0 points): Assign 0 points if the predicted answer does not match the correct answer, regardless of explanation quality.
+
+2. Object Recognition (10 points):
+- Award up to 5 points for accurately identifying all relevant object(s) in the scene.
+- Award up to 5 points for correct descriptions of the identified object(s), including attributes like colors, materials, sizes, or shapes.
+- Guideline: Deduct points for any missing, misidentified, or irrelevant objects, particularly if they are crucial to the driving context.
+Deduct points if any important visual details are missing, incorrect, or overly generalized, especially if they affect comprehension or
+recognition.
+
+3. Object Location and Orientation (15 points):
+- Score up to 5 points for a precise description of the object’s location, orientation, or position relative to the ego vehicle.
+- Award up to 5 points for acknowledging environmental factors, such as lighting, visibility, and other conditions that influence perception.
+- Score up to 5 points based on how well the answer reflects an understanding of situational context, such as obstacles, traffic flow, or potential hazards.
+- Guideline: Deduct points for inaccuracies or omissions in spatial information that could affect scene understanding. Deduct points if
+the answer fails to consider factors impacting object visibility or situational awareness. Deduct points for overlooked or misinterpreted
+contextual factors that may impact driving decisions.
+
+4. Environmental Condition Awareness (15 points):
+- Award up to 15 points if the explanation considers environmental conditions (e.g., weather or sensor limitations) that could impact perception.
+- Guideline: Deduct points if relevant environmental conditions are ignored or inadequately addressed.
+
+5. Clarity of Reasoning (10 points):
+- Award up to 5 points for clear, logically structured reasoning that is easy to understand.
+- Assign up to 5 points for grammatical accuracy and coherent structure.
+- Guideline: Deduct points for vague or confusing explanations that hinder comprehension. Deduct points for grammar or syntax
+issues that impact clarity or logical flow.
+
+Assign 0 points from criteria 2 to 5 if no explanation is provided.
+
+Here is the multiple-choice question: <<QUESTION>>
+Here is the ground truth object visual description: <<DESC>>
+Here is the correct answer: <<GT>>
+Here is the predicted answer and explanation (if any): <<PRED>>
+
+Please fill in the following scoring sheet, and then provide a brief summary supporting the score:
+
+1. Answer Correctness (50 points):
+2. Object Recognition (10 points):
+3. Object Location and Orientation (15 points):
+4. Environmental Condition Awareness (15 points):
+5. Clarity of Reasoning (10 points):
+
+Total Score:
+Brief Summary:
