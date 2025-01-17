@@ -257,51 +257,159 @@ def llama3_VQA_Nusence_COT_benchmark(
 
 
 if __name__ == '__main__':
+    resize_to = (224, 224)
+    max_dimensions = (1120, 1120)
 
     # 加载数据
+    with open ('Task_DESC.txt') as f:
+        task_desc = f.read()
 
-    Json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test_eval.json"
-    Image_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/"
-    Save_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/Multi_choice_behavior_test_Llama.json"
-    Result_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/"
-
-    # 配置参数
-    model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
-    Lora_name =  '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'
-    #finetuning_path = None  # 如果有微调路径可以设置
-
-    temperature = 0.1
-    top_p = 0.3
-
-    # 确保 CUDA 可用
-    if not torch.cuda.is_available():
-        print("CUDA is not available. Please check your GPU configuration.")
-        # return
-
-        # 加载模型和处理器
+    # Load JSON file
     try:
-        model, processor = Multi_modal_Infer.load_model_and_processor(
-            model_name=model_name,
-            finetuning_path= Lora_name,
-            device="auto",  # 自动设备映射
-            max_memory={0: "22GB", 1: "16GB"}  # GPU 显存限制
-        )
-        print("Model and processor loaded successfully.")
+        with open(json_path, 'r') as f:
+            qa_data = json.load(f)
     except Exception as e:
-        print(f"Failed to load model and processor: {e}")
-        # return
+        print(f"Error loading JSON file: {e}")
+        return
 
-    # 获取当前设备
-    device = model.device
-    print(f"Selected optimal device: {device}")
+    task_desc_content = util.extract_between_markers(task_desc,"[DESC_START]","[DESC_END]")[0]
 
 
-    llama3_VQA_Nusence_COT_benchmark(
-        Save_path, Image_path, Result_path,
-        model,processor, device,
-        "behavior", 100 , 512)
+    MultimodalInputBuilder = util.MultimodalInputBuilder("LLAMA")
+    image_processor = util.ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimensions)
+
+    system_instruction = task_desc_content
 
 
+    # Iterate through samples with a limit of `sample_num`
+    for i, sample in enumerate(tqdm(qa_data, desc="Generating responses: ")):
+
+        if i >= sample_num:
+            break
+
+        # Ensure each sample contains 6 images
+        if len(sample.get('image', [])) != 6:
+            print(f"Warning: Sample {i} does not have exactly 6 images. Skipping.")
+            continue
+
+        try:
+
+            images = image_processor.merge_vehicle_camera_views(image_paths=sample['image'], merge='custom_grid',
+                                                                logical_order=[1, 0, 2, 4, 3, 5])
+            images[0].save("merged_image.png")
+        except Exception as e:
+            print(f"Error opening files for sample {i}: {e}")
+            continue
+
+        # Extract question
+        Question = sample['conversations'][0]['value'] if len(sample.get('conversations', [])) > 0 else ""
+
+
+        conversation = [
+            MultimodalInputBuilder.system(system_instruction),
+            MultimodalInputBuilder.user_input(
+                f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**",
+                images),
+            MultimodalInputBuilder.user_input(input_2),
+            # user_input("Can you help me analyze the images and answer questions step by step?"),
+        ]
+
+        # 添加用户消息到对话历史
+        conversation.append(MultimodalInputBuilder.user_input(util.extract_between_markers(task_desc,"[COT_STEP1_START]","[COT_STEP1_END]")[0]))
+
+        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+        with torch.no_grad():  # Disable gradient computation to save memory
+        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
+        # 提取生成的新部分（避免重复提示）
+        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+        # 解码生成的 token
+        assistant_message = processor.decode(
+            generated_tokens[0],  # 解码第一个样本
+            skip_special_tokens=True,  # 跳过特殊标记
+            clean_up_tokenization_spaces=True  # 自动清理多余空格
+        )
+
+        print(f"LLAMA: {assistant_message}")
+        print("*" * 50)
+        conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+
+        conversation.append(MultimodalInputBuilder.user_input(
+            f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
+
+        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+        with torch.no_grad():  # Disable gradient computation to save memory
+        output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                max_new_tokens=MAX_OUTPUT_TOKENS)
+        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+
+        # 解码生成的 token
+        assistant_message = processor.decode(
+            generated_tokens[0],  # 解码第一个样本
+            skip_special_tokens=True,  # 跳过特殊标记
+            clean_up_tokenization_spaces=True  # 自动清理多余空格
+        )
+
+        print(f"LLAMA: {assistant_message}")
+        print("*" * 50)
+        conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+
+        conversation.append(MultimodalInputBuilder.user_input(
+            "It's a choice question. Compare your answer with the options given and choose the most relevant option. "
+            "Wrap the final answer in the following format "
+            " </ans>Your_Choice</ans>  "
+        ))
+
+        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
+        with torch.no_grad():  # Disable gradient computation to save memory
+            output = model.generate(**inputs, temperature=temperature, top_p=top_p,
+                                    max_new_tokens=MAX_OUTPUT_TOKENS)
+
+        # 提取生成的新部分（避免重复提示）
+        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+
+        # 解码生成的 token
+        assistant_message = processor.decode(
+            generated_tokens[0],  # 解码第一个样本
+            skip_special_tokens=True,  # 跳过特殊标记
+            clean_up_tokenization_spaces=True  # 自动清理多余空格
+        )
+
+        print(f"LLAMA: {assistant_message}")
+        print("*" * 50)
+
+        final_response = assistant_message
+        print("*" * 50)
+        print(f"Model: {final_response}")
+
+            except Exception as e:
+                print(f"Error during conversation: {e}")
+                continue
+
+            # Modify sample and write to file
+            modified_sample = sample.copy()
+            modified_sample["conversations"].append({
+                "from": "Model_Output",
+                "value": final_response
+            })
+
+            # 写入结果到文件
+            try:
+                with open(result_path, "a") as outfile:
+                    if i > 0:  # 如果不是第一个结果，添加逗号分隔
+                        outfile.write(",\n")
+                    json.dump(modified_sample, outfile, indent=4)
+
+                print(f"Sample {i} written to {result_path}")
+
+            except Exception as e:
+                print(f"Error writing sample {i} to JSON file: {e}")
+
+    # 在文件末尾关闭 JSON 数组
+    with open(result_path, "a") as outfile:
+        outfile.write("\n]\n")  # 关闭 JSON 数组
 
 
 

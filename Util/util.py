@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageColor
@@ -446,6 +447,16 @@ class MultimodalInputBuilder:
             return self.system(content, system_type)
         else:
             raise ValueError("Invalid role. Must be 'assistant', 'user', or 'system'.")
+
+
+def extract_between_markers(content, start_marker, end_marker):
+
+    # 构造正则表达式
+    pattern = re.compile(re.escape(start_marker) + r'(.*?)' + re.escape(end_marker), re.DOTALL)
+
+    # 查找所有匹配的文字
+    matches = pattern.findall(content)
+    return matches
 
 
 if __name__ == '__main__':
