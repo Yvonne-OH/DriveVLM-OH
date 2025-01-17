@@ -174,19 +174,22 @@ class Gemini_ImageProcessor:
 #__________________________________________________________________________________
 #__________________________________________________________________________________
 class ImagePreprocessor:
-    def __init__(self, image_paths: list = None, images: list = None,resize_to: tuple = None,max_dimensions: tuple = None):
-        self.image_paths = image_paths if image_paths else []
-        self.images = images if images else []
+    def __init__(self,resize_to: tuple = None,max_dimensions: tuple = None):
+        #self.image_paths = image_paths if image_paths else []
+        #self.images = images if images else []
         self.resize_to = resize_to
         self.max_dimensions = max_dimensions
 
-    def _load_images(self):
+    def _load_images(self,  image_paths: list = None, images: list = None):
         """
         Load images from paths or directly from the provided list.
         """
         processed_images = []
         # Combine the image paths and PIL.Image objects into one list
-        all_image_paths = self.image_paths + [img for img in self.images if isinstance(img, Image.Image)]
+        if images:
+            all_image_paths = image_paths + [img for img in images if isinstance(img, Image.Image)]
+        else:
+            all_image_paths = image_paths
 
         for img_path in all_image_paths:
             if isinstance(img_path, str):
@@ -313,11 +316,11 @@ class ImagePreprocessor:
             merged_image.paste(img, (x_offset, y_offset))
         return merged_image
 
-    def merge_vehicle_camera_views(self, merge: str = None, grid_size: tuple = None, logical_order: list = None) -> list:
+    def merge_vehicle_camera_views(self,  image_paths: list = None, images: list = None, merge: str = None, grid_size: tuple = None, logical_order: list = None) -> list:
         """
         Main method to merge vehicle camera views.
         """
-        processed_images = self._load_images()
+        processed_images = self._load_images( image_paths, images)
 
         if not processed_images:
             raise ValueError("No valid images provided")
@@ -383,7 +386,7 @@ class MultimodalInputBuilder:
         else:
             raise ValueError("Invalid Model type. Must be 'LLAMA'")
 
-    def system(self, content: str, type: str):
+    def system(self, content: str, type: str = None):
         """
         构造系统消息，支持 fine-tuning 类型和其他类型。
 
@@ -450,16 +453,16 @@ if __name__ == '__main__':
     resize_to = (224,224)
     max_dimensions = (1120, 1120)
 
-    processor = ImagePreprocessor(image_paths=image_paths, resize_to=resize_to, max_dimensions=max_dimensions)
+    processor = ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimensions)
 
 
-    merged_images_horizontal = processor.merge_vehicle_camera_views(merge='horizontal', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_horizontal = processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='horizontal', logical_order=[1, 0, 2, 4, 3, 5])
     merged_images_horizontal[0].save("merged_horizontal.jpg")
 
-    merged_images_vertical = processor.merge_vehicle_camera_views(merge='vertical', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_vertical = processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='vertical', logical_order=[1, 0, 2, 4, 3, 5])
     merged_images_vertical[0].save("merged_vertical.jpg")
 
-    merged_images_custom_grid = processor.merge_vehicle_camera_views(merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_custom_grid = processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
     merged_images_custom_grid[0].save("merged_custom_grid.jpg")
 
     Input = MultimodalInputBuilder(Model_type='LLAMA')

@@ -1,47 +1,18 @@
 import Multi_modal_Infer
 import json
-from PIL import Image, ImageDraw, ImageFont
-
-import base64
 import json
 import torch
-
 import time
 from tqdm import tqdm
 import os
+import Util.util as util
 
-# Suppress logging warnings
-os.environ["GRPC_VERBOSITY"] = "ERROR"
-os.environ["GLOG_minloglevel"] = "2"  # 0: INFO, 1: WARNING, 2: ERROR, 3: FATAL
+"""
+To do
+  
+'Multi_modal_Infer' has no attribute 'process_image'
 
-
-
-def assistant(content: str):
-    return { "role": "assistant", "content": content }
-
-
-def user_input(prompt_text: str, images: list = None):
-    """
-    构造用户输入，可以包含文本和图片。
-
-    Args:
-        prompt_text (str): 用户输入的文本内容。
-        images (list, optional): 图片 URL 列表。如果没有图片，默认为 None。
-
-    Returns:
-        dict: 用户输入的结构化消息。
-    """
-    content = []
-    if images:
-        # 添加图片内容
-        content.extend([{"type": "image"} for _ in images])
-    # 添加文本内容
-    content.append({"type": "text", "text": prompt_text})
-
-    return {"role": "user", "content": content}
-
-def system(content: str):
-    return { "role": "system", "content": content }
+"""
 
 
 def llama3_VQA_Nusence_COT_benchmark(
@@ -59,6 +30,13 @@ def llama3_VQA_Nusence_COT_benchmark(
         model_name (str): Name of the model.
         sample_num (int): Number of samples to process.
     """
+    MultimodalInputBuilder = util.MultimodalInputBuilder("LLAMA")
+
+    resize_to = (224, 224)
+    max_dimensions = (1120, 1120)
+
+    image_processor = util.ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimensions)
+
 
     # Write to JSON file after each response
     result_path = result_path + task_type + "_test_result_LLAMA3.2.json"
@@ -114,7 +92,8 @@ def llama3_VQA_Nusence_COT_benchmark(
             continue
 
         try:
-            images = Multi_modal_Infer.process_image( image_paths = sample['image'], merge='custom_grid', max_dimensions=(1120,1120))
+
+            images =  image_processor.merge_vehicle_camera_views(image_paths=sample['image'],  merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
             """Process and validate image input, with optional resizing"""
             #files = [encode_image(image) for image in sample['image']]
         except Exception as e:
@@ -145,9 +124,9 @@ def llama3_VQA_Nusence_COT_benchmark(
         )
 
         conversation = [
-            system(system_instruction),
-            user_input(f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**", images),
-            user_input(input_2),
+            MultimodalInputBuilder.system(system_instruction),
+            MultimodalInputBuilder.user_input(f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**", images),
+            MultimodalInputBuilder.user_input(input_2),
             #user_input("Can you help me analyze the images and answer questions step by step?"),
         ]
 
@@ -172,7 +151,7 @@ def llama3_VQA_Nusence_COT_benchmark(
 """
 
                 # 添加用户消息到对话历史
-                conversation.append(user_input("""Analyze the image and assess the following:
+                conversation.append(MultimodalInputBuilder.user_input("""Analyze the image and assess the following:
                     What is the current state of the ego vehicle (position, speed, or behavior)?
                     What are the states of the surrounding vehicles and pedestrians, and how might they influence the ego vehicle's actions?
                     Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""))
@@ -198,9 +177,9 @@ def llama3_VQA_Nusence_COT_benchmark(
 
                 print(f"LLAMA: {assistant_message}")
                 print("*" * 50)
-                conversation.append(assistant(assistant_message))
+                conversation.append(MultimodalInputBuilder.assistant(assistant_message))
 
-                conversation.append(user_input( f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
+                conversation.append(MultimodalInputBuilder.user_input( f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
 
                 prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
                 inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
@@ -220,9 +199,9 @@ def llama3_VQA_Nusence_COT_benchmark(
 
                 print(f"LLAMA: {assistant_message}")
                 print("*" * 50)
-                conversation.append(assistant(assistant_message))
+                conversation.append(MultimodalInputBuilder.assistant(assistant_message))
 
-                conversation.append(user_input(
+                conversation.append(MultimodalInputBuilder.user_input(
                     "It's a choice question. Compare your answer with the options given and choose the most relevant option. "
                     "Wrap the final answer in the following format "
                     " </ans>Your_Choice</ans>  "
@@ -279,20 +258,8 @@ def llama3_VQA_Nusence_COT_benchmark(
         outfile.write("\n]\n")  # 关闭 JSON 数组
 
 
-def get_optimal_device():
-    if not torch.cuda.is_available():
-        return "cpu"
-
-    # 获取所有设备的显存信息
-    devices = list(range(torch.cuda.device_count()))
-    free_memory = [torch.cuda.get_device_properties(i).total_memory - torch.cuda.memory_allocated(i) for i in devices]
-
-    # 选择可用显存最大的设备
-    optimal_device = f"cuda:{free_memory.index(max(free_memory))}"
-    return optimal_device
-
-
 if __name__ == '__main__':
+
     # 加载数据
 
     Json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test_eval.json"
@@ -327,7 +294,7 @@ if __name__ == '__main__':
         # return
 
     # 获取当前设备
-    device = get_optimal_device()
+    device = model.device
     print(f"Selected optimal device: {device}")
 
 
