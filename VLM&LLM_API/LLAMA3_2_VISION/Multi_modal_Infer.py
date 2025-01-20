@@ -245,12 +245,13 @@ if __name__ == "__main__":
 
     # 配置参数
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
-    finetuning_path = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'  # 如果有微调路径可以设置
+    #finetuning_path = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'  # 如果有微调路径可以设置
+    finetuning_path = None
     image_paths = ["2.png","1.png","3.png","2.png","1.png","3.png"]  # 替换为本地图片路径
     prompt_text = "Describe this image in detail."
     temperature = 0.7
     top_p = 0.9
-    resize_to = (224, 224)  # 设置图像缩放尺寸
+    resize_to = (128, 128)  # 设置图像缩放尺寸
     max_dimension = (1120, 1120)
 
     # 确保 CUDA 可用
@@ -262,9 +263,9 @@ if __name__ == "__main__":
     try:
         model, processor = load_model_and_processor(
             model_name=model_name,
-            finetuning_path=finetuning_path,
-            device="auto",  # 自动设备映射
-            max_memory={0: "22GB", 1: "7.6GB"}  # GPU 显存限制
+            finetuning_path= finetuning_path if finetuning_path else None,
+            device="balanced",  # 自动设备映射
+            max_memory={0: "2GB", 1: "16GB"}  # GPU 显存限制
         )
         model.gradient_checkpointing_enable()
         print("Model and processor loaded successfully.")
@@ -272,20 +273,16 @@ if __name__ == "__main__":
         print(f"Failed to load model and processor: {e}")
         #return
 
-        # 加载并处理图像
-    try:
+    # 加载并处理图像
+    image_processor = ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimension)
+    image = image_processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='custom_grid',
+                                                                     logical_order=[1, 0, 2, 4, 3, 5])
 
-        image_processor = ImagePreprocessor(image_paths=image_paths, resize_to=resize_to, max_dimensions=max_dimension)
-        image = image_processor.merge_vehicle_camera_views(merge='custom_grid',
-                                                                         logical_order=[1, 0, 2, 4, 3, 5])
+    image[0].save("merged_image.png")
+    print("Image loaded and processed successfully.")
 
-        image[0].save("merged_image.png")
-        print("Image loaded and processed successfully.")
-    except Exception as e:
-        print(f"Failed to process image: {e}")
-        #return
 
-        # 生成文本
+    # 生成文本
     try:
         generated_text = generate_text_from_image(
             model=model,
@@ -299,6 +296,31 @@ if __name__ == "__main__":
         print(generated_text)
     except Exception as e:
         print(f"Failed to generate text: {e}")
+
+    Original_images = image_processor._load_images(
+        image_paths=["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"])
+    Original_images_in_order = image_processor.arrange_images_in_logical_order(Original_images,
+                                                                               logical_order=[1, 0, 2, 4, 3, 5])
+
+    try:
+
+
+        generated_text = generate_text_from_image(
+            model=model,
+            processor=processor,
+            images=Original_images_in_order[0:2],
+            prompt_text=prompt_text,
+            temperature=temperature,
+            top_p=top_p
+        )
+        print("Multi_IMG_Input")
+        print("_"*50)
+        print("Generated Text:")
+        print(generated_text)
+
+    except Exception as e:
+        print(f"Failed to process image: {e}")
+        #return
 
 
 

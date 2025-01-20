@@ -231,6 +231,7 @@ class ImagePreprocessor:
             bordered_images.append(bordered_img)
         return bordered_images
 
+
     def arrange_images_in_logical_order(self,processed_images: list, logical_order: list = [1,0,2,4,3,5]) -> list:
         """
         Arrange images into a fixed logical order based on their input order.
@@ -250,24 +251,6 @@ class ImagePreprocessor:
 
         return ordered_images
 
-    def _merge_images(self, processed_images: list, merge: str, grid_size: tuple = None, logical_order: list  = None) -> Image:
-        """
-        Merge the images based on the selected merge type (horizontal, vertical, grid, etc.)
-        """
-
-        if logical_order:
-            processed_images = self.arrange_images_in_logical_order(processed_images, logical_order)
-
-        if merge == 'horizontal':
-            return self._merge_horizontal(processed_images)
-        elif merge == 'vertical':
-            return self._merge_vertical(processed_images)
-        elif merge == 'grid' and grid_size:
-            return self._merge_grid(processed_images, grid_size)
-        elif merge == 'custom_grid':
-            return self._merge_grid(processed_images, (2, 3))  # Assuming fixed 2x3 grid for custom grid
-        else:
-            raise ValueError("Invalid merge option or missing grid_size for grid layout")
 
     def _merge_horizontal(self, processed_images: list) -> Image:
         """
@@ -342,6 +325,26 @@ class ImagePreprocessor:
                 merged_image = merged_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
 
         return [merged_image]
+
+
+    def _merge_images(self, processed_images: list, merge: str, grid_size: tuple = None, logical_order: list  = None) -> Image:
+        """
+        Merge the images based on the selected merge type (horizontal, vertical, grid, etc.)
+        """
+
+        if logical_order:
+            processed_images = self.arrange_images_in_logical_order(processed_images, logical_order)
+
+        if merge == 'horizontal':
+            return self._merge_horizontal(processed_images)
+        elif merge == 'vertical':
+            return self._merge_vertical(processed_images)
+        elif merge == 'grid' and grid_size:
+            return self._merge_grid(processed_images, grid_size)
+        elif merge == 'custom_grid':
+            return self._merge_grid(processed_images, (2, 3))  # Assuming fixed 2x3 grid for custom grid
+        else:
+            raise ValueError("Invalid merge option or missing grid_size for grid layout")
 
 
 
@@ -473,8 +476,13 @@ if __name__ == '__main__':
     merged_images_vertical = processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='vertical', logical_order=[1, 0, 2, 4, 3, 5])
     merged_images_vertical[0].save("merged_vertical.jpg")
 
-    merged_images_custom_grid = processor.merge_vehicle_camera_views(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"],merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
+    merged_images_custom_grid = processor.merge_vehicle_camera_views(
+        image_paths=["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"], merge='custom_grid',
+        logical_order=[1, 0, 2, 4, 3, 5])
     merged_images_custom_grid[0].save("merged_custom_grid.jpg")
+
+    Original_images =  processor._load_images(image_paths = ["2.png", "1.png", "3.png", "2.png", "1.png", "3.png"])
+    Original_images_in_order = processor.arrange_images_in_logical_order(Original_images, logical_order=[1, 0, 2, 4, 3, 5])
 
     Input = MultimodalInputBuilder(Model_type='LLAMA')
     user_input = Input.build_input(role='user', content='Hello, how can I help you?', images=[Image.open("1.png")])

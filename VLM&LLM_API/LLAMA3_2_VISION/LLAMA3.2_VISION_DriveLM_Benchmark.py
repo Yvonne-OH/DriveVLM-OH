@@ -1,11 +1,6 @@
 import Multi_modal_Infer
 import copy
 import json
-import json
-import torch
-import time
-from tqdm import tqdm
-import os
 import Util.util as util
 
 import torch
@@ -110,7 +105,7 @@ def process_task_COT(model, processor, device, task_desc: str = None, Question: 
 
     # 添加最终选择的用户输入
     conversation.append(MultimodalInputBuilder.user_input(
-        "Wrap the final answer in the following format </ans>Your_Choice</ans>"
+        "give your answer and explain the reason in the following format: </ans>answer</ans>"
     ))
 
     prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
@@ -160,7 +155,7 @@ if __name__ == '__main__':
 
     #
     batch_size = 10 # 设置批量写入的间隔
-    max_sessions = 2
+    max_sessions = float('inf')
     processed_sessions = 0  # 记录处理的会话数量
     processed_count = 0  # 记录处理的问题数量
 
@@ -190,9 +185,6 @@ if __name__ == '__main__':
     with open ('Task_DESC.txt') as f:
         task_desc = f.read()
 
-
-
-
     # Load JSON file
     try:
         with open(json_path, 'r') as f:
@@ -203,7 +195,7 @@ if __name__ == '__main__':
     result_data = copy.deepcopy(json_data)
 
 
-    # 使用 tqdm 包装最外层的会话循环，显示进度条
+    # 显示进度条
     for session_id, session_content in tqdm(result_data.items(), desc="Processing Sessions", total=len(result_data)):
 
         # 处理完所有问题后，继续到下一个会话
