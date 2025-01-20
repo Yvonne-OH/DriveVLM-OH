@@ -1,77 +1,81 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
+import json
+import copy
+from tqdm import tqdm
 
-class SingleHeadSelfAttention (nn.Module):
+json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test.json"
+result_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test_benchmark.json"
 
-    def __init__(self, embed_dim):
-        super(SingleHeadSelfAttention, self).__init__()
 
-        self.embed_dim = embed_dim
-        self.query = nn.Linear(embed_dim, embed_dim)
-        self.key = nn.Linear(embed_dim, embed_dim)
-        self.value = nn.Linear(embed_dim, embed_dim)
+# Load JSON file
+try:
+    with open(json_path, 'r') as f:
+        json_data = json.load(f)
+except Exception as e:
+    print(f"Error loading JSON file: {e}")
 
-    def  forward(self, queries, keys, values):
-        # 计算 Q, K, V
-        q = self.query(queries)
-        k = self.key(keys)
-        v = self.value(values)
+result_data = copy.deepcopy(json_data)
 
-        energy = torch.matmul(q, k.transpose(-1, -2))  # Shape (N, seq_len, seq_len)
-        scaling_factor = self.embed_size ** 0.5
-        energy = energy / scaling_factor
+# 设置批量写入的间隔（比如每10个问题写一次）
+batch_size = 10
+processed_count = 0  # 记录处理的问题数量
 
-        attention = F.softmax(energy, dim=-1)
+max_sessions = 2  # 你可以根据需要设置这个值
+processed_sessions = 0  # 记录处理的会话数量
 
-        output = torch.matmul(attention, v)
+# 使用 tqdm 包装最外层的会话循环，显示进度条
+for session_id, session_content in tqdm(result_data.items(), desc="Processing Sessions", total=len(result_data)):
 
-        return output, attention
+    # 处理完所有问题后，继续到下一个会话
+    processed_sessions += 1
 
-class MultiHeadSelfAttention(nn.Module):
-    def __init__(self, embed_dim, num_heads):
-        super(MultiHeadSelfAttention, self).__init__()
+    if processed_sessions >= max_sessions:
+        break
 
-        assert embed_dim % num_heads == 0, "Embedding dimension must be divisible by number of heads"
+    key_frames = session_content.get('key_frames', {})
+    for frame_id, frame_content in key_frames.items():
+        qa_questions = frame_content.get('QA', {})
+        images = list(frame_content.get("image_paths", []).values())
 
-        self.embed_dim = embed_dim
-        self.num_heads = num_heads
-        self.head_dim = embed_dim // num_heads
+        # 遍历所有图像路径并进行替换
+        for i, image in enumerate(images):
+            images[i] = image.replace('../', "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/")
 
-        self.query = nn.Linear(embed_dim, embed_dim)
-        self.key = nn.Linear(embed_dim, embed_dim)
-        self.value = nn.Linear(embed_dim, embed_dim)
+        for section_name, questions in qa_questions.items():
+            for question in questions:
+                q = question.get("Q")
+                a = question.get("A")
 
-        self.out = nn.Linear(embed_dim, embed_dim)
+                # 添加 GPT 回答到每个问题字典中
+                question['A_GPT'] = q
 
-    def forward(self, queries, keys, values):
-        N, seq_len, embed_dim = queries.shape
+                # 更新 question 为有序字典
+                question = {k: question[k] for k in sorted(question)}
 
-        # Compute Q, K, V
-        q = self.query(queries)  # (N, seq_len, embed_dim)
-        k = self.key(keys)      # (N, seq_len, embed_dim)
-        v = self.value(values)  # (N, seq_len, embed_dim)
+                processed_count += 1
 
-        # Split into multiple heads
-        q = q.view(N, seq_len, self.num_heads, self.head_dim).transpose(1, 2)  # (N, num_heads, seq_len, head_dim)
-        k = k.view(N, seq_len, self.num_heads, self.head_dim).transpose(1, 2)  # (N, num_heads, seq_len, head_dim)
-        v = v.view(N, seq_len, self.num_heads, self.head_dim).transpose(1, 2)  # (N, num_heads, seq_len, head_dim)
+                # 每处理一定数量的问题，批量写入一次
+                if processed_count % batch_size == 0:
+                    print(f"Processed {processed_count} questions, writing to file...")
+                    with open(result_path, 'w', encoding='utf-8') as f:
+                        json.dump(result_data, f, indent=4, ensure_ascii=False)
 
-        # Compute scaled dot-product attention
-        energy = torch.matmul(q, k.transpose(-1, -2))  # (N, num_heads, seq_len, seq_len)
-        scaling_factor = self.head_dim ** 0.5
-        energy = energy / scaling_factor
+                # 打印输出处理结果（调试）
+                print(f"Processed question: {q}")
+                print(f"Original Answer: {a}")
+                print(f"GPT Answer: {question['A_GPT']}")
+                print("----")
 
-        attention = F.softmax(energy, dim=-1)  # (N, num_heads, seq_len, seq_len)
+            # 如果已经达到最大处理会话数量，跳出外层循环
+            if processed_sessions >= max_sessions:
+                break
+        if processed_sessions >= max_sessions:
+            break
+    if processed_sessions >= max_sessions:
+        break
 
-        # Apply attention to values
-        out = torch.matmul(attention, v)  # (N, num_heads, seq_len, head_dim)
+# 处理完所有问题后，再写入一次（防止最后一批没有写入）
+with open(result_path, 'w', encoding='utf-8') as f:
+    json.dump(result_data, f, indent=4, ensure_ascii=False)
 
-        # Concatenate heads
-        out = out.transpose(1, 2).contiguous().view(N, seq_len, self.embed_dim)  # (N, seq_len, embed_dim)
 
-        # Final linear layer
-        out = self.out(out)  # (N, seq_len, embed_dim)
-
-        return out, attention
 

@@ -1,4 +1,5 @@
 import Multi_modal_Infer
+import copy
 import json
 import json
 import torch
@@ -7,409 +8,266 @@ from tqdm import tqdm
 import os
 import Util.util as util
 
-"""
-To do
-  
-"""
+import torch
+from tqdm import tqdm
 
-
-def llama3_VQA_Nusence_COT_benchmark(
-        json_path, image_path, result_path,
-        model,processor, device,
-        task_type  ,sample_num=20, MAX_OUTPUT_TOKENS = 2048):
+def process_task_COT(model, processor, device, task_desc: str = None, Question: str = None, image_paths: list = None,**kwargs)->str:
     """
-    Process QA dataset, analyze images, and generate responses using a specified model.
+    处理一个任务，包括图像合并、对话生成和问题回答。
 
-    Args:
-        json_path (str): Path to the input JSON file.
-        image_path (str): Path to the directory containing images.
-        save_path (str): Path to the QA dataset JSON file for multi-choice behavior.
-        result_path (str): Path to save the result JSON file.
-        model_name (str): Name of the model.
-        sample_num (int): Number of samples to process.
+    参数：
+    - sample: 任务的样本数据，包含图像路径和问题等信息。
+    - task_desc: 任务描述字符串，包含任务的指令和描述内容。
+    - image_paths: 图像路径列表，包含车辆不同视角的图像路径。
+    - model: 预训练的模型。
+    - processor: 用于图像和文本处理的处理器。
+    - device: 设备（例如 CPU 或 GPU）。
+    - temperature: 生成文本时的温度，控制生成的随机性。
+    - top_p: 生成时使用的 nucleus sampling的概率阈值。
+    - MAX_OUTPUT_TOKENS: 生成的最大token数量。
+    - resize_to: 图像缩放尺寸。
+    - max_dimensions: 图像的最大尺寸。
+
+    返回值：
+    - final_response: 模型生成的最终响应。
     """
+
+    temperature = kwargs.get('temperature', 0.15)
+    top_p = kwargs.get('top_p', 0.3)
+    MAX_OUTPUT_TOKENS = kwargs.get('MAX_OUTPUT_TOKENS', 2048)
+    resize_to = kwargs.get('resize_to', (224, 224))
+    max_dimensions = kwargs.get('max_dimensions', (1120, 1120))
+    debug = kwargs.get('debug', False)  # 默认值 False
+
+    # 提取任务描述中的相关内容
+    task_desc_content = util.extract_between_markers(task_desc, "[DESC_START]", "[DESC_END]")[0]
+    # 系统指令
+    system_instruction = task_desc_content
+
+    # 初始化 MultimodalInputBuilder 和 ImageProcessor
     MultimodalInputBuilder = util.MultimodalInputBuilder("LLAMA")
-
-    resize_to = (224, 224)
-    max_dimensions = (1120, 1120)
-
     image_processor = util.ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimensions)
 
 
-    # Write to JSON file after each response
-    result_path = result_path + task_type + "_test_result_LLAMA3.2.json"
-
-    if task_type == "behavior":
-        system_instruction =("Now you will answer the questions as a driver. "
-                             "Please answer the questions in brief"
-                             "Note: If you encounter a multiple choice question, please provide the final answer in the following format:</ans> answer</ans>, "
-                             "otherwise the answer will not be counted!!!"
-                             )
-    elif task_type == "perception":
-        system_instruction = ("Now you will answer the questions as a driver. "
-                             "Please answer the questions in brief"
-                             "Note: If you encounter a multiple choice question, please provide the final answer in the following format:</ans> answer</ans>, "
-                             "otherwise the answer will not be counted!!!"
-                             )
-    elif task_type == "planning":
-        system_instruction = ("Now you will answer the questions as a driver")
-    elif task_type == "prediction":
-        system_instruction = ("Now you will answer the questions as a driver")
-    else:
-        print("Error: Invalid task type.")
-        return
-
-    # Load JSON file
     try:
-        with open(json_path, 'r') as f:
-            qa_data = json.load(f)
+        # 合并车辆视角图像
+        images = image_processor.merge_vehicle_camera_views(image_paths=image_paths, merge='custom_grid',
+                                                            logical_order=[1, 0, 2, 4, 3, 5])
+        images[0].save("merged_image.png")
     except Exception as e:
-        print(f"Error loading JSON file: {e}")
-        return
-
-    # 检查并清空文件
-    if os.path.exists(result_path):
-        os.remove(result_path)  # 删除已存在的文件
-        print(f"{result_path} exists and has been removed.")
-    else:
-        print(f"{result_path} does not exist, creating a new file.")
-
-    # 初始化文件，写入 JSON 数组的开头
-    with open(result_path, "w") as outfile:
-        outfile.write("[\n")  # 开始 JSON 数组
-
-    # Iterate through samples with a limit of `sample_num`
-    for i, sample in enumerate(tqdm(qa_data, desc="Generating responses: ")):
-
-        if i >= sample_num:
-            break
-
-        # Ensure each sample contains 6 images
-        if len(sample.get('image', [])) != 6:
-            print(f"Warning: Sample {i} does not have exactly 6 images. Skipping.")
-            continue
-
-        try:
-
-            images =  image_processor.merge_vehicle_camera_views(image_paths=sample['image'],  merge='custom_grid', logical_order=[1, 0, 2, 4, 3, 5])
-            """Process and validate image input, with optional resizing"""
-            #files = [encode_image(image) for image in sample['image']]
-        except Exception as e:
-            print(f"Error opening files for sample {i}: {e}")
-            continue
-
-        # Extract question
-        Q = sample['conversations'][0]['value'] if len(sample.get('conversations', [])) > 0 else ""
-
-        # Prepare input
-        input_2 = (
-            """The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):
-
-                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;
-                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.
-
-                In the format <object_id,camera_name,x_coord,y_coord>:
-
-            object_id represents the unique identifier for the object.
-            camera_name specifies the camera that captured the object.
-            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.
-            Coordinates are specified as percentages, adhering to the following conventions:
-
-            The origin (0, 0) is located at the top-left corner of the image.
-            The bottom-right corner of the image corresponds to (1000, 1000).
-            The x-axis extends horizontally, increasing from left (0) to right (1000).
-            The y-axis extends vertically, increasing from top (0) to bottom (1000)."""
-        )
-
-        conversation = [
-            MultimodalInputBuilder.system(system_instruction),
-            MultimodalInputBuilder.user_input(f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**", images),
-            MultimodalInputBuilder.user_input(input_2),
-            #user_input("Can you help me analyze the images and answer questions step by step?"),
-        ]
-
-        #print(conversation)
+        print(f"Error opening image files: {e}")
+        return None
 
 
-        # Start chat session
-        if task_type == "behavior":
+    conversation = [
+        MultimodalInputBuilder.system(system_instruction),
+        MultimodalInputBuilder.user_input(
+        util.extract_between_markers(task_desc, "[IMAGE_ORDER_START]", "[IMAGE_ORDER_END]")[0],
+        images),
+    ]
 
-            try:
-                """
-                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-                with torch.no_grad():  # Disable gradient computation to save memory
-                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                            max_new_tokens=MAX_OUTPUT_TOKENS)
-                assistant_message = processor.decode(output[0])[len(prompt):]
+    # 添加用户消息到对话历史
+    conversation.append(MultimodalInputBuilder.user_input(util.extract_between_markers(task_desc, "[COT_STEP1_START]", "[COT_STEP1_END]")[0]))
 
-                print(f"LLAMA: {assistant_message}")
-                print("*" * 50)
-                conversation.append(assistant(assistant_message))
-"""
+    # 创建和应用聊天模板
+    prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+    inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
 
-                # 添加用户消息到对话历史
-                conversation.append(MultimodalInputBuilder.user_input("""Analyze the image and assess the following:
-                    What is the current state of the ego vehicle (position, speed, or behavior)?
-                    What are the states of the surrounding vehicles and pedestrians, and how might they influence the ego vehicle's actions?
-                    Describe the surrounding traffic environment, including road conditions, traffic signs, and signals."""))
+    with torch.no_grad():  # 禁用梯度计算以节省内存
+        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
 
+    # 提取生成的新部分（避免重复提示）
+    generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+    assistant_message = processor.decode(
+        generated_tokens[0],
+        skip_special_tokens=True,
+        clean_up_tokenization_spaces=True
+    )
 
-                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-                with torch.no_grad():  # Disable gradient computation to save memory
-                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+    conversation.append(MultimodalInputBuilder.assistant(assistant_message))
 
-                images[0].save("merged_image.png")
+    # 添加用户问题并生成回答
+    conversation.append(MultimodalInputBuilder.user_input(
+        f"The question is: {Question} Based on the above chain of thought, give your answer and explain in the following format: </ans>answer</ans>"
+    ))
 
-                # 提取生成的新部分（避免重复提示）
-                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+    prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+    inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
 
-                # 解码生成的 token
-                assistant_message = processor.decode(
-                    generated_tokens[0],  # 解码第一个样本
-                    skip_special_tokens=True,  # 跳过特殊标记
-                    clean_up_tokenization_spaces=True  # 自动清理多余空格
-                )
+    with torch.no_grad():  # 禁用梯度计算以节省内存
+        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
 
-                print(f"LLAMA: {assistant_message}")
-                print("*" * 50)
-                conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+    generated_tokens = output[:, inputs['input_ids'].shape[1]:]
 
-                conversation.append(MultimodalInputBuilder.user_input( f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
+    # 解码生成的 token
+    assistant_message = processor.decode(
+        generated_tokens[0],
+        skip_special_tokens=True,
+        clean_up_tokenization_spaces=True
+    )
 
-                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-                with torch.no_grad():  # Disable gradient computation to save memory
-                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+    conversation.append(MultimodalInputBuilder.assistant(assistant_message))
 
-                # 提取生成的新部分（避免重复提示）
-                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+    # 添加最终选择的用户输入
+    conversation.append(MultimodalInputBuilder.user_input(
+        "Wrap the final answer in the following format </ans>Your_Choice</ans>"
+    ))
 
-                # 解码生成的 token
-                assistant_message = processor.decode(
-                    generated_tokens[0],  # 解码第一个样本
-                    skip_special_tokens=True,  # 跳过特殊标记
-                    clean_up_tokenization_spaces=True  # 自动清理多余空格
-                )
+    prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+    inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
 
-                print(f"LLAMA: {assistant_message}")
-                print("*" * 50)
-                conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+    with torch.no_grad():  # 禁用梯度计算以节省内存
+        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
 
-                conversation.append(MultimodalInputBuilder.user_input(
-                    "It's a choice question. Compare your answer with the options given and choose the most relevant option. "
-                    "Wrap the final answer in the following format "
-                    " </ans>Your_Choice</ans>  "
-                   ))
+    generated_tokens = output[:, inputs['input_ids'].shape[1]:]
 
-                prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-                inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-                with torch.no_grad():  # Disable gradient computation to save memory
-                    output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                            max_new_tokens=MAX_OUTPUT_TOKENS)
+    # 解码生成的 token
+    assistant_message = processor.decode(
+        generated_tokens[0],
+        skip_special_tokens=True,
+        clean_up_tokenization_spaces=True
+    )
 
-                # 提取生成的新部分（避免重复提示）
-                generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+    if debug:
+        print(f"LLAMA: {assistant_message}")
+        print("*" * 50)
 
-                # 解码生成的 token
-                assistant_message = processor.decode(
-                    generated_tokens[0],  # 解码第一个样本
-                    skip_special_tokens=True,  # 跳过特殊标记
-                    clean_up_tokenization_spaces=True  # 自动清理多余空格
-                )
+    final_response = assistant_message
+    if debug:
+        print("*" * 50)
+        print(f"Model: {final_response}")
 
-                print(f"LLAMA: {assistant_message}")
-                print("*" * 50)
-
-                final_response = assistant_message
-                print("*"*50)
-                print(f"Model: {final_response}")
-
-            except Exception as e:
-                print(f"Error during conversation: {e}")
-                continue
-
-            # Modify sample and write to file
-            modified_sample = sample.copy()
-            modified_sample["conversations"].append({
-                "from": "Model_Output",
-                "value": final_response
-            })
-
-            # 写入结果到文件
-            try:
-                with open(result_path, "a") as outfile:
-                    if i > 0:  # 如果不是第一个结果，添加逗号分隔
-                        outfile.write(",\n")
-                    json.dump(modified_sample, outfile, indent=4)
-
-                print(f"Sample {i} written to {result_path}")
-
-            except Exception as e:
-                print(f"Error writing sample {i} to JSON file: {e}")
-
-    # 在文件末尾关闭 JSON 数组
-    with open(result_path, "a") as outfile:
-        outfile.write("\n]\n")  # 关闭 JSON 数组
+    return final_response
 
 
 if __name__ == '__main__':
-    resize_to = (224, 224)
-    max_dimensions = (1120, 1120)
+
+
+    model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct'
+    Lora_name =  '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-11B-Vision-Instruct/lora_model'
+    json_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test.json"
+    result_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/QA_dataset_nus/test_benchmark.json"
+    image_path = "/media/workstation/6D3563AC52DC77EA/Data/DriveLM/data/"
+
+    config = {
+        "temperature": 0.1,
+        "top_p": 0.3,
+        "MAX_OUTPUT_TOKENS": 2048,
+        "resize_to": (224, 224),
+        "max_dimensions": (1120, 1120),
+        "debug": False
+    }
+
+    #
+    batch_size = 10 # 设置批量写入的间隔
+    max_sessions = 2
+    processed_sessions = 0  # 记录处理的会话数量
+    processed_count = 0  # 记录处理的问题数量
+
+    # 确保 CUDA 可用
+    if not torch.cuda.is_available():
+        print("CUDA is not available. Please check your GPU configuration.")
+        # return
+
+        # 加载模型和处理器
+    try:
+        model, processor = Multi_modal_Infer.load_model_and_processor(
+            model_name=model_name,
+            finetuning_path= Lora_name,
+            device="auto",  # 自动设备映射
+            max_memory={0: "22GB", 1: "16GB"}  # GPU 显存限制
+        )
+        print("Model and processor loaded successfully.")
+    except Exception as e:
+        print(f"Failed to load model and processor: {e}")
+        # return
+
+    # 获取当前设备
+    device = model.device
+    print(f"Selected optimal device: {device}")
 
     # 加载数据
     with open ('Task_DESC.txt') as f:
         task_desc = f.read()
 
+
+
+
     # Load JSON file
     try:
         with open(json_path, 'r') as f:
-            qa_data = json.load(f)
+            json_data = json.load(f)
     except Exception as e:
         print(f"Error loading JSON file: {e}")
-        return
 
-    task_desc_content = util.extract_between_markers(task_desc,"[DESC_START]","[DESC_END]")[0]
-
-
-    MultimodalInputBuilder = util.MultimodalInputBuilder("LLAMA")
-    image_processor = util.ImagePreprocessor(resize_to=resize_to, max_dimensions=max_dimensions)
-
-    system_instruction = task_desc_content
+    result_data = copy.deepcopy(json_data)
 
 
-    # Iterate through samples with a limit of `sample_num`
-    for i, sample in enumerate(tqdm(qa_data, desc="Generating responses: ")):
+    # 使用 tqdm 包装最外层的会话循环，显示进度条
+    for session_id, session_content in tqdm(result_data.items(), desc="Processing Sessions", total=len(result_data)):
 
-        if i >= sample_num:
+        # 处理完所有问题后，继续到下一个会话
+        processed_sessions += 1
+
+        if processed_sessions >= max_sessions:
             break
 
-        # Ensure each sample contains 6 images
-        if len(sample.get('image', [])) != 6:
-            print(f"Warning: Sample {i} does not have exactly 6 images. Skipping.")
-            continue
+        key_frames = session_content.get('key_frames', {})
+        for frame_id, frame_content in key_frames.items():
+            qa_questions = frame_content.get('QA', {})
+            images = list(frame_content.get("image_paths", []).values())
 
-        try:
-
-            images = image_processor.merge_vehicle_camera_views(image_paths=sample['image'], merge='custom_grid',
-                                                                logical_order=[1, 0, 2, 4, 3, 5])
-            images[0].save("merged_image.png")
-        except Exception as e:
-            print(f"Error opening files for sample {i}: {e}")
-            continue
-
-        # Extract question
-        Question = sample['conversations'][0]['value'] if len(sample.get('conversations', [])) > 0 else ""
+            # 遍历所有图像路径并进行替换
+            for i, image in enumerate(images):
+                images[i] = image.replace('../', image_path)
 
 
-        conversation = [
-            MultimodalInputBuilder.system(system_instruction),
-            MultimodalInputBuilder.user_input(
-                f"Input images in the order: **CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT, CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT**",
-                images),
-            MultimodalInputBuilder.user_input(input_2),
-            # user_input("Can you help me analyze the images and answer questions step by step?"),
-        ]
+            for section_name, questions in qa_questions.items():
+                for question in questions:
+                    q = question.get("Q")
+                    a = question.get("A")
 
-        # 添加用户消息到对话历史
-        conversation.append(MultimodalInputBuilder.user_input(util.extract_between_markers(task_desc,"[COT_STEP1_START]","[COT_STEP1_END]")[0]))
+                    # 添加 GPT 回答到每个问题字典中
+                    question['A_GPT'] =     Gpt_answer = process_task_COT(
+                                                                                                                        model,
+                                                                                                                        processor,
+                                                                                                                        device,
+                                                                                                                        task_desc = task_desc,
+                                                                                                                        Question = q,
+                                                                                                                        image_paths = images ,
+                                                                                                                        **config )
 
-        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-        with torch.no_grad():  # Disable gradient computation to save memory
-        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
-        # 提取生成的新部分（避免重复提示）
-        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
-        # 解码生成的 token
-        assistant_message = processor.decode(
-            generated_tokens[0],  # 解码第一个样本
-            skip_special_tokens=True,  # 跳过特殊标记
-            clean_up_tokenization_spaces=True  # 自动清理多余空格
-        )
+                    # 更新 question 为有序字典
+                    question = {k: question[k] for k in sorted(question)}
 
-        print(f"LLAMA: {assistant_message}")
-        print("*" * 50)
-        conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+                    processed_count += 1
 
-        conversation.append(MultimodalInputBuilder.user_input(
-            f"The question is: {Q} provide the final answer in the following format: </ans>answer</ans>"))
+                    # 每处理一定数量的问题，批量写入一次
+                    if processed_count % batch_size == 0:
+                        print(f"Processed {processed_count} questions, writing to file...")
+                        with open(result_path, 'w', encoding='utf-8') as f:
+                            json.dump(result_data, f, indent=4, ensure_ascii=False)
 
-        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-        with torch.no_grad():  # Disable gradient computation to save memory
-        output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                max_new_tokens=MAX_OUTPUT_TOKENS)
-        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
+                    # 打印输出处理结果（调试）
+                    print(f"Processed question: {q}")
+                    print(f"Original Answer: {a}")
+                    print(f"GPT Answer: {question['A_GPT']}")
+                    print("----")
 
-        # 解码生成的 token
-        assistant_message = processor.decode(
-            generated_tokens[0],  # 解码第一个样本
-            skip_special_tokens=True,  # 跳过特殊标记
-            clean_up_tokenization_spaces=True  # 自动清理多余空格
-        )
+                # 如果已经达到最大处理会话数量，跳出外层循环
+                if processed_sessions >= max_sessions:
+                    break
+            if processed_sessions >= max_sessions:
+                break
+        if processed_sessions >= max_sessions:
+            break
 
-        print(f"LLAMA: {assistant_message}")
-        print("*" * 50)
-        conversation.append(MultimodalInputBuilder.assistant(assistant_message))
+    # 处理完所有问题后，再写入一次（防止最后一批没有写入）
+    with open(result_path, 'w', encoding='utf-8') as f:
+        json.dump(result_data, f, indent=4, ensure_ascii=False)
 
-        conversation.append(MultimodalInputBuilder.user_input(
-            "It's a choice question. Compare your answer with the options given and choose the most relevant option. "
-            "Wrap the final answer in the following format "
-            " </ans>Your_Choice</ans>  "
-        ))
 
-        prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-        inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-        with torch.no_grad():  # Disable gradient computation to save memory
-            output = model.generate(**inputs, temperature=temperature, top_p=top_p,
-                                    max_new_tokens=MAX_OUTPUT_TOKENS)
 
-        # 提取生成的新部分（避免重复提示）
-        generated_tokens = output[:, inputs['input_ids'].shape[1]:]
-
-        # 解码生成的 token
-        assistant_message = processor.decode(
-            generated_tokens[0],  # 解码第一个样本
-            skip_special_tokens=True,  # 跳过特殊标记
-            clean_up_tokenization_spaces=True  # 自动清理多余空格
-        )
-
-        print(f"LLAMA: {assistant_message}")
-        print("*" * 50)
-
-        final_response = assistant_message
-        print("*" * 50)
-        print(f"Model: {final_response}")
-
-            except Exception as e:
-                print(f"Error during conversation: {e}")
-                continue
-
-            # Modify sample and write to file
-            modified_sample = sample.copy()
-            modified_sample["conversations"].append({
-                "from": "Model_Output",
-                "value": final_response
-            })
-
-            # 写入结果到文件
-            try:
-                with open(result_path, "a") as outfile:
-                    if i > 0:  # 如果不是第一个结果，添加逗号分隔
-                        outfile.write(",\n")
-                    json.dump(modified_sample, outfile, indent=4)
-
-                print(f"Sample {i} written to {result_path}")
-
-            except Exception as e:
-                print(f"Error writing sample {i} to JSON file: {e}")
-
-    # 在文件末尾关闭 JSON 数组
-    with open(result_path, "a") as outfile:
-        outfile.write("\n]\n")  # 关闭 JSON 数组
 
 
 

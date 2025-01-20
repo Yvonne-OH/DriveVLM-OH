@@ -23,3 +23,9 @@ What is the current state of the ego vehicle (position, speed, or behavior)?
 What are the states of the surrounding vehicles and pedestrians, and how might they influence the ego vehicle's actions?
 Describe the surrounding traffic environment, including road conditions, traffic signs, and signals.
 [COT_STEP1_END]
+
+[IMAGE_ORDER_START]
+Input images in the order:
+CAM_FRONT_LEFT(c2), CAM_FRONT(c1), CAM_FRONT_RIGHT(c3),
+CAM_BACK_LEFT(c5), CAM_BACK(c4), CAM_BACK_RIGHT(c6)
+[IMAGE_ORDER_END]
