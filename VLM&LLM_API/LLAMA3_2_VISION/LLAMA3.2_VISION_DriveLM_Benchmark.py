@@ -83,7 +83,7 @@ def process_task_COT(model, processor, device, task_desc: str = None, Question: 
 
     # 添加用户问题并生成回答
     conversation.append(MultimodalInputBuilder.user_input(
-        f"The question is: {Question} Based on the above chain of thought, give your answer and explain in the following format: </ans>answer</ans>"
+        f"The question is: {Question} Based on the above chain of thought, give your answer  in the following format: </ans>answer</ans> and explain the reason for your answer."
     ))
 
     prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
@@ -100,32 +100,6 @@ def process_task_COT(model, processor, device, task_desc: str = None, Question: 
         skip_special_tokens=True,
         clean_up_tokenization_spaces=True
     )
-
-    conversation.append(MultimodalInputBuilder.assistant(assistant_message))
-
-    # 添加最终选择的用户输入
-    conversation.append(MultimodalInputBuilder.user_input(
-        "give your answer and explain the reason in the following format: </ans>answer</ans>"
-    ))
-
-    prompt = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-    inputs = processor(images=images, text=prompt, return_tensors="pt").to(device)
-
-    with torch.no_grad():  # 禁用梯度计算以节省内存
-        output = model.generate(**inputs, temperature=temperature, top_p=top_p, max_new_tokens=MAX_OUTPUT_TOKENS)
-
-    generated_tokens = output[:, inputs['input_ids'].shape[1]:]
-
-    # 解码生成的 token
-    assistant_message = processor.decode(
-        generated_tokens[0],
-        skip_special_tokens=True,
-        clean_up_tokenization_spaces=True
-    )
-
-    if debug:
-        print(f"LLAMA: {assistant_message}")
-        print("*" * 50)
 
     final_response = assistant_message
     if debug:
