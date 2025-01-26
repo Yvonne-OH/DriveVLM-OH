@@ -113,7 +113,7 @@ if __name__ == "__main__":
                     # 每处理一定数量的问题，批量写入一次
                     if processed_count % batch_size == 0:
                         print(f"Processed {processed_count} questions, writing to file...")
-                        with open(score_path, 'w', encoding='utf-8') as f:
+                        with open(result_path, 'w', encoding='utf-8') as f:
                             json.dump(result_data, f, indent=4, ensure_ascii=False)
 
                     # 打印输出处理结果（调试）

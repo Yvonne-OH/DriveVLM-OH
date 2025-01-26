@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Fix json">
-      <change afterPath="$PROJECT_DIR$/Util/stress.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" afterDir="false" />
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Add llava">
+      <change afterPath="$PROJECT_DIR$/Util/NMS.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Util/ViT.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Evaluator/GPT_Score/Gpt_score_Drive_LM.py" beforeDir="false" afterPath="$PROJECT_DIR$/Evaluator/GPT_Score/Gpt_score_Drive_LM.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,94 +62,86 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Python.DriveLM_Nuscenes.executor": "Run",
-    "Python.Example.executor": "Run",
-    "Python.Gemini-1.5-Flash-Finetuning.executor": "Run",
-    "Python.Gemini_API.executor": "Run",
-    "Python.Gemini_DriveLM_test.executor": "Run",
-    "Python.Gpt4_DriveLM_test.executor": "Run",
-    "Python.LLAMA3.2_VISION_DriveLM_test.executor": "Run",
-    "Python.Multi_modal_Infer (1).executor": "Run",
-    "Python.Multi_modal_Infer.executor": "Run",
-    "Python.VQA_Multi_Choice_ACC.executor": "Run",
-    "Python.convert2Gemini.executor": "Run",
-    "Python.convert2Llama3.executor": "Run",
-    "Python.convert2Llama_finetuning.executor": "Run",
-    "Python.convert2llama.executor": "Run",
-    "Python.convert_data.executor": "Run",
-    "Python.example_Ollama (1).executor": "Run",
-    "Python.example_Ollama.executor": "Run",
-    "Python.extract_data.executor": "Run",
-    "Python.gpt3_score.executor": "Run",
-    "Python.gpt4_API.executor": "Run",
-    "Python.gpt4_eval.executor": "Run",
-    "Python.gpt_inference.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.meta_eval_summeval.executor": "Run",
-    "Python.parse.executor": "Run",
-    "Python.score_d2t.executor": "Run",
-    "Python.stress.executor": "Run",
-    "Python.util.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "ToolWindowPython Console.ShowToolbar": "false",
-    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
-    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
-    "WebServerToolWindowPanel.toolwindow.show.date": "false",
-    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
-    "WebServerToolWindowPanel.toolwindow.show.size": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/DriveVLM-OH-local/DataLoader/DriveLM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.BLEU.executor&quot;: &quot;Run&quot;,
+    &quot;Python.DriveLM_Nuscenes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Example.executor&quot;: &quot;Run&quot;,
+    &quot;Python.GPT4_score.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gemini-1.5-Flash-Finetuning.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gemini_API.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gemini_DriveLM_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gpt4_DriveLM_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Gpt_score_Drive_LM.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LLAMA3.2_VISION_DriveLM_Benchmark.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LLAMA3.2_VISION_DriveLM_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Model_download.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Multi_modal_Infer (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Multi_modal_Infer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.NMS.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Rogue-l.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.VQA_Multi_Choice_ACC.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ViT.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert2Gemini.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert2Llama3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert2Llama_finetuning.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert2llama.executor&quot;: &quot;Run&quot;,
+    &quot;Python.convert_data.executor&quot;: &quot;Run&quot;,
+    &quot;Python.example_Ollama (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.example_Ollama.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extract_data.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt3_score.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt4_API.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt4_eval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gpt_inference.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llava_multimodal_interface.executor&quot;: &quot;Run&quot;,
+    &quot;Python.llava_util.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.meta_eval_summeval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.parse.executor&quot;: &quot;Run&quot;,
+    &quot;Python.score_d2t.executor&quot;: &quot;Run&quot;,
+    &quot;Python.stress.executor&quot;: &quot;Run&quot;,
+    &quot;Python.util.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;ToolWindowPython Console.ShowToolbar&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/DriveVLM-OH-local/Util&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\DriveVLM-OH-local\Util" />
+      <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API\LLAMA3_2_VISION" />
       <recent name="E:\DriveVLM-OH-local\DataLoader\DriveLM" />
       <recent name="$PROJECT_DIR$/Evaluator" />
       <recent name="$PROJECT_DIR$/DataLoader" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API\llava" />
       <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API\LLAMA3_2_VISION" />
       <recent name="E:\DriveVLM-OH-local\VLM&amp;LLM_API" />
       <recent name="$PROJECT_DIR$/VLM&amp;LLM_API/media" />
       <recent name="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
-      <recent name="$PROJECT_DIR$/Evaluator/GPT_Score" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.stress">
-    <configuration name="LLAMA3.2_VISION_DriveLM_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="VLM" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/LLAMA3.2_VISION_DriveLM_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Multi_modal_Infer (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.NMS">
+    <configuration name="Gpt_score_Drive_LM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,53 +150,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Multi_modal_Infer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION/Multi_modal_Infer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="VQA_Multi_Choice_ACC" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
       <option name="SDK_NAME" value="VLM" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Evaluator" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Evaluator/GPT_Score" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Evaluator/VQA_Multi_Choice_ACC.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Evaluator/GPT_Score/Gpt_score_Drive_LM.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -213,31 +165,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="convert2Llama_finetuning" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="NMS" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DriveVLM-OH" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataLoader/DriveLM" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataLoader/DriveLM/convert2Llama_finetuning.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="stress" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="DriveVLM-OH" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="SDK_NAME" value="VLM" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Util" />
@@ -245,7 +180,79 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Util/stress.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Util/NMS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ViT" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DriveVLM-OH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="VLM" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Util" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Util/ViT.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="llava_multimodal_interface" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DriveVLM-OH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="VLM" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/llava" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/llava/llava_multimodal_interface.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="llava_util" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DriveVLM-OH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="VLM" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/VLM&amp;LLM_API/llava" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/VLM&amp;LLM_API/llava/llava_util.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -255,19 +262,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.stress" />
-      <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
-      <item itemvalue="Python.VQA_Multi_Choice_ACC" />
-      <item itemvalue="Python.convert2Llama_finetuning" />
-      <item itemvalue="Python.Multi_modal_Infer" />
+      <item itemvalue="Python.Gpt_score_Drive_LM" />
+      <item itemvalue="Python.NMS" />
+      <item itemvalue="Python.ViT" />
+      <item itemvalue="Python.llava_multimodal_interface" />
+      <item itemvalue="Python.llava_util" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.stress" />
-        <item itemvalue="Python.LLAMA3.2_VISION_DriveLM_test" />
-        <item itemvalue="Python.VQA_Multi_Choice_ACC" />
-        <item itemvalue="Python.Multi_modal_Infer" />
-        <item itemvalue="Python.convert2Llama_finetuning" />
+        <item itemvalue="Python.NMS" />
+        <item itemvalue="Python.ViT" />
+        <item itemvalue="Python.Gpt_score_Drive_LM" />
+        <item itemvalue="Python.llava_multimodal_interface" />
+        <item itemvalue="Python.llava_util" />
       </list>
     </recent_temporary>
   </component>
@@ -306,86 +313,8 @@
       <workItem from="1735544976466" duration="15386000" />
       <workItem from="1735720649969" duration="2000" />
       <workItem from="1735720667359" duration="98518000" />
-    </task>
-    <task id="LOCAL-00012" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988850964</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988850964</updated>
-    </task>
-    <task id="LOCAL-00013" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988856423</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988856423</updated>
-    </task>
-    <task id="LOCAL-00014" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988857548</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988857548</updated>
-    </task>
-    <task id="LOCAL-00015" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988858225</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988858225</updated>
-    </task>
-    <task id="LOCAL-00016" summary="-">
-      <option name="closed" value="true" />
-      <created>1732988922360</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1732988922360</updated>
-    </task>
-    <task id="LOCAL-00017" summary="-">
-      <option name="closed" value="true" />
-      <created>1732989158020</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1732989158020</updated>
-    </task>
-    <task id="LOCAL-00018" summary="-">
-      <option name="closed" value="true" />
-      <created>1732989419916</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1732989419916</updated>
-    </task>
-    <task id="LOCAL-00019" summary="-">
-      <option name="closed" value="true" />
-      <created>1732990029036</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1732990029036</updated>
-    </task>
-    <task id="LOCAL-00020" summary="-">
-      <option name="closed" value="true" />
-      <created>1732990110439</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1732990110439</updated>
-    </task>
-    <task id="LOCAL-00021" summary="-">
-      <option name="closed" value="true" />
-      <created>1732990355793</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1732990355793</updated>
+      <workItem from="1737006566967" duration="101373000" />
+      <workItem from="1737637731439" duration="7000" />
     </task>
     <task id="LOCAL-00022" summary="增加GPT-SCORE">
       <option name="closed" value="true" />
@@ -699,7 +628,87 @@
       <option name="project" value="LOCAL" />
       <updated>1736256844736</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Add Rouge-L class">
+      <option name="closed" value="true" />
+      <created>1737010051243</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1737010051243</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Add GPT-4 SCORE">
+      <option name="closed" value="true" />
+      <created>1737097982061</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1737097982061</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Add GPT-4 SCORE">
+      <option name="closed" value="true" />
+      <created>1737100536298</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1737100536298</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Add BLEU">
+      <option name="closed" value="true" />
+      <created>1737104175884</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1737104175884</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Fix known problems">
+      <option name="closed" value="true" />
+      <created>1737118623181</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1737118623181</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Fix known problems">
+      <option name="closed" value="true" />
+      <created>1737124575774</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1737124575774</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Add benchmark">
+      <option name="closed" value="true" />
+      <created>1737375500076</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1737375500076</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Add benchmark">
+      <option name="closed" value="true" />
+      <created>1737379740648</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1737379740648</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Add llava">
+      <option name="closed" value="true" />
+      <created>1737459091370</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1737459091370</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Add llava">
+      <option name="closed" value="true" />
+      <created>1737463318880</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1737463318880</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -732,10 +741,17 @@
     <MESSAGE value="Add function llama3_VQA_Nusence_COT_benchmark" />
     <MESSAGE value="Fix image order bug" />
     <MESSAGE value="Fix json" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix json" />
+    <MESSAGE value="Add Rouge-L class" />
+    <MESSAGE value="Add GPT-4 SCORE" />
+    <MESSAGE value="Add BLEU" />
+    <MESSAGE value="Fix known problems" />
+    <MESSAGE value="Add benchmark" />
+    <MESSAGE value="Add llava" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add llava" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_API.coverage" NAME="gpt4_API 覆盖结果" MODIFIED="1733273172803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$NMS.coverage" NAME="NMS Coverage Results" MODIFIED="1737619972585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Util" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Example.coverage" NAME="Example Coverage Results" MODIFIED="1735528789674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$parse.coverage" NAME="parse Coverage Results" MODIFIED="1735542559604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/AppData/Local/JetBrains/PyCharm2024.1/remote_sources/-464111881/-409524689/urllib" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$Gpt4_DriveLM_test.coverage" NAME="Gpt4_DriveLM_test 覆盖结果" MODIFIED="1733280263837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
@@ -744,21 +760,24 @@
     <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2llama.coverage" NAME="convert2llama 覆盖结果" MODIFIED="1733032302486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_eval.coverage" NAME="gpt4_eval 覆盖结果" MODIFIED="1733005927810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$util.coverage" NAME="util 覆盖结果" MODIFIED="1732944887961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Util" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$llava_multimodal_interface.coverage" NAME="llava_multimodal_interface Coverage Results" MODIFIED="1737442989147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/llava" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Multi_modal_Infer__1_.coverage" NAME="Multi_modal_Infer (1) Coverage Results" MODIFIED="1735720806964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$example_Ollama.coverage" NAME="example_Ollama Coverage Results" MODIFIED="1735537524635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$score_d2t.coverage" NAME="score_d2t 覆盖结果" MODIFIED="1732997629098" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt_inference.coverage" NAME="gpt_inference 覆盖结果" MODIFIED="1732997623618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$extract_data.coverage" NAME="extract_data 覆盖结果" MODIFIED="1732838135048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Model_download.coverage" NAME="Model_download Coverage Results" MODIFIED="1737040688479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$convert2Gemini.coverage" NAME="convert2Gemini 覆盖结果" MODIFIED="1733027555580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$DriveLM_Nuscenes.coverage" NAME="DriveLM_Nuscenes 覆盖结果" MODIFIED="1732839826471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataLoader" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_API.coverage" NAME="Gemini_API 覆盖结果" MODIFIED="1733271504905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$main.coverage" NAME="main 覆盖结果" MODIFIED="1732944497173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Multi_modal_Infer.coverage" NAME="Multi_modal_Infer Coverage Results" MODIFIED="1735542548624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Model/LLAMA3_2_VISION" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$Multi_modal_Infer.coverage" NAME="Multi_modal_Infer Coverage Results" MODIFIED="1737376547210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_1_5_Flash_Finetuning.coverage" NAME="Gemini-1.5-Flash-Finetuning 覆盖结果" MODIFIED="1733083516736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH_local$LLAMA3_2_VISION_DriveLM_test.coverage" NAME="LLAMA3.2_VISION_DriveLM_test Coverage Results" MODIFIED="1736248238106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt3_score.coverage" NAME="gpt3_score 覆盖结果" MODIFIED="1732997163675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/GPT_Score" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$meta_eval_summeval.coverage" NAME="meta_eval_summeval 覆盖结果" MODIFIED="1733027506730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator/Geval" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$Gemini_DriveLM_test.coverage" NAME="Gemini_DriveLM_test 覆盖结果" MODIFIED="1733087932808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/Google-Gemini" />
     <SUITE FILE_PATH="coverage/DriveVLM_OH$VQA_Multi_Choice_ACC.coverage" NAME="VQA_Multi_Choice_ACC 覆盖结果" MODIFIED="1733182803517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Evaluator" />
+    <SUITE FILE_PATH="coverage/DriveVLM_OH_local$LLAMA3_2_VISION_DriveLM_Benchmark.coverage" NAME="LLAMA3.2_VISION_DriveLM_Benchmark Coverage Results" MODIFIED="1737120367712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/LLAMA3_2_VISION" />
   </component>
 </project>
