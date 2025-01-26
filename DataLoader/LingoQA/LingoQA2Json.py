@@ -36,13 +36,13 @@ def main(args=None):
         if segment_id not in segment_data:
             segment_data[segment_id] = {
                 "segment_id": segment_id,
-                "image_id": [path.replace('images/train', TASK) for path in row['images']],
+                "image_id": [path.replace('images/train/',"") for path in row['images']],
                 "questions": []
             }
         segment_data[segment_id]["questions"].append({
-            "question_id": row['question_id'],
             "question": row['question'],
-            "answer": row['answer']
+            "GT_answer": row['answer'],
+            "Gpt_answer": ""
         })
 
     # 将数据保存为JSON
@@ -53,8 +53,8 @@ def main(args=None):
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        args = ["/media/workstation/6D3563AC52DC77EA/Data/LingoQA/val/val.parquet",
-                "/media/workstation/6D3563AC52DC77EA/Data/LingoQA/val/val.json"]
+        args = ["/media/workstation/6D3563AC52DC77EA/Data/LingoQA/train/Scene_train.parquet",
+                "/media/workstation/6D3563AC52DC77EA/Data/LingoQA/train/Scene_train.json"]
         main(args)
     else:
         main()

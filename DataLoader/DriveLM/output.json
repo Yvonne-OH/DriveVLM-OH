@@ -4,6 +4,10 @@
         "image": "54cdaaae372d421fa4734d66f51a8c48_542eaf1fc9b34895a9e55fab57cb4cf4.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -65,6 +69,10 @@
         "id": "54cdaaae372d421fa4734d66f51a8c48_1b45a97a0e5e49fe9cd345dd4bd729c3",
         "image": "54cdaaae372d421fa4734d66f51a8c48_1b45a97a0e5e49fe9cd345dd4bd729c3.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -128,6 +136,10 @@
         "image": "54cdaaae372d421fa4734d66f51a8c48_d5e16062410f4e329d31a881b28e5c1c.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -189,6 +201,10 @@
         "id": "54cdaaae372d421fa4734d66f51a8c48_7abe79e5d3d745bcb237a4b7e03d1577",
         "image": "54cdaaae372d421fa4734d66f51a8c48_7abe79e5d3d745bcb237a4b7e03d1577.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -252,6 +268,10 @@
         "image": "54cdaaae372d421fa4734d66f51a8c48_0dd14c14cea14dc1b0c0c9b0c9c7c4c3.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -313,6 +333,10 @@
         "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_bd8a5e326b804b069d497d29dbf19c2b",
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_bd8a5e326b804b069d497d29dbf19c2b.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -376,6 +400,10 @@
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_7903e67446c64958b0a660f10bdadf19.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -437,6 +465,10 @@
         "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_b6bf5a2bcb094969ace1023f8fe0b9e2",
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_b6bf5a2bcb094969ace1023f8fe0b9e2.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -500,6 +532,10 @@
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_0a208b6bd70a45c9b77b4acff048b2e4.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -561,6 +597,10 @@
         "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_947c1b70cff6486b87903d9665064ad8",
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_947c1b70cff6486b87903d9665064ad8.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -624,6 +664,10 @@
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_a59f97b9ba4b451e92487285f27ffb52.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -685,6 +729,10 @@
         "id": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_fc4a9c4a635348468d38b9e4452b3b0f",
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_fc4a9c4a635348468d38b9e4452b3b0f.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -748,6 +796,10 @@
         "image": "1977a1c98a6c4eb79fbc2a6dc0da9b0f_12ce09b5190048678bcd70e83943907f.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -809,6 +861,10 @@
         "id": "ba76f4185aa34ed3bff467ac640da902_2fd8f9bd71664143bc0e643a914791be",
         "image": "ba76f4185aa34ed3bff467ac640da902_2fd8f9bd71664143bc0e643a914791be.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -872,6 +928,10 @@
         "image": "ba76f4185aa34ed3bff467ac640da902_b48b532c3e1943578c4cf9e1a8230541.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -933,6 +993,10 @@
         "id": "ba76f4185aa34ed3bff467ac640da902_019813f350c743f1ad27e115e4d3a55c",
         "image": "ba76f4185aa34ed3bff467ac640da902_019813f350c743f1ad27e115e4d3a55c.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -1004,6 +1068,10 @@
         "image": "ba76f4185aa34ed3bff467ac640da902_cfc098728fb64a6d8cc60e0f8b268198.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -1066,6 +1134,10 @@
         "image": "ba76f4185aa34ed3bff467ac640da902_a4ba4660331c461b9d95ea4154fe2053.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -1127,6 +1199,10 @@
         "id": "ba76f4185aa34ed3bff467ac640da902_d0c8108acf3a43ada1a6dd6c221abd18",
         "image": "ba76f4185aa34ed3bff467ac640da902_d0c8108acf3a43ada1a6dd6c221abd18.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -1198,6 +1274,10 @@
         "image": "e0b14a8e11994763acba690bbcc3f56a_7138a5bb5798486d82d170558c4bd90d.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -1259,6 +1339,10 @@
         "id": "e0b14a8e11994763acba690bbcc3f56a_0e364b7146c848b5a5fd73bbe05e59ed",
         "image": "e0b14a8e11994763acba690bbcc3f56a_0e364b7146c848b5a5fd73bbe05e59ed.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
@@ -1322,6 +1406,10 @@
         "image": "e0b14a8e11994763acba690bbcc3f56a_8a009c674c60457da87f9386cbfee63a.jpg",
         "conversations": [
             {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
+            {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."
             },
@@ -1383,6 +1471,10 @@
         "id": "e0b14a8e11994763acba690bbcc3f56a_8a76c43c5a034741844748d3ed9c2fbc",
         "image": "e0b14a8e11994763acba690bbcc3f56a_8a76c43c5a034741844748d3ed9c2fbc.jpg",
         "conversations": [
+            {
+                "role": "system",
+                "content": "The six images displayed above were captured by a vehicle's cameras positioned at the following locations (The order of the 6 photos is as follows):\n\n                {CAM_FRONT, CAM_FRONT_LEFT, CAM_FRONT_RIGHT;\n                 CAM_BACK, CAM_BACK_LEFT, CAM_BACK_RIGHT}.\n\n                In the format <object_id,camera_name,x_coord,y_coord>:\n\n            object_id represents the unique identifier for the object.\n            camera_name specifies the camera that captured the object.\n            x_coord and y_coord represent the x and y coordinates of the object's center, expressed as percentages of the image dimensions.\n            Coordinates are specified as percentages, adhering to the following conventions:\n\n            The origin (0, 0) is located at the top-left corner of the image.\n            The bottom-right corner of the image corresponds to (100%, 100%).\n            The x-axis extends horizontally, increasing from left (0) to right (100%).\n            The y-axis extends vertically, increasing from top (0) to bottom (100%)."
+            },
             {
                 "from": "human",
                 "value": "<image>\\nWhat are the important objects in the current scene? Those objects will be considered for the future reasoning and driving decision."

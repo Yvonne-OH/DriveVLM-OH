@@ -1,0 +1,7 @@
+[DESC_START]
+The image provided consists of a series of consecutive frames captured by a dashboard camera installed in a vehicle.
+These frames are displayed in a left-to-right format, representing a timeline from the earliest frame on the left to the latest frame on the right.
+
+Analyze the frames carefully and discuss any notable changes or details that occur as time progresses from the first to the last frame.
+
+[DESC_END]
