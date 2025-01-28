@@ -5,6 +5,8 @@ from transformers import AutoProcessor, LlavaNextForConditionalGeneration
 from transformers import BitsAndBytesConfig
 import Model.llava.llava_util
 
+from transformers import AutoTokenizer
+
 
 class Llava_Interface:
     def __init__(self, model_path: str = None, finetuning_path: str = None, **kwargs):
@@ -18,13 +20,13 @@ class Llava_Interface:
         self.finetuning_path = finetuning_path if finetuning_path else None
         self.max_memory = kwargs.get("max_memory", None)
 
-        print(self.device)
-
         # 指定量化配置
         self.quantization_config = kwargs.get("quantization_config",         BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_use_double_quant=True,
+            llm_int8_enable_fp32_cpu_offload=True
         ))
 
 
@@ -39,6 +41,10 @@ class Llava_Interface:
         # 加载处理器
         self.processor = AutoProcessor.from_pretrained(model_path)
 
+        # Assuming you have already created an instance of the model
+        print("PAD Token ID:", self.model.config.pad_token_id)
+        print("EOS Token ID:", self.model.config.eos_token_id)
+
     def prepare_prompt(self, conversation):
         """根据对话生成prompt"""
         return self.processor.apply_chat_template(conversation, add_generation_prompt=True)
@@ -49,7 +55,7 @@ class Llava_Interface:
         prompt = self.prepare_prompt(conversation)
         inputs = self.processor(images=images, text=prompt, padding=True, return_tensors="pt").to(self.device)
 
-        generate_ids = self.model.generate(**inputs, max_new_tokens=max_new_tokens)         # 生成回复
+        generate_ids = self.model.generate(**inputs, max_new_tokens=max_new_tokens  )         # 生成回复
 
         generated_text = self.processor.decode(generate_ids[0], skip_special_tokens=kwargs.get('skip_special_tokens',True),    # 解码并清理生成的文本
                                                clean_up_tokenization_spaces=kwargs.get(' clean_up_tokenization_spaces',True))
