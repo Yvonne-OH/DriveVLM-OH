@@ -70,6 +70,7 @@ class Llava_Interface:
 # 示例使用
 if __name__ == "__main__":
     model_path = "/media/workstation/6D3563AC52DC77EA/Model/llava/llava-v1.6-mistral-7b-hf"
+    #model_path = "/media/workstation/6D3563AC52DC77EA/Model/llava/llava-v1.5-7b"
 
     chatbot = Llava_Interface(model_path)
 

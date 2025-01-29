@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="llama3.2_unsloth_finetuning">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+    <list default="true" id="f22a7ff5-399f-468e-ad32-45667af05e92" name="更改" comment="Coda_lm2json">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Benchmark/LingoQA_benchmark.py" beforeDir="false" afterPath="$PROJECT_DIR$/Benchmark/LingoQA_benchmark.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataLoader/LingoQA/LingoQA2Json.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataLoader/LingoQA/LingoQA2Json.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/LLAMA3_2_VISION/llama_3_2_vision_finetuning_unsloth_radiography.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/llava/llama_3_2_vision_finetuning_unsloth_radiography.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/llava/llava_multimodal_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/Model/llava/llava_multimodal_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Util/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util/Test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,15 +309,7 @@
       <workItem from="1737006566967" duration="101373000" />
       <workItem from="1737637731439" duration="7000" />
       <workItem from="1737774683037" duration="53088000" />
-      <workItem from="1737974685296" duration="8430000" />
-    </task>
-    <task id="LOCAL-00027" summary="-">
-      <option name="closed" value="true" />
-      <created>1733033494921</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1733033494921</updated>
+      <workItem from="1737974685296" duration="12848000" />
     </task>
     <task id="LOCAL-00028" summary="增加Gemini答题功能">
       <option name="closed" value="true" />
@@ -709,7 +695,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737908669657</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Coda_lm2json">
+      <option name="closed" value="true" />
+      <created>1738035442009</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1738035442010</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -750,7 +744,8 @@
     <MESSAGE value="Add llava" />
     <MESSAGE value="Parse LingoQA" />
     <MESSAGE value="llama3.2_unsloth_finetuning" />
-    <option name="LAST_COMMIT_MESSAGE" value="llama3.2_unsloth_finetuning" />
+    <MESSAGE value="Coda_lm2json" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coda_lm2json" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/DriveVLM_OH$gpt4_API.coverage" NAME="gpt4_API 覆盖结果" MODIFIED="1733273172803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/VLM&amp;LLM_API/GPT-4" />
