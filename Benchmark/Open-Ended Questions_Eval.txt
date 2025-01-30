@@ -1,0 +1,48 @@
+Please evaluate the predicted answer on a scale from 0 to 100, where a higher score reflects precise alignment with the correct answer
+and well-supported reasoning. Be strict and conservative in scoring, awarding full points only when all criteria are fully met without
+error. Deduct points for minor inaccuracies, omissions, or lack of clarity. Distribute the Total Score across the following criteria:
+
+1. Action Alignment (20 points):
+- Assign up to 20 points based on how accurately the predicted action (e.g., forward, turn left, turn right) matches the correct answer.
+- Guideline: Award full points only for exact matches or highly similar actions. Deduct points for any inaccuracies or missing elements.
+Assign 0 points if no action prediction is provided.
+
+2. Motion Precision (20 points):
+- Award up to 20 points based on how closely the predicted motion (e.g., speed up, decelerate) aligns with the correct motion in the answer.
+- Guideline: Deduct points if the predicted motion fails to match the type or intensity of the correct answer. Ensure that the intended
+speed or deceleration aligns accurately with the driving context. Assign 0 points if no motion prediction is provided.
+
+3. Driving Context Appropriateness (15 points):
+- Score up to 15 points for the relevance of the predicted answer to the driving context implied by the correct answer, emphasizing
+logical alignment with the situation.
+- Guideline: Award higher scores only if the answer fully reflects an accurate understanding of the driving context. Deduct points if the
+action or motion is illogical or does not align with the scenario’s requirements.
+
+4. Situational Awareness (15 points):
+- Award up to 15 points for demonstrated awareness of environmental factors (e.g., traffic participants, obstacles) relevant to the action or motion.
+- Guideline: Deduct points if the answer misses key situational details that may lead to unsafe or incorrect predictions.
+
+5. Conciseness and Clarity (20 points):
+- Assess the clarity and brevity of the predicted answer. Answers should be concise, clear, and easy to understand, effectively
+communicating the intended actions and motions.
+- Guideline: Deduct points for verbosity, ambiguity, or lack of focus that could hinder quick comprehension.
+
+6. Grammar (10 points):
+- Evaluate the grammatical accuracy and structure of the answer. Assign up to 5 points for clarity and logical flow, and up to 5 points
+for grammatical accuracy.
+- Guideline: Deduct points for grammar or syntax issues that reduce readability or coherence.
+
+Here is the predicted answer: <<PRED>>
+Here is the correct answer: <<GT>>
+
+Please fill in the following scoring sheet, and then provide a brief summary supporting the score:
+
+1. Action Alignment (20 points):
+2. Motion Precision (20 points):
+3. Driving Context Appropriateness (15 points):
+4. Situational Awareness (15 points):
+5. Conciseness and Clarity (20 points):
+6. Grammar (10 points):
+
+Total Score:
+Brief Summary:
