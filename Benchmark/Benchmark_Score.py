@@ -16,8 +16,8 @@ if __name__ == "__main__":
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-3B-Instruct'
     finetuning_path = None
     max_memory = {0: "22GB", 1: "7.6GB"}
-    Temperature = 0.5
-    Top_p = 0.3
+    Temperature = 0.2
+    #Top_p = 0.05
 
     # Define custom parameters
     custom_bnb_config = BitsAndBytesConfig(
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     llama_evaluator = GPT4_score.GPT_SCORE(
         model=model_name,
         Temperature=Temperature,
-        Top_p=Top_p
+        #Top_p=Top_p
     )
 
     llama_evaluator.Llama_Eval_init(
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     batch_size = 10
     processed_count = 0
 
-    max_sessions = 2
+    max_sessions = len(result_data)
     processed_sessions = 0
 
     # Iterate through scenes
@@ -86,8 +86,9 @@ if __name__ == "__main__":
             MCQs_Evaluation_text = Desc.replace("<<QUESTION>>", Question).replace("<<GT>>", GT).replace("<<PRED>>",PRED)
 
             response = llama_evaluator.score(MCQs_Evaluation_text)
-            #response = "TEST TEST TEST"
-            print(response)
+
+            #print(response)
+            #print("*"*50)
 
             # Store the generated answer
             QA['Reason'] = response

@@ -249,8 +249,8 @@ if __name__ == "__main__":
 
     Api_key =  "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"
     model = "gpt-4o-mini"  # Correct model name
-    Temperature = 0.5
-    Top_p = 0.3
+    Temperature = 0.2
+    Top_p = 0.1
 
     # Define custom parameters
     custom_bnb_config = BitsAndBytesConfig(
