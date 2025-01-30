@@ -11,8 +11,6 @@ if __name__ == "__main__":
     with open("MCQs_Eval.txt", "r") as f:
         template = f.read()
 
-
-
     # Initialize LLaMA model
     model_name = '/media/workstation/6D3563AC52DC77EA/Model/meta-llama/Llama-3.2-3B-Instruct'
     finetuning_path = None
