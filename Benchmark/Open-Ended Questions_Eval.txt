@@ -7,8 +7,8 @@ Please strictly enforce the rules, scrutinize the grading rules, and give grades
 Assess how well the respondent's answer aligns with the standard answer in terms of key elements and overall completeness.
 Score Ranges:
 Perfect Alignment (40 points): The response perfectly matches the standard answer with complete accuracy in all key elements.
-Minor Discrepancies (30-35 points): The answer is largely accurate but contains slight deviations that do not significantly alter the overall correctness or relevance.
-Moderate Discrepancies (15-25 points): The response includes some errors. These errors do not compromise safety or critical aspects but show a misunderstanding or partial knowledge.
+Minor Discrepancies (30-39 points): The answer is largely accurate but contains slight deviations that do not significantly alter the overall correctness or relevance.
+Moderate Discrepancies (11-29 points): The response includes some errors. These errors do not compromise safety or critical aspects but show a misunderstanding or partial knowledge.
 Major Discrepancies (0-10 points): The answer has significant errors that could impact safety or contravene established regulations, indicating a fundamental misunderstanding of the required knowledge or procedures.
 
 2. Reasoning Validity (40 points)
@@ -16,8 +16,8 @@ Assess the logic and rationale behind the respondent's answer.
 Note: If the standard answer does not include reasoning, assign the same score as given for Answer Correctness to ensure consistency.
 Score Ranges:
 Sound, well-explained reasoning: 40 points
-Slightly illogical or incomplete reasoning: 30-35 points
-Moderately illogical or lacks significant details: 15-25 points
+Slightly illogical or incomplete reasoning: 30-39 points
+Moderately illogical or lacks significant details: 11-29 points
 Severely flawed or no apparent logical foundation: 0-10 points
 
 3. Clarity of Reasoning (20 points)

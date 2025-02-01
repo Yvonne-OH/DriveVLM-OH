@@ -68,7 +68,6 @@ if __name__ == "__main__":
     })
 
     # Analyze and print descriptive statistics
-    print("\nDescriptive Statistics:")
     print(df.describe())
 
     # Plotting and saving plots
